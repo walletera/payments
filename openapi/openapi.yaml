@@ -1,0 +1,58 @@
+openapi: "3.0.0"
+info:
+  title: "Payments API"
+  description: "API to create withdrawals and deposits on the payments service"
+  version: "1.0.0"
+paths:
+  /withdrawals/{withdrawalId}:
+    patch:
+      summary: "Patches a withdrawal"
+      operationId: "patchWithdrawal"
+      parameters:
+        - name: "withdrawalId"
+          description: "Withdrawal Id"
+          in: "path"
+          required: true
+          schema:
+            type: "string"
+            format: "uuid"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/withdrawalPatchBody"
+      responses:
+        "200":
+          description: "Withdrawal successfully updated"
+        "400":
+          description: "The provided parameters are incorrect"
+          content:
+            text/html:
+              schema:
+                $ref: "#/components/schemas/errorMessage"
+
+components:
+  schemas:
+    errorMessage:
+      type: "string"
+      maxLength: 256
+      description: "A text message describing an error"
+    withdrawalPatchBody:
+      type: "object"
+      description: "Body of the PATH /withdrawal request"
+      properties:
+        external_id:
+          type: "string"
+          format: "uuid"
+          description: "Id assigned to the operation by the external payment provider"
+        status:
+          type: "string"
+          enum:
+            - "pending"
+            - "confirmed"
+            - "rejected"
+          description: "Withdrawal status"
+      required:
+      - "external"
+      - "status"

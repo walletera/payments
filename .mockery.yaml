@@ -1,0 +1,9 @@
+dir: tests
+outpkg: tests
+filename: "mock_{{.InterfaceNameSnake}}.go"
+packages:
+  github.com/walletera/payments/api:
+    interfaces:
+        Handler:
+          config:
+            with-expecter: true
