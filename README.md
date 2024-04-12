@@ -1,6 +1,6 @@
 # Payments
 
-The Payments service is part of the [Walletera](https://walletera.dev/designing-a-digital-wallet#heading-a-fictitious-payment-service-provider-dinopay) project.
+The Payments service is part of the [Walletera](https://walletera.dev/designing-a-digital-wallet) project.
 It exposes two APIs, an external one used by end user to create and consult withdrawals and deposits, and an internal one
 used by the payments gateways to create deposits and update the status of withdrawals.
 
