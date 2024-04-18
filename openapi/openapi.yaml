@@ -42,7 +42,7 @@ components:
       type: "object"
       description: "Body of the PATH /withdrawal request"
       properties:
-        external_id:
+        externalId:
           type: "string"
           format: "uuid"
           description: "Id assigned to the operation by the external payment provider"

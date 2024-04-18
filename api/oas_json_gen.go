@@ -58,9 +58,9 @@ func (s *WithdrawalPatchBody) Encode(e *jx.Encoder) {
 // encodeFields encodes fields.
 func (s *WithdrawalPatchBody) encodeFields(e *jx.Encoder) {
 	{
-		if s.ExternalID.Set {
-			e.FieldStart("external_id")
-			s.ExternalID.Encode(e)
+		if s.ExternalId.Set {
+			e.FieldStart("externalId")
+			s.ExternalId.Encode(e)
 		}
 	}
 	{
@@ -70,7 +70,7 @@ func (s *WithdrawalPatchBody) encodeFields(e *jx.Encoder) {
 }
 
 var jsonFieldsNameOfWithdrawalPatchBody = [2]string{
-	0: "external_id",
+	0: "externalId",
 	1: "status",
 }
 
@@ -83,15 +83,15 @@ func (s *WithdrawalPatchBody) Decode(d *jx.Decoder) error {
 
 	if err := d.ObjBytes(func(d *jx.Decoder, k []byte) error {
 		switch string(k) {
-		case "external_id":
+		case "externalId":
 			if err := func() error {
-				s.ExternalID.Reset()
-				if err := s.ExternalID.Decode(d); err != nil {
+				s.ExternalId.Reset()
+				if err := s.ExternalId.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"external_id\"")
+				return errors.Wrap(err, "decode field \"externalId\"")
 			}
 		case "status":
 			requiredBitSet[0] |= 1 << 1

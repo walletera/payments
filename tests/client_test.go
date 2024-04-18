@@ -21,7 +21,7 @@ func TestClient_PatchWithdrawal(t *testing.T) {
     require.NoError(t, err)
 
     withdrawalPatchBody := &api.WithdrawalPatchBody{
-        ExternalID: api.OptUUID{
+        ExternalId: api.OptUUID{
             Value: externalId,
             Set:   true,
         },

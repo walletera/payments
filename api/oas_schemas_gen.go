@@ -82,14 +82,14 @@ func (*PatchWithdrawalOK) patchWithdrawalRes() {}
 // Ref: #/components/schemas/withdrawalPatchBody
 type WithdrawalPatchBody struct {
 	// Id assigned to the operation by the external payment provider.
-	ExternalID OptUUID `json:"external_id"`
+	ExternalId OptUUID `json:"externalId"`
 	// Withdrawal status.
 	Status WithdrawalPatchBodyStatus `json:"status"`
 }
 
-// GetExternalID returns the value of ExternalID.
-func (s *WithdrawalPatchBody) GetExternalID() OptUUID {
-	return s.ExternalID
+// GetExternalId returns the value of ExternalId.
+func (s *WithdrawalPatchBody) GetExternalId() OptUUID {
+	return s.ExternalId
 }
 
 // GetStatus returns the value of Status.
@@ -97,9 +97,9 @@ func (s *WithdrawalPatchBody) GetStatus() WithdrawalPatchBodyStatus {
 	return s.Status
 }
 
-// SetExternalID sets the value of ExternalID.
-func (s *WithdrawalPatchBody) SetExternalID(val OptUUID) {
-	s.ExternalID = val
+// SetExternalId sets the value of ExternalId.
+func (s *WithdrawalPatchBody) SetExternalId(val OptUUID) {
+	s.ExternalId = val
 }
 
 // SetStatus sets the value of Status.
