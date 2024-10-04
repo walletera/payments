@@ -1,0 +1,314 @@
+2024-09-27 18:37:51 5.15.0 INFO using environment variables:
+
+  [
+  	MOCKSERVER_SERVER_PORT=2090,
+  	MOCKSERVER_LOG_LEVEL=DEBUG
+  ]
+
+ and system properties:
+
+  [
+  	mockserver.propertyFile=/config/mockserver.properties
+  ]
+
+ and command line options:
+
+  [
+  	
+  ]
+ 
+2024-09-27 18:37:52 5.15.0 FINE logger level is DEBUG, change using:
+ - 'ConfigurationProperties.logLevel(String level)' in Java code,
+ - '-logLevel' command line argument,
+ - 'mockserver.logLevel' JVM system property or,
+ - 'mockserver.logLevel' property value in 'mockserver.properties' 
+2024-09-27 18:37:52 5.15.0 INFO 2090 started on port: 2090 
+2024-09-27 18:37:52 5.15.0 INFO 2090 creating expectation:
+
+  {
+    "httpRequest" : {
+      "method" : "POST",
+      "path" : "/matchevent",
+      "body" : {
+        "id" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+        "type" : "PaymentCreated",
+        "data" : {
+          "id" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+          "amount" : 100,
+          "currency" : "ARS",
+          "direction" : "outbound",
+          "customerId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+          "status" : "pending",
+          "beneficiary" : {
+            "bankName" : "dinopay",
+            "bankId" : "dinopay",
+            "accountHolder" : "John Doe",
+            "routingKey" : "123456789123456"
+          },
+          "createdAt" : "${json-unit.any-string}"
+        }
+      }
+    },
+    "httpResponse" : {
+      "statusCode" : 201,
+      "headers" : {
+        "content-type" : [ "application/json" ]
+      }
+    },
+    "id" : "matchPaymentCreatedEvent",
+    "priority" : 0,
+    "timeToLive" : {
+      "unlimited" : true
+    },
+    "times" : {
+      "unlimited" : true
+    }
+  }
+
+ with id:
+
+  matchPaymentCreatedEvent
+ 
+2024-09-27 18:37:52 5.15.0 INFO 2090 received request:
+
+  {
+    "method" : "POST",
+    "path" : "/matchevent",
+    "headers" : {
+      "User-Agent" : [ "Go-http-client/1.1" ],
+      "Host" : [ "localhost:2090" ],
+      "Content-Type" : [ "application/json" ],
+      "Content-Length" : [ "419" ],
+      "Accept-Encoding" : [ "gzip" ]
+    },
+    "keepAlive" : true,
+    "secure" : false,
+    "protocol" : "HTTP_1_1",
+    "localAddress" : "172.17.0.4:2090",
+    "remoteAddress" : "172.17.0.1:56744",
+    "body" : {
+      "id" : "019234c6-6ed2-7a59-83ea-84b328f80604",
+      "type" : "PaymentCreated",
+      "correlationId" : "",
+      "data" : {
+        "id" : "019234c6-6e73-7b07-bd95-ac18a30d4f6f",
+        "amount" : 100,
+        "currency" : "ARS",
+        "direction" : "outbound",
+        "customerId" : "019234c6-6e73-7b0b-a998-7d96fcd2879c",
+        "beneficiary" : {
+          "bankName" : "dinopay",
+          "bankId" : "dinopay",
+          "accountHolder" : "John Doe",
+          "routingKey" : "123456789123456"
+        },
+        "status" : "pending",
+        "createdAt" : "2024-09-27T15:37:52-03:00"
+      }
+    }
+  }
+ 
+2024-09-27 18:37:52 5.15.0 INFO 2090 request:
+
+  {
+    "method" : "POST",
+    "path" : "/matchevent",
+    "headers" : {
+      "User-Agent" : [ "Go-http-client/1.1" ],
+      "Host" : [ "localhost:2090" ],
+      "Content-Type" : [ "application/json" ],
+      "Content-Length" : [ "419" ],
+      "Accept-Encoding" : [ "gzip" ]
+    },
+    "keepAlive" : true,
+    "secure" : false,
+    "protocol" : "HTTP_1_1",
+    "localAddress" : "172.17.0.4:2090",
+    "remoteAddress" : "172.17.0.1:56744",
+    "body" : {
+      "id" : "019234c6-6ed2-7a59-83ea-84b328f80604",
+      "type" : "PaymentCreated",
+      "correlationId" : "",
+      "data" : {
+        "id" : "019234c6-6e73-7b07-bd95-ac18a30d4f6f",
+        "amount" : 100,
+        "currency" : "ARS",
+        "direction" : "outbound",
+        "customerId" : "019234c6-6e73-7b0b-a998-7d96fcd2879c",
+        "beneficiary" : {
+          "bankName" : "dinopay",
+          "bankId" : "dinopay",
+          "accountHolder" : "John Doe",
+          "routingKey" : "123456789123456"
+        },
+        "status" : "pending",
+        "createdAt" : "2024-09-27T15:37:52-03:00"
+      }
+    }
+  }
+
+ matched expectation:
+
+  {
+    "httpRequest" : {
+      "method" : "POST",
+      "path" : "/matchevent",
+      "body" : {
+        "id" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+        "type" : "PaymentCreated",
+        "data" : {
+          "id" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+          "amount" : 100,
+          "currency" : "ARS",
+          "direction" : "outbound",
+          "customerId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+          "status" : "pending",
+          "beneficiary" : {
+            "bankName" : "dinopay",
+            "bankId" : "dinopay",
+            "accountHolder" : "John Doe",
+            "routingKey" : "123456789123456"
+          },
+          "createdAt" : "${json-unit.any-string}"
+        }
+      }
+    },
+    "httpResponse" : {
+      "statusCode" : 201,
+      "headers" : {
+        "content-type" : [ "application/json" ]
+      }
+    },
+    "id" : "matchPaymentCreatedEvent",
+    "priority" : 0,
+    "timeToLive" : {
+      "unlimited" : true
+    },
+    "times" : {
+      "unlimited" : true
+    }
+  }
+ 
+2024-09-27 18:37:52 5.15.0 INFO 2090 returning response:
+
+  {
+    "statusCode" : 201,
+    "headers" : {
+      "content-type" : [ "application/json" ]
+    }
+  }
+
+ for request:
+
+  {
+    "method" : "POST",
+    "path" : "/matchevent",
+    "headers" : {
+      "User-Agent" : [ "Go-http-client/1.1" ],
+      "Host" : [ "localhost:2090" ],
+      "Content-Type" : [ "application/json" ],
+      "Content-Length" : [ "419" ],
+      "Accept-Encoding" : [ "gzip" ]
+    },
+    "keepAlive" : true,
+    "secure" : false,
+    "protocol" : "HTTP_1_1",
+    "localAddress" : "172.17.0.4:2090",
+    "remoteAddress" : "172.17.0.1:56744",
+    "body" : {
+      "id" : "019234c6-6ed2-7a59-83ea-84b328f80604",
+      "type" : "PaymentCreated",
+      "correlationId" : "",
+      "data" : {
+        "id" : "019234c6-6e73-7b07-bd95-ac18a30d4f6f",
+        "amount" : 100,
+        "currency" : "ARS",
+        "direction" : "outbound",
+        "customerId" : "019234c6-6e73-7b0b-a998-7d96fcd2879c",
+        "beneficiary" : {
+          "bankName" : "dinopay",
+          "bankId" : "dinopay",
+          "accountHolder" : "John Doe",
+          "routingKey" : "123456789123456"
+        },
+        "status" : "pending",
+        "createdAt" : "2024-09-27T15:37:52-03:00"
+      }
+    }
+  }
+
+ for action:
+
+  {
+    "statusCode" : 201,
+    "headers" : {
+      "content-type" : [ "application/json" ]
+    }
+  }
+
+ from expectation:
+
+  matchPaymentCreatedEvent
+ 
+2024-09-27 18:37:52 5.15.0 INFO 2090 verifying requests that match:
+
+  {
+    "expectationId" : {
+      "id" : "matchPaymentCreatedEvent"
+    },
+    "httpRequest" : {
+      "method" : "POST",
+      "path" : "/matchevent",
+      "body" : {
+        "id" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+        "type" : "PaymentCreated",
+        "data" : {
+          "id" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+          "amount" : 100,
+          "currency" : "ARS",
+          "direction" : "outbound",
+          "customerId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+          "status" : "pending",
+          "beneficiary" : {
+            "bankName" : "dinopay",
+            "bankId" : "dinopay",
+            "accountHolder" : "John Doe",
+            "routingKey" : "123456789123456"
+          },
+          "createdAt" : "${json-unit.any-string}"
+        }
+      }
+    },
+    "times" : {
+      "atLeast" : 1,
+      "atMost" : 1
+    }
+  }
+ 
+2024-09-27 18:37:52 5.15.0 INFO request:
+
+  {
+    "method" : "POST",
+    "path" : "/matchevent",
+    "body" : {
+      "id" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+      "type" : "PaymentCreated",
+      "data" : {
+        "id" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+        "amount" : 100,
+        "currency" : "ARS",
+        "direction" : "outbound",
+        "customerId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+        "status" : "pending",
+        "beneficiary" : {
+          "bankName" : "dinopay",
+          "bankId" : "dinopay",
+          "accountHolder" : "John Doe",
+          "routingKey" : "123456789123456"
+        },
+        "createdAt" : "${json-unit.any-string}"
+      }
+    }
+  }
+
+ found exactly once 

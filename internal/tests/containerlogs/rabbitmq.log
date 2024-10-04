@@ -1,0 +1,242 @@
+2024-09-27 18:37:50.138 [info] <0.8.0> Feature flags: list of feature flags found:
+2024-09-27 18:37:50.138 [info] <0.8.0> Feature flags:   [ ] drop_unroutable_metric
+2024-09-27 18:37:50.138 [info] <0.8.0> Feature flags:   [ ] empty_basic_get_metric
+2024-09-27 18:37:50.138 [info] <0.8.0> Feature flags:   [ ] implicit_default_bindings
+2024-09-27 18:37:50.138 [info] <0.8.0> Feature flags:   [ ] quorum_queue
+2024-09-27 18:37:50.138 [info] <0.8.0> Feature flags:   [ ] virtual_host_metadata
+2024-09-27 18:37:50.139 [info] <0.8.0> Feature flags: feature flag states written to disk: yes
+2024-09-27 18:37:50.174 [info] <0.261.0> ra: meta data store initialised. 0 record(s) recovered
+2024-09-27 18:37:50.174 [info] <0.266.0> WAL: recovering []
+2024-09-27 18:37:50.175 [info] <0.270.0> 
+ Starting RabbitMQ 3.8.0 on Erlang 22.1.5
+ Copyright (C) 2007-2019 Pivotal Software, Inc.
+ Licensed under the MPL.  See https://www.rabbitmq.com/
+
+  ##  ##      RabbitMQ 3.8.0
+  ##  ##
+  ##########  Copyright (C) 2007-2019 Pivotal Software, Inc.
+  ######  ##
+  ##########  Licensed under the MPL.  See https://www.rabbitmq.com/
+
+  Doc guides: https://rabbitmq.com/documentation.html
+  Support:    https://rabbitmq.com/contact.html
+  Tutorials:  https://rabbitmq.com/getstarted.html
+  Monitoring: https://rabbitmq.com/monitoring.html
+
+  Logs: <stdout>
+
+  Config file(s): /etc/rabbitmq/rabbitmq.conf
+
+  Starting broker...2024-09-27 18:37:50.176 [info] <0.270.0> 
+ node           : rabbit@a1ad2fbd4680
+ home dir       : /var/lib/rabbitmq
+ config file(s) : /etc/rabbitmq/rabbitmq.conf
+ cookie hash    : CYD6umZJax7YALU7gLG/KA==
+ log(s)         : <stdout>
+ database dir   : /var/lib/rabbitmq/mnesia/rabbit@a1ad2fbd4680
+2024-09-27 18:37:50.195 [info] <0.270.0> Running boot step pre_boot defined by app rabbit
+2024-09-27 18:37:50.195 [info] <0.270.0> Running boot step rabbit_core_metrics defined by app rabbit
+2024-09-27 18:37:50.196 [info] <0.270.0> Running boot step rabbit_alarm defined by app rabbit
+2024-09-27 18:37:50.199 [info] <0.276.0> Memory high watermark set to 6380 MiB (6690920857 bytes) of 15952 MiB (16727302144 bytes) total
+2024-09-27 18:37:50.222 [info] <0.278.0> Enabling free disk space monitoring
+2024-09-27 18:37:50.222 [info] <0.278.0> Disk free limit set to 50MB
+2024-09-27 18:37:50.249 [info] <0.270.0> Running boot step code_server_cache defined by app rabbit
+2024-09-27 18:37:50.249 [info] <0.270.0> Running boot step file_handle_cache defined by app rabbit
+2024-09-27 18:37:50.249 [info] <0.281.0> Limiting to approx 1048476 file handles (943626 sockets)
+2024-09-27 18:37:50.250 [info] <0.282.0> FHC read buffering:  OFF
+2024-09-27 18:37:50.250 [info] <0.282.0> FHC write buffering: ON
+2024-09-27 18:37:50.250 [info] <0.270.0> Running boot step worker_pool defined by app rabbit
+2024-09-27 18:37:50.250 [info] <0.271.0> Will use 8 processes for default worker pool
+2024-09-27 18:37:50.250 [info] <0.271.0> Starting worker pool 'worker_pool' with 8 processes in it
+2024-09-27 18:37:50.251 [info] <0.270.0> Running boot step database defined by app rabbit
+2024-09-27 18:37:50.251 [info] <0.270.0> Node database directory at /var/lib/rabbitmq/mnesia/rabbit@a1ad2fbd4680 is empty. Assuming we need to join an existing cluster or initialise from scratch...
+2024-09-27 18:37:50.251 [info] <0.270.0> Configured peer discovery backend: rabbit_peer_discovery_classic_config
+2024-09-27 18:37:50.251 [info] <0.270.0> Will try to lock with peer discovery backend rabbit_peer_discovery_classic_config
+2024-09-27 18:37:50.251 [info] <0.270.0> Peer discovery backend does not support locking, falling back to randomized delay
+2024-09-27 18:37:50.251 [info] <0.270.0> Peer discovery backend rabbit_peer_discovery_classic_config does not support registration, skipping randomized startup delay.
+2024-09-27 18:37:50.252 [info] <0.270.0> All discovered existing cluster peers: 
+2024-09-27 18:37:50.252 [info] <0.270.0> Discovered no peer nodes to cluster with. Some discovery backends can filter nodes out based on a readiness criteria. Enabling debug logging might help troubleshoot.
+2024-09-27 18:37:50.254 [info] <0.43.0> Application mnesia exited with reason: stopped
+2024-09-27 18:37:50.332 [info] <0.270.0> Waiting for Mnesia tables for 30000 ms, 9 retries left
+2024-09-27 18:37:50.370 [info] <0.270.0> Waiting for Mnesia tables for 30000 ms, 9 retries left
+2024-09-27 18:37:50.370 [info] <0.270.0> Feature flag `drop_unroutable_metric`: supported, attempt to enable...
+2024-09-27 18:37:50.370 [info] <0.270.0> Feature flag `drop_unroutable_metric`: mark as enabled=state_changing
+2024-09-27 18:37:50.387 [info] <0.270.0> Feature flags: list of feature flags found:
+2024-09-27 18:37:50.387 [info] <0.270.0> Feature flags:   [~] drop_unroutable_metric
+2024-09-27 18:37:50.387 [info] <0.270.0> Feature flags:   [ ] empty_basic_get_metric
+2024-09-27 18:37:50.387 [info] <0.270.0> Feature flags:   [ ] implicit_default_bindings
+2024-09-27 18:37:50.387 [info] <0.270.0> Feature flags:   [ ] quorum_queue
+2024-09-27 18:37:50.387 [info] <0.270.0> Feature flags:   [ ] virtual_host_metadata
+2024-09-27 18:37:50.387 [info] <0.270.0> Feature flags: feature flag states written to disk: yes
+2024-09-27 18:37:50.400 [info] <0.270.0> Feature flag `drop_unroutable_metric`: mark as enabled=true
+2024-09-27 18:37:50.417 [info] <0.270.0> Feature flags: list of feature flags found:
+2024-09-27 18:37:50.417 [info] <0.270.0> Feature flags:   [x] drop_unroutable_metric
+2024-09-27 18:37:50.417 [info] <0.270.0> Feature flags:   [ ] empty_basic_get_metric
+2024-09-27 18:37:50.417 [info] <0.270.0> Feature flags:   [ ] implicit_default_bindings
+2024-09-27 18:37:50.417 [info] <0.270.0> Feature flags:   [ ] quorum_queue
+2024-09-27 18:37:50.417 [info] <0.270.0> Feature flags:   [ ] virtual_host_metadata
+2024-09-27 18:37:50.417 [info] <0.270.0> Feature flags: feature flag states written to disk: yes
+2024-09-27 18:37:50.431 [info] <0.270.0> Feature flag `empty_basic_get_metric`: supported, attempt to enable...
+2024-09-27 18:37:50.432 [info] <0.270.0> Feature flag `empty_basic_get_metric`: mark as enabled=state_changing
+2024-09-27 18:37:50.448 [info] <0.270.0> Feature flags: list of feature flags found:
+2024-09-27 18:37:50.448 [info] <0.270.0> Feature flags:   [x] drop_unroutable_metric
+2024-09-27 18:37:50.448 [info] <0.270.0> Feature flags:   [~] empty_basic_get_metric
+2024-09-27 18:37:50.448 [info] <0.270.0> Feature flags:   [ ] implicit_default_bindings
+2024-09-27 18:37:50.448 [info] <0.270.0> Feature flags:   [ ] quorum_queue
+2024-09-27 18:37:50.448 [info] <0.270.0> Feature flags:   [ ] virtual_host_metadata
+2024-09-27 18:37:50.449 [info] <0.270.0> Feature flags: feature flag states written to disk: yes
+2024-09-27 18:37:50.461 [info] <0.270.0> Feature flag `empty_basic_get_metric`: mark as enabled=true
+2024-09-27 18:37:50.488 [info] <0.270.0> Feature flags: list of feature flags found:
+2024-09-27 18:37:50.488 [info] <0.270.0> Feature flags:   [x] drop_unroutable_metric
+2024-09-27 18:37:50.488 [info] <0.270.0> Feature flags:   [x] empty_basic_get_metric
+2024-09-27 18:37:50.488 [info] <0.270.0> Feature flags:   [ ] implicit_default_bindings
+2024-09-27 18:37:50.488 [info] <0.270.0> Feature flags:   [ ] quorum_queue
+2024-09-27 18:37:50.488 [info] <0.270.0> Feature flags:   [ ] virtual_host_metadata
+2024-09-27 18:37:50.488 [info] <0.270.0> Feature flags: feature flag states written to disk: yes
+2024-09-27 18:37:50.503 [info] <0.270.0> Feature flag `implicit_default_bindings`: supported, attempt to enable...
+2024-09-27 18:37:50.503 [info] <0.270.0> Feature flag `implicit_default_bindings`: mark as enabled=state_changing
+2024-09-27 18:37:50.522 [info] <0.270.0> Feature flags: list of feature flags found:
+2024-09-27 18:37:50.522 [info] <0.270.0> Feature flags:   [x] drop_unroutable_metric
+2024-09-27 18:37:50.522 [info] <0.270.0> Feature flags:   [x] empty_basic_get_metric
+2024-09-27 18:37:50.522 [info] <0.270.0> Feature flags:   [~] implicit_default_bindings
+2024-09-27 18:37:50.522 [info] <0.270.0> Feature flags:   [ ] quorum_queue
+2024-09-27 18:37:50.522 [info] <0.270.0> Feature flags:   [ ] virtual_host_metadata
+2024-09-27 18:37:50.522 [info] <0.270.0> Feature flags: feature flag states written to disk: yes
+2024-09-27 18:37:50.538 [info] <0.270.0> Waiting for Mnesia tables for 30000 ms, 0 retries left
+2024-09-27 18:37:50.538 [info] <0.270.0> Feature flag `implicit_default_bindings`: mark as enabled=true
+2024-09-27 18:37:50.556 [info] <0.270.0> Feature flags: list of feature flags found:
+2024-09-27 18:37:50.556 [info] <0.270.0> Feature flags:   [x] drop_unroutable_metric
+2024-09-27 18:37:50.556 [info] <0.270.0> Feature flags:   [x] empty_basic_get_metric
+2024-09-27 18:37:50.556 [info] <0.270.0> Feature flags:   [x] implicit_default_bindings
+2024-09-27 18:37:50.556 [info] <0.270.0> Feature flags:   [ ] quorum_queue
+2024-09-27 18:37:50.556 [info] <0.270.0> Feature flags:   [ ] virtual_host_metadata
+2024-09-27 18:37:50.556 [info] <0.270.0> Feature flags: feature flag states written to disk: yes
+2024-09-27 18:37:50.568 [info] <0.270.0> Feature flag `quorum_queue`: supported, attempt to enable...
+2024-09-27 18:37:50.568 [info] <0.270.0> Feature flag `quorum_queue`: mark as enabled=state_changing
+2024-09-27 18:37:50.585 [info] <0.270.0> Feature flags: list of feature flags found:
+2024-09-27 18:37:50.585 [info] <0.270.0> Feature flags:   [x] drop_unroutable_metric
+2024-09-27 18:37:50.585 [info] <0.270.0> Feature flags:   [x] empty_basic_get_metric
+2024-09-27 18:37:50.585 [info] <0.270.0> Feature flags:   [x] implicit_default_bindings
+2024-09-27 18:37:50.585 [info] <0.270.0> Feature flags:   [~] quorum_queue
+2024-09-27 18:37:50.586 [info] <0.270.0> Feature flags:   [ ] virtual_host_metadata
+2024-09-27 18:37:50.586 [info] <0.270.0> Feature flags: feature flag states written to disk: yes
+2024-09-27 18:37:50.598 [info] <0.270.0> Waiting for Mnesia tables for 30000 ms, 9 retries left
+2024-09-27 18:37:50.598 [info] <0.270.0> Feature flag `quorum_queue`:   migrating Mnesia table rabbit_queue...
+2024-09-27 18:37:50.611 [info] <0.270.0> Feature flag `quorum_queue`:   migrating Mnesia table rabbit_durable_queue...
+2024-09-27 18:37:50.621 [info] <0.270.0> Feature flag `quorum_queue`:   Mnesia tables migration done
+2024-09-27 18:37:50.621 [info] <0.270.0> Feature flag `quorum_queue`: mark as enabled=true
+2024-09-27 18:37:50.638 [info] <0.270.0> Feature flags: list of feature flags found:
+2024-09-27 18:37:50.638 [info] <0.270.0> Feature flags:   [x] drop_unroutable_metric
+2024-09-27 18:37:50.638 [info] <0.270.0> Feature flags:   [x] empty_basic_get_metric
+2024-09-27 18:37:50.638 [info] <0.270.0> Feature flags:   [x] implicit_default_bindings
+2024-09-27 18:37:50.638 [info] <0.270.0> Feature flags:   [x] quorum_queue
+2024-09-27 18:37:50.638 [info] <0.270.0> Feature flags:   [ ] virtual_host_metadata
+2024-09-27 18:37:50.638 [info] <0.270.0> Feature flags: feature flag states written to disk: yes
+2024-09-27 18:37:50.652 [info] <0.270.0> Feature flag `virtual_host_metadata`: supported, attempt to enable...
+2024-09-27 18:37:50.652 [info] <0.270.0> Feature flag `virtual_host_metadata`: mark as enabled=state_changing
+2024-09-27 18:37:50.667 [info] <0.270.0> Feature flags: list of feature flags found:
+2024-09-27 18:37:50.667 [info] <0.270.0> Feature flags:   [x] drop_unroutable_metric
+2024-09-27 18:37:50.667 [info] <0.270.0> Feature flags:   [x] empty_basic_get_metric
+2024-09-27 18:37:50.667 [info] <0.270.0> Feature flags:   [x] implicit_default_bindings
+2024-09-27 18:37:50.667 [info] <0.270.0> Feature flags:   [x] quorum_queue
+2024-09-27 18:37:50.667 [info] <0.270.0> Feature flags:   [~] virtual_host_metadata
+2024-09-27 18:37:50.667 [info] <0.270.0> Feature flags: feature flag states written to disk: yes
+2024-09-27 18:37:50.681 [info] <0.270.0> Waiting for Mnesia tables for 30000 ms, 9 retries left
+2024-09-27 18:37:50.692 [info] <0.270.0> Feature flag `virtual_host_metadata`: mark as enabled=true
+2024-09-27 18:37:50.709 [info] <0.270.0> Feature flags: list of feature flags found:
+2024-09-27 18:37:50.709 [info] <0.270.0> Feature flags:   [x] drop_unroutable_metric
+2024-09-27 18:37:50.709 [info] <0.270.0> Feature flags:   [x] empty_basic_get_metric
+2024-09-27 18:37:50.709 [info] <0.270.0> Feature flags:   [x] implicit_default_bindings
+2024-09-27 18:37:50.709 [info] <0.270.0> Feature flags:   [x] quorum_queue
+2024-09-27 18:37:50.709 [info] <0.270.0> Feature flags:   [x] virtual_host_metadata
+2024-09-27 18:37:50.709 [info] <0.270.0> Feature flags: feature flag states written to disk: yes
+2024-09-27 18:37:50.723 [info] <0.270.0> Waiting for Mnesia tables for 30000 ms, 9 retries left
+2024-09-27 18:37:50.785 [info] <0.270.0> Waiting for Mnesia tables for 30000 ms, 9 retries left
+2024-09-27 18:37:50.785 [info] <0.270.0> Peer discovery backend rabbit_peer_discovery_classic_config does not support registration, skipping registration.
+2024-09-27 18:37:50.786 [info] <0.270.0> Running boot step database_sync defined by app rabbit
+2024-09-27 18:37:50.786 [info] <0.270.0> Running boot step feature_flags defined by app rabbit
+2024-09-27 18:37:50.786 [info] <0.270.0> Running boot step codec_correctness_check defined by app rabbit
+2024-09-27 18:37:50.786 [info] <0.270.0> Running boot step external_infrastructure defined by app rabbit
+2024-09-27 18:37:50.786 [info] <0.270.0> Running boot step rabbit_registry defined by app rabbit
+2024-09-27 18:37:50.786 [info] <0.270.0> Running boot step rabbit_auth_mechanism_cr_demo defined by app rabbit
+2024-09-27 18:37:50.786 [info] <0.270.0> Running boot step rabbit_queue_location_random defined by app rabbit
+2024-09-27 18:37:50.787 [info] <0.270.0> Running boot step rabbit_event defined by app rabbit
+2024-09-27 18:37:50.787 [info] <0.270.0> Running boot step rabbit_auth_mechanism_amqplain defined by app rabbit
+2024-09-27 18:37:50.787 [info] <0.270.0> Running boot step rabbit_auth_mechanism_plain defined by app rabbit
+2024-09-27 18:37:50.787 [info] <0.270.0> Running boot step rabbit_exchange_type_direct defined by app rabbit
+2024-09-27 18:37:50.787 [info] <0.270.0> Running boot step rabbit_exchange_type_fanout defined by app rabbit
+2024-09-27 18:37:50.787 [info] <0.270.0> Running boot step rabbit_exchange_type_headers defined by app rabbit
+2024-09-27 18:37:50.788 [info] <0.270.0> Running boot step rabbit_exchange_type_topic defined by app rabbit
+2024-09-27 18:37:50.788 [info] <0.270.0> Running boot step rabbit_mirror_queue_mode_all defined by app rabbit
+2024-09-27 18:37:50.788 [info] <0.270.0> Running boot step rabbit_mirror_queue_mode_exactly defined by app rabbit
+2024-09-27 18:37:50.788 [info] <0.270.0> Running boot step rabbit_mirror_queue_mode_nodes defined by app rabbit
+2024-09-27 18:37:50.788 [info] <0.270.0> Running boot step rabbit_priority_queue defined by app rabbit
+2024-09-27 18:37:50.788 [info] <0.270.0> Priority queues enabled, real BQ is rabbit_variable_queue
+2024-09-27 18:37:50.788 [info] <0.270.0> Running boot step rabbit_queue_location_client_local defined by app rabbit
+2024-09-27 18:37:50.789 [info] <0.270.0> Running boot step rabbit_queue_location_min_masters defined by app rabbit
+2024-09-27 18:37:50.789 [info] <0.270.0> Running boot step kernel_ready defined by app rabbit
+2024-09-27 18:37:50.789 [info] <0.270.0> Running boot step rabbit_sysmon_minder defined by app rabbit
+2024-09-27 18:37:50.789 [info] <0.270.0> Running boot step rabbit_epmd_monitor defined by app rabbit
+2024-09-27 18:37:50.792 [info] <0.270.0> Running boot step guid_generator defined by app rabbit
+2024-09-27 18:37:50.794 [info] <0.270.0> Running boot step rabbit_node_monitor defined by app rabbit
+2024-09-27 18:37:50.794 [info] <0.522.0> Starting rabbit_node_monitor
+2024-09-27 18:37:50.794 [info] <0.270.0> Running boot step delegate_sup defined by app rabbit
+2024-09-27 18:37:50.795 [info] <0.270.0> Running boot step rabbit_memory_monitor defined by app rabbit
+2024-09-27 18:37:50.796 [info] <0.270.0> Running boot step core_initialized defined by app rabbit
+2024-09-27 18:37:50.796 [info] <0.270.0> Running boot step upgrade_queues defined by app rabbit
+2024-09-27 18:37:50.829 [info] <0.270.0> message_store upgrades: 1 to apply
+2024-09-27 18:37:50.830 [info] <0.270.0> message_store upgrades: Applying rabbit_variable_queue:move_messages_to_vhost_store
+2024-09-27 18:37:50.830 [info] <0.270.0> message_store upgrades: No durable queues found. Skipping message store migration
+2024-09-27 18:37:50.830 [info] <0.270.0> message_store upgrades: Removing the old message store data
+2024-09-27 18:37:50.830 [info] <0.270.0> message_store upgrades: All upgrades applied successfully
+2024-09-27 18:37:50.868 [info] <0.270.0> Running boot step rabbit_connection_tracking defined by app rabbit
+2024-09-27 18:37:50.868 [info] <0.270.0> Running boot step rabbit_connection_tracking_handler defined by app rabbit
+2024-09-27 18:37:50.868 [info] <0.270.0> Running boot step rabbit_exchange_parameters defined by app rabbit
+2024-09-27 18:37:50.869 [info] <0.270.0> Running boot step rabbit_mirror_queue_misc defined by app rabbit
+2024-09-27 18:37:50.869 [info] <0.270.0> Running boot step rabbit_policies defined by app rabbit
+2024-09-27 18:37:50.871 [info] <0.270.0> Running boot step rabbit_policy defined by app rabbit
+2024-09-27 18:37:50.871 [info] <0.270.0> Running boot step rabbit_queue_location_validator defined by app rabbit
+2024-09-27 18:37:50.871 [info] <0.270.0> Running boot step rabbit_quorum_memory_manager defined by app rabbit
+2024-09-27 18:37:50.871 [info] <0.270.0> Running boot step rabbit_vhost_limit defined by app rabbit
+2024-09-27 18:37:50.871 [info] <0.270.0> Running boot step rabbit_mgmt_reset_handler defined by app rabbitmq_management
+2024-09-27 18:37:50.871 [info] <0.270.0> Running boot step rabbit_mgmt_db_handler defined by app rabbitmq_management_agent
+2024-09-27 18:37:50.871 [info] <0.270.0> Management plugin: using rates mode 'basic'
+2024-09-27 18:37:50.872 [info] <0.270.0> Running boot step recovery defined by app rabbit
+2024-09-27 18:37:50.873 [info] <0.270.0> Running boot step load_definitions defined by app rabbitmq_management
+2024-09-27 18:37:50.873 [info] <0.270.0> Running boot step empty_db_check defined by app rabbit
+2024-09-27 18:37:50.873 [info] <0.270.0> Adding vhost '/' (description: 'Default virtual host')
+2024-09-27 18:37:50.888 [info] <0.563.0> Making sure data directory '/var/lib/rabbitmq/mnesia/rabbit@a1ad2fbd4680/msg_stores/vhosts/628WB79CIFDYO9LJI6DKMI09L' for vhost '/' exists
+2024-09-27 18:37:50.891 [info] <0.563.0> Starting message stores for vhost '/'
+2024-09-27 18:37:50.892 [info] <0.567.0> Message store "628WB79CIFDYO9LJI6DKMI09L/msg_store_transient": using rabbit_msg_store_ets_index to provide index
+2024-09-27 18:37:50.893 [info] <0.563.0> Started message store of type transient for vhost '/'
+2024-09-27 18:37:50.893 [info] <0.570.0> Message store "628WB79CIFDYO9LJI6DKMI09L/msg_store_persistent": using rabbit_msg_store_ets_index to provide index
+2024-09-27 18:37:50.894 [warning] <0.570.0> Message store "628WB79CIFDYO9LJI6DKMI09L/msg_store_persistent": rebuilding indices from scratch
+2024-09-27 18:37:50.895 [info] <0.563.0> Started message store of type persistent for vhost '/'
+2024-09-27 18:37:50.896 [info] <0.270.0> Creating user 'guest'
+2024-09-27 18:37:50.898 [info] <0.270.0> Setting user tags for user 'guest' to [administrator]
+2024-09-27 18:37:50.900 [info] <0.270.0> Setting permissions for 'guest' in '/' to '.*', '.*', '.*'
+2024-09-27 18:37:50.902 [info] <0.270.0> Running boot step rabbit_looking_glass defined by app rabbit
+2024-09-27 18:37:50.902 [info] <0.270.0> Running boot step rabbit_core_metrics_gc defined by app rabbit
+2024-09-27 18:37:50.902 [info] <0.270.0> Running boot step background_gc defined by app rabbit
+2024-09-27 18:37:50.902 [info] <0.270.0> Running boot step connection_tracking defined by app rabbit
+2024-09-27 18:37:50.905 [info] <0.270.0> Setting up a table for connection tracking on this node: tracked_connection_on_node_rabbit@a1ad2fbd4680
+2024-09-27 18:37:50.908 [info] <0.270.0> Setting up a table for per-vhost connection counting on this node: tracked_connection_per_vhost_on_node_rabbit@a1ad2fbd4680
+2024-09-27 18:37:50.908 [info] <0.270.0> Running boot step routing_ready defined by app rabbit
+2024-09-27 18:37:50.908 [info] <0.270.0> Running boot step pre_flight defined by app rabbit
+2024-09-27 18:37:50.908 [info] <0.270.0> Running boot step notify_cluster defined by app rabbit
+2024-09-27 18:37:50.908 [info] <0.270.0> Running boot step networking defined by app rabbit
+2024-09-27 18:37:50.909 [info] <0.616.0> started TCP listener on [::]:5672
+2024-09-27 18:37:50.910 [info] <0.270.0> Running boot step cluster_name defined by app rabbit
+2024-09-27 18:37:50.910 [info] <0.270.0> Running boot step direct_client defined by app rabbit
+2024-09-27 18:37:50.947 [info] <0.666.0> Management plugin: HTTP (non-TLS) listener started on port 15672
+2024-09-27 18:37:50.947 [info] <0.772.0> Statistics database started.
+2024-09-27 18:37:50.947 [info] <0.771.0> Starting worker pool 'management_worker_pool' with 3 processes in it
+ completed with 3 plugins.
+2024-09-27 18:37:51.114 [info] <0.8.0> Server startup complete; 3 plugins started.
+ * rabbitmq_management
+ * rabbitmq_web_dispatch
+ * rabbitmq_management_agent
+2024-09-27 18:37:52.561 [info] <0.787.0> accepting AMQP connection <0.787.0> (172.17.0.1:39692 -> 172.17.0.6:5672)
+2024-09-27 18:37:52.577 [info] <0.787.0> connection <0.787.0> (172.17.0.1:39692 -> 172.17.0.6:5672): user 'guest' authenticated and granted access to vhost '/'
+2024-09-27 18:37:52.583 [info] <0.805.0> accepting AMQP connection <0.805.0> (172.17.0.1:39708 -> 172.17.0.6:5672)
+2024-09-27 18:37:52.584 [info] <0.805.0> connection <0.805.0> (172.17.0.1:39708 -> 172.17.0.6:5672): user 'guest' authenticated and granted access to vhost '/'
