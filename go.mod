@@ -3,7 +3,6 @@ module github.com/walletera/payments
 go 1.22.0
 
 require (
-	github.com/EventStore/EventStore-Client-Go/v4 v4.1.0
 	github.com/cucumber/godog v0.14.1
 	github.com/google/uuid v1.6.0
 	github.com/testcontainers/testcontainers-go v0.30.0
@@ -13,11 +12,13 @@ require (
 	github.com/walletera/payments-types v0.0.1
 	go.uber.org/zap v1.27.0
 	go.uber.org/zap/exp v0.2.0
+	golang.org/x/sync v0.7.0
 )
 
 require (
 	dario.cat/mergo v1.0.0 // indirect
 	github.com/Azure/go-ansiterm v0.0.0-20210617225240-d185dfc1b5a1 // indirect
+	github.com/EventStore/EventStore-Client-Go/v4 v4.1.0 // indirect
 	github.com/Microsoft/go-winio v0.6.1 // indirect
 	github.com/Microsoft/hcsshim v0.11.4 // indirect
 	github.com/cenkalti/backoff/v4 v4.2.1 // indirect
@@ -77,7 +78,6 @@ require (
 	golang.org/x/exp v0.0.0-20230725093048-515e97ebf090 // indirect
 	golang.org/x/mod v0.18.0 // indirect
 	golang.org/x/net v0.26.0 // indirect
-	golang.org/x/sync v0.7.0 // indirect
 	golang.org/x/sys v0.21.0 // indirect
 	golang.org/x/text v0.16.0 // indirect
 	golang.org/x/tools v0.22.0 // indirect
