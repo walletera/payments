@@ -11,6 +11,7 @@ import (
 
     "github.com/cucumber/godog"
     slogwatcher "github.com/walletera/logs-watcher/slog"
+    "github.com/walletera/message-processor/rabbitmq"
     msClient "github.com/walletera/mockserver-go-client/pkg/client"
     "github.com/walletera/payments/internal/app"
     "go.uber.org/zap"
@@ -19,12 +20,11 @@ import (
 )
 
 const (
-    eventStoreDBUrl              = "esdb://localhost:2113?tls=false"
-    mockserverUrl                = "http://localhost:2090"
-    appCtxCancelFuncKey          = "appCtxCancelFuncKey"
-    mockServerEventMatcherCtxKey = "mockServerEventMatcherCtxKey"
-    logsWatcherKey               = "logsWatcher"
-    logsWatcherWaitForTimeout    = 5 * time.Second
+    eventStoreDBUrl           = "esdb://localhost:2113?tls=false"
+    mockserverUrl             = "http://localhost:2090"
+    appCtxCancelFuncKey       = "appCtxCancelFuncKey"
+    logsWatcherKey            = "logsWatcher"
+    logsWatcherWaitForTimeout = 5 * time.Second
 )
 
 type MockServerExpectation struct {
@@ -66,6 +66,10 @@ func aRunningPaymentsService(ctx context.Context) (context.Context, error) {
     appCtx, appCtxCancelFunc := context.WithCancel(ctx)
     go func() {
         app, err := app.NewApp(
+            app.WithRabbitmqHost(rabbitmq.DefaultHost),
+            app.WithRabbitmqPort(rabbitmq.DefaultPort),
+            app.WithRabbitmqUser(rabbitmq.DefaultUser),
+            app.WithRabbitmqPassword(rabbitmq.DefaultPassword),
             app.WithESDBUrl(eventStoreDBUrl),
             app.WithHttpServerPort(httpServerPort),
             app.WithLogHandler(logHandler),

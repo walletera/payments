@@ -25,3 +25,7 @@ func EventType(eventType string) slog.Attr {
 func Error(err string) slog.Attr {
     return slog.String("error", err)
 }
+
+func CorrelationId(correlationId string) slog.Attr {
+    return slog.String("correlation_id", correlationId)
+}

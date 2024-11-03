@@ -16,7 +16,6 @@ import (
     msClient "github.com/walletera/mockserver-go-client/pkg/client"
     "github.com/walletera/payments-types/api"
     "github.com/walletera/payments/internal/app"
-    "github.com/walletera/payments/internal/domain/payment/event/handlers"
     "go.uber.org/zap"
     "go.uber.org/zap/exp/zapslog"
     "go.uber.org/zap/zapcore"
@@ -69,7 +68,7 @@ func consumePaymentEvents(ctx context.Context, _ *godog.Scenario) (context.Conte
         rabbitmq.WithExchangeName(app.PaymentsServiceExchangeName),
         rabbitmq.WithExchangeType(app.PaymentServiceExchangeType),
         rabbitmq.WithQueueName("createPaymentTestQueue"),
-        rabbitmq.WithConsumerRoutingKeys(handlers.PaymentCreatedTopic),
+        rabbitmq.WithConsumerRoutingKeys(app.PaymentCreatedRoutingKey),
     )
     if err != nil {
         return ctx, fmt.Errorf("failed creating rabbitmq client: %w", err)
@@ -97,7 +96,7 @@ func theCustomerSendsTheFollowingPayment(ctx context.Context, rawPayment *godog.
         return ctx, fmt.Errorf("failed unmarshalling expected payment: %w", err)
     }
     requestCtx, _ := context.WithTimeout(ctx, 200*time.Second)
-    res, err := paymentsClient.PostPayment(requestCtx, &payment)
+    res, err := paymentsClient.PostPayment(requestCtx, &payment, api.PostPaymentParams{})
     if err != nil {
         return ctx, err
     }

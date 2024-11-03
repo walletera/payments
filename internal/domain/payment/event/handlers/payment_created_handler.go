@@ -12,7 +12,8 @@ import (
 )
 
 const (
-    PaymentCreatedTopic = "payment.events"
+    PaymentsTopic            = "payments.events"
+    PaymentCreatedRoutingKey = "payment.created"
 )
 
 type PaymentCreatedHandler struct {
@@ -36,11 +37,22 @@ func (p *PaymentCreatedHandler) HandlePaymentUpdated(ctx context.Context, paymen
 }
 
 func (p *PaymentCreatedHandler) publish(ctx context.Context, paymentCreatedEvent events.EventData) errors.ProcessingError {
-    err := p.eventPublisher.Publish(ctx, paymentCreatedEvent, PaymentCreatedTopic)
+    err := p.eventPublisher.Publish(ctx, paymentCreatedEvent, events.RoutingInfo{
+        Topic:      PaymentsTopic,
+        RoutingKey: PaymentCreatedRoutingKey,
+    })
     if err != nil {
         errStr := "failed publishing event"
-        p.logger.Error(errStr, logattr.EventType(paymentCreatedEvent.Type()), logattr.Error(err.Error()))
+        p.logger.Error(errStr,
+            logattr.CorrelationId(paymentCreatedEvent.CorrelationID()),
+            logattr.EventType(paymentCreatedEvent.Type()),
+            logattr.Error(err.Error()),
+        )
         return errors.NewInternalError(fmt.Sprintf("%s: %s", errStr, err.Error()))
     }
+    p.logger.Info("event published",
+        logattr.CorrelationId(paymentCreatedEvent.CorrelationID()),
+        logattr.EventType(paymentCreatedEvent.Type()),
+    )
     return nil
 }

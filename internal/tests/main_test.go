@@ -1,16 +1,13 @@
 package tests
 
 import (
-    "bytes"
     "context"
-    "errors"
     "fmt"
     "net/http"
     "os"
     "testing"
     "time"
 
-    "github.com/EventStore/EventStore-Client-Go/v4/esdb"
     "github.com/testcontainers/testcontainers-go"
     "github.com/testcontainers/testcontainers-go/wait"
     "github.com/walletera/message-processor/eventstoredb"
@@ -19,12 +16,10 @@ import (
 )
 
 const (
-    mockserverPort                     = "2090"
-    eventStoreDBHost                   = "127.0.0.1"
-    eventStoreDBPort                   = "2113"
-    eventStoreByCategoryProjectionPath = "/projection/$by_category/query?emit=yes"
-    containersStartTimeout             = 30 * time.Second
-    containersTerminationTimeout       = 10 * time.Second
+    mockserverPort               = "2090"
+    eventStoreDBPort             = "2113"
+    containersStartTimeout       = 30 * time.Second
+    containersTerminationTimeout = 10 * time.Second
 )
 
 func TestMain(m *testing.M) {
@@ -33,16 +28,6 @@ func TestMain(m *testing.M) {
     terminateEventSToreDBContainer, err := startEventStoreDBContainer(ctx)
     if err != nil {
         panic("error starting esdb container: " + err.Error())
-    }
-
-    err = setESDBByCategoryProjectionSeparator(ctx)
-    if err != nil {
-        panic(err.Error())
-    }
-
-    err = enableESDBByCategoryProjection(ctx)
-    if err != nil {
-        panic(err.Error())
     }
 
     err = createEventstoreDBPersistentSubscriptionForCategory(ctx, app.ESDB_ByCategoryProjection_Payments)
@@ -118,70 +103,11 @@ func startEventStoreDBContainer(ctx context.Context) (func() error, error) {
     }, nil
 }
 
-func setESDBByCategoryProjectionSeparator(ctx context.Context) error {
-    url := fmt.Sprintf("http://%s:%s%s", eventStoreDBHost, eventStoreDBPort, eventStoreByCategoryProjectionPath)
-    body := []byte("last\n.")
-    req, err := http.NewRequestWithContext(ctx, http.MethodPut, url, bytes.NewReader(body))
-    if err != nil {
-        return fmt.Errorf("failed creating request to update byCategory projection separator: %w", err)
-    }
-    req.Header.Set("Content-Type", "application/json; charset=utf-8")
-    resp, err := http.DefaultClient.Do(req)
-    if err != nil {
-        return fmt.Errorf("failed creating request to update byCategory projection separator: %w", err)
-    }
-    if resp.StatusCode != http.StatusOK {
-        return fmt.Errorf("failed creating request to update byCategory projection separator - response status code %d", resp.StatusCode)
-    }
-    return nil
-}
-
-func enableESDBByCategoryProjection(ctx context.Context) error {
-    req, err := http.NewRequestWithContext(
-        ctx,
-        http.MethodPost,
-        fmt.Sprintf("http://127.0.0.1:%s/projection/$by_category/command/enable", eventStoreDBPort),
-        nil,
-    )
-    if err != nil {
-        return fmt.Errorf("failed creating request for enabling $by_category projection: %w", err)
-    }
-    req.Header.Add("Accept", "application/json")
-    req.Header.Add("Content-Length", "0")
-    _, err = http.DefaultClient.Do(req)
-    if err != nil {
-        return fmt.Errorf("failed enabling $by_category projection: %w", err)
-    }
-    return nil
-}
-
 func createEventstoreDBPersistentSubscriptionForCategory(ctx context.Context, categoryName string) error {
-    subscriptionSettings := esdb.SubscriptionSettingsDefault()
-    subscriptionSettings.ResolveLinkTos = true
-    subscriptionSettings.MaxRetryCount = 3
-
-    esdbClient, err := eventstoredb.GetESDBClient(eventStoreDBUrl)
+    err := eventstoredb.CreatePersistentSubscription(eventStoreDBUrl, categoryName, app.ESDB_SubscriptionGroupName)
     if err != nil {
         return err
     }
-
-    err = esdbClient.CreatePersistentSubscription(
-        context.Background(),
-        categoryName,
-        app.ESDB_SubscriptionGroupName,
-        esdb.PersistentStreamSubscriptionOptions{
-            Settings: &subscriptionSettings,
-        },
-    )
-    // FIXME: delete persistent subscription on the After hook
-    if err != nil {
-        var esdbError *esdb.Error
-        ok := errors.As(err, &esdbError)
-        if !ok || !esdbError.IsErrorCode(esdb.ErrorCodeResourceAlreadyExists) {
-            return fmt.Errorf("CreatePersistentSubscription failed: %w", err)
-        }
-    }
-
     return nil
 }
 
