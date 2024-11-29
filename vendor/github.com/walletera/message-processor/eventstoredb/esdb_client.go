@@ -8,7 +8,5 @@ func GetESDBClient(connectionString string) (*esdb.Client, error) {
         return nil, err
     }
 
-    settings.Logger = esdb.NoopLogging()
-
     return esdb.NewClient(settings)
 }

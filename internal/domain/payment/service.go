@@ -24,25 +24,21 @@ func NewService(eventDB eventsourcing.DB, logger *slog.Logger) *Service {
     }
 }
 
-func (e *Service) CreatePayment(ctx context.Context, correlationId string, payment api.Payment) error {
+func (e *Service) CreatePayment(ctx context.Context, correlationId string, payment api.Payment) (*events.PaymentCreated, error) {
     // TODO do some customer related validations
     paymentCreatedEvent := CreatePayment(correlationId, payment)
-    err := e.eventDB.AppendEvents(ctx, buildStreamName(paymentCreatedEvent.Data.ID.Value), paymentCreatedEvent)
+    streamName := buildStreamName(paymentCreatedEvent.Data.ID.Value)
+    err := e.eventDB.AppendEvents(ctx, streamName, paymentCreatedEvent)
     if err != nil {
-        return fmt.Errorf("failed storing PaymentCreatedEvent: %w", err)
+        return nil, fmt.Errorf("failed appending event %s to the stream %s", paymentCreatedEvent.EventType, streamName)
     }
-    return nil
+    return &paymentCreatedEvent, nil
 }
 
-func (e *Service) UpdatePayment(ctx context.Context, correlationId string, paymentUpdate api.PaymentUpdate) error {
-    streamName := buildStreamName(paymentUpdate.PaymentId)
-    rawEvents, err := e.eventDB.ReadEvents(ctx, streamName)
+func (e *Service) UpdatePayment(ctx context.Context, correlationId string, paymentUpdate *api.PaymentUpdate) error {
+    paymentAggregate, err := e.buildAggregateFromStoredEvents(ctx, paymentUpdate.PaymentId)
     if err != nil {
-        return errors.NewInternalError(fmt.Sprintf("failed retrieving events from stream %s: %s", streamName, err.Error()))
-    }
-    paymentAggregate, err := NewFromEvents(e.deserializer, rawEvents)
-    if err != nil {
-        return fmt.Errorf("failed creating building payments aggregate from events: %w", err)
+        return err
     }
     paymentUpdated := paymentAggregate.UpdatePayment(correlationId, UpdateCommand{
         externalId: paymentUpdate.ExternalId,
@@ -53,6 +49,27 @@ func (e *Service) UpdatePayment(ctx context.Context, correlationId string, payme
         return fmt.Errorf("failed storing PaymentUpdatedEvent: %w", err)
     }
     return nil
+}
+
+func (e *Service) GetPayment(ctx context.Context, paymentId uuid.UUID) (*api.Payment, error) {
+    paymentAggregate, err := e.buildAggregateFromStoredEvents(ctx, paymentId)
+    if err != nil {
+        return nil, err
+    }
+    return paymentAggregate.GetPayment(), nil
+}
+
+func (e *Service) buildAggregateFromStoredEvents(ctx context.Context, paymentId uuid.UUID) (*Aggregate, error) {
+    streamName := buildStreamName(paymentId)
+    rawEvents, err := e.eventDB.ReadEvents(ctx, streamName)
+    if err != nil {
+        return nil, errors.NewInternalError(fmt.Sprintf("failed retrieving events from stream %s: %s", streamName, err.Error()))
+    }
+    paymentAggregate, err := NewFromEvents(e.deserializer, rawEvents)
+    if err != nil {
+        return nil, fmt.Errorf("failed creating building payments aggregate from events: %w", err)
+    }
+    return paymentAggregate, nil
 }
 
 func buildStreamName(aggregateId uuid.UUID) string {

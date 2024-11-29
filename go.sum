@@ -167,8 +167,12 @@ github.com/tklauser/numcpus v0.6.1 h1:ng9scYS7az0Bk4OZLvrNXNSAO2Pxr1XXRAPyjhIx+F
 github.com/tklauser/numcpus v0.6.1/go.mod h1:1XfjsgE2zo8GVw7POkMbHENHzVg3GzmoZ9fESEdAacY=
 github.com/walletera/logs-watcher v0.0.3 h1:F0/118dcMVAxcAJazpwiqYIUC5UeigFYyxc/h23WzaI=
 github.com/walletera/logs-watcher v0.0.3/go.mod h1:727nZgaxkTO3qau3bVgrcQR6dKqB8svDRkHsnKTGPho=
+github.com/walletera/message-processor v0.0.8 h1:bgIJBwe3pohHifqq9NaAuLgTIY07Gfd5l+SqYNV0MBQ=
+github.com/walletera/message-processor v0.0.8/go.mod h1:XqiB6HtMAZRoYZcIfdALuj9tnvFStKqieX23LTJ3UJs=
 github.com/walletera/mockserver-go-client v0.0.1 h1:w5KEuwWxehfvN4Ooai5AgecmtxreKUHZRETAf5/jUSQ=
 github.com/walletera/mockserver-go-client v0.0.1/go.mod h1:2IFxURJRzsHqT+1fxNO1RlUuUTqEj29d5kME8dVF2og=
+github.com/walletera/payments-types v0.0.5 h1:VgF4i6kof1eNhwLPPvMlWHBJLpb6anT1j2GFd68s8Lo=
+github.com/walletera/payments-types v0.0.5/go.mod h1:OH/q/5x3dU1qPksdtH/FYtGFxBOhml17wJFpfUD4k+A=
 github.com/yuin/goldmark v1.1.27/go.mod h1:3hX8gzYuyVAZsxl0MRgGTJEmQBFcNTphYh9decYSb74=
 github.com/yuin/goldmark v1.2.1/go.mod h1:3hX8gzYuyVAZsxl0MRgGTJEmQBFcNTphYh9decYSb74=
 github.com/yusufpapurcu/wmi v1.2.3 h1:E1ctvB7uKFMOJw3fdOW32DwGE9I7t++CRUEMKvFoFiw=

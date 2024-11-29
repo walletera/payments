@@ -56,7 +56,10 @@ func NewFromEvents(deserializer events.Deserializer[eventtypes.Handler], rawEven
     for _, rawEvent := range rawEvents {
         event, err := deserializer.Deserialize(rawEvent)
         if err != nil {
-            return nil, fmt.Errorf("failed deserializing outboundPaymentUpdated event from raw event %s: %s", rawEvent, err.Error())
+            return nil, fmt.Errorf("failed deserializing event from raw event %s: %s", rawEvent, err.Error())
+        }
+        if event == nil {
+            return nil, fmt.Errorf("failed deserializing event from raw event %s", rawEvent)
         }
         event.Accept(context.Background(), p)
     }
@@ -72,6 +75,24 @@ func (p *Aggregate) UpdatePayment(correlationId string, command UpdateCommand) e
     }
     paymentUpdate.ExternalId = command.externalId
     return eventtypes.NewPaymentUpdated(correlationId, paymentUpdate)
+}
+
+func (p *Aggregate) HandlePaymentCreated(ctx context.Context, paymentCreatedEvent eventtypes.PaymentCreated) errors.ProcessingError {
+    p.payment = paymentCreatedEvent.Data
+    return nil
+}
+
+func (p *Aggregate) HandlePaymentUpdated(ctx context.Context, paymentUpdated eventtypes.PaymentUpdated) errors.ProcessingError {
+    p.payment.ExternalId = paymentUpdated.Data.ExternalId
+    p.payment.Status = api.OptPaymentStatus{
+        Value: paymentUpdated.Data.Status,
+        Set:   true,
+    }
+    return nil
+}
+
+func (p *Aggregate) GetPayment() *api.Payment {
+    return &p.payment
 }
 
 func (p *Aggregate) canTransition(status api.PaymentStatus) bool {
@@ -91,18 +112,4 @@ func (p *Aggregate) canTransition(status api.PaymentStatus) bool {
         }
     }
     return false
-}
-
-func (p *Aggregate) HandlePaymentCreated(ctx context.Context, paymentCreatedEvent eventtypes.PaymentCreated) errors.ProcessingError {
-    p.payment = paymentCreatedEvent.Data
-    return nil
-}
-
-func (p *Aggregate) HandlePaymentUpdated(ctx context.Context, paymentCreatedEvent eventtypes.PaymentUpdated) errors.ProcessingError {
-    p.payment.ExternalId = paymentCreatedEvent.Data.ExternalId
-    p.payment.Status = api.OptPaymentStatus{
-        Value: paymentCreatedEvent.Data.Status,
-        Set:   true,
-    }
-    return nil
 }

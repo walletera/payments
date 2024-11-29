@@ -1,22 +1,28 @@
 package tests
 
 import (
+    "bytes"
     "context"
     "encoding/json"
     "fmt"
     "log/slog"
+    "math/rand"
     "net/http"
     "net/url"
+    "strconv"
     "time"
 
     "github.com/cucumber/godog"
     slogwatcher "github.com/walletera/logs-watcher/slog"
     "github.com/walletera/message-processor/rabbitmq"
     msClient "github.com/walletera/mockserver-go-client/pkg/client"
+    "github.com/walletera/payments-types/api"
     "github.com/walletera/payments/internal/app"
+    "github.com/walletera/payments/pkg/logattr"
     "go.uber.org/zap"
     "go.uber.org/zap/exp/zapslog"
     "go.uber.org/zap/zapcore"
+    "golang.org/x/sync/errgroup"
 )
 
 const (
@@ -146,6 +152,102 @@ func createMockServerExpectation(ctx context.Context, mockserverExpectation stri
     }
 
     return ctx, nil
+}
+
+func createPayment(ctx context.Context, paymentJson string) (api.PostPaymentRes, error) {
+    paymentsClient, err := api.NewClient(fmt.Sprintf("http://127.0.0.1:%d", httpServerPort))
+    if err != nil {
+        return nil, err
+    }
+    var payment api.Payment
+    err = json.Unmarshal([]byte(paymentJson), &payment)
+    if err != nil {
+        return nil, fmt.Errorf("failed unmarshalling expected payment: %w", err)
+    }
+    requestCtx, _ := context.WithTimeout(ctx, 200*time.Second)
+    res, err := paymentsClient.PostPayment(requestCtx, &payment, api.PostPaymentParams{})
+    if err != nil {
+        return nil, err
+    }
+    return res, nil
+}
+
+func thePaymentsServicePublishTheFollowingEvent(ctx context.Context, eventMatcher *godog.DocString) (context.Context, error) {
+    r := rand.New(rand.NewSource(time.Now().UnixNano()))
+    expectationId := "matchEvent-" + strconv.Itoa(r.Int())
+    ctx, err := createEventMatcher(ctx, expectationId, eventMatcher.Content)
+    if err != nil {
+        return ctx, err
+    }
+    ch := eventsMsgChFromCtx(ctx)
+    timeout := time.After(2000 * time.Second)
+    for {
+        select {
+        case <-timeout:
+            return ctx, fmt.Errorf("timeout waiting for event to be published")
+        case msg := <-ch:
+            msg.Acknowledger().Ack()
+            testLogger.Debug("[TEST] published message", slog.String("message", string(msg.Payload())))
+            matched, err := matchEvent(ctx, expectationId, msg.Payload())
+            if err != nil {
+                testLogger.Debug("[TEST] error matching published event", logattr.Error(err.Error()))
+            }
+            if matched {
+                return ctx, nil
+            }
+        }
+    }
+    return ctx, nil
+}
+
+func matchEvent(ctx context.Context, expectationId string, payload []byte) (bool, error) {
+    _, err := http.Post(mockserverUrl+"/matchevent", "application/json", bytes.NewReader(payload))
+    if err != nil {
+        return false, err
+    }
+    err = verifyExpectationMetWithin(ctx, expectationId, 100*time.Millisecond)
+    if err != nil {
+        return false, err
+    }
+    return true, nil
+}
+
+const retryPause = 10 * time.Millisecond
+
+func verifyExpectationMetWithin(ctx context.Context, expectationID string, timeout time.Duration) error {
+    if retryPause > timeout {
+        panic("retryPause is grater than timeout")
+    }
+    errGroup := new(errgroup.Group)
+    timeoutCh := time.After(timeout)
+    errGroup.Go(func() error {
+        var err error
+        for {
+            select {
+            case <-timeoutCh:
+                return fmt.Errorf("expectation %s was not met whithin %s: %w", expectationID, timeout.String(), err)
+            default:
+                err = verifyExpectationMet(ctx, expectationID)
+                if err == nil {
+                    return nil
+                }
+                time.Sleep(retryPause)
+            }
+        }
+    })
+    return errGroup.Wait()
+}
+
+func verifyExpectationMet(ctx context.Context, expectationID string) error {
+    verificationErr := mockServerClient().VerifyRequest(ctx, msClient.VerifyRequestBody{
+        ExpectationId: msClient.ExpectationId{
+            Id: expectationID,
+        },
+    })
+    if verificationErr != nil {
+        return verificationErr
+    }
+    return nil
 }
 
 func mockServerClient() *msClient.Client {
