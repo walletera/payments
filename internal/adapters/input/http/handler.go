@@ -45,7 +45,7 @@ func (h *Handler) PatchPayment(ctx context.Context, req *api.PaymentUpdate, para
     if err != nil {
         // FIXME improve error handling
         h.logger.Error("failed getting payment", logattr.Error(err.Error()))
-        return &api.PatchPaymentOK{}, nil
+        return &api.PatchPaymentInternalServerError{}, nil
     }
     return &api.PatchPaymentOK{}, nil
 }

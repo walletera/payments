@@ -19,6 +19,7 @@ import (
     "github.com/walletera/payments-types/api"
     "github.com/walletera/payments/internal/app"
     "github.com/walletera/payments/pkg/logattr"
+    "github.com/walletera/payments/pkg/wuuid"
     "go.uber.org/zap"
     "go.uber.org/zap/exp/zapslog"
     "go.uber.org/zap/zapcore"
@@ -28,6 +29,7 @@ import (
 const (
     eventStoreDBUrl           = "esdb://localhost:2113?tls=false"
     mockserverUrl             = "http://localhost:2090"
+    paymentCreatedKey         = "paymentCreatedKey"
     appCtxCancelFuncKey       = "appCtxCancelFuncKey"
     logsWatcherKey            = "logsWatcher"
     logsWatcherWaitForTimeout = 5 * time.Second
@@ -99,38 +101,6 @@ func aRunningPaymentsService(ctx context.Context) (context.Context, error) {
     return ctx, nil
 }
 
-func createEventMatcher(ctx context.Context, expectationId string, eventMatcher string) (context.Context, error) {
-    httpRequestExpectationWrapperTemplate := `
-    {
-      "id": "%s",
-      "httpRequest" : {
-        "method": "POST",
-        "path": "/matchevent",
-        "body": {
-            "type": "JSON",
-            "json": %s,
-            "matchType": "ONLY_MATCHING_FIELDS"
-        }
-      },
-      "httpResponse" : {
-        "statusCode" : 201,
-        "headers" : {
-          "content-type" : [ "application/json" ]
-        }
-      },
-      "priority" : 0,
-      "timeToLive" : {
-        "unlimited" : true
-      },
-      "times" : {
-        "unlimited" : true
-      }
-    }
-`
-    httpRequestExpectationWrapper := fmt.Sprintf(httpRequestExpectationWrapperTemplate, expectationId, eventMatcher)
-    return createMockServerExpectation(ctx, httpRequestExpectationWrapper, "")
-}
-
 func createMockServerExpectation(ctx context.Context, mockserverExpectation string, ctxKey string) (context.Context, error) {
     if len(mockserverExpectation) == 0 {
         return nil, fmt.Errorf("the mockserver expectation is empty or was not defined")
@@ -174,8 +144,8 @@ func createPayment(ctx context.Context, paymentJson string) (api.PostPaymentRes,
 
 func thePaymentsServicePublishTheFollowingEvent(ctx context.Context, eventMatcher *godog.DocString) (context.Context, error) {
     r := rand.New(rand.NewSource(time.Now().UnixNano()))
-    expectationId := "matchEvent-" + strconv.Itoa(r.Int())
-    ctx, err := createEventMatcher(ctx, expectationId, eventMatcher.Content)
+    expectationId := "matchJSON-" + strconv.Itoa(r.Int())
+    ctx, err := createJSONMatcher(ctx, expectationId, eventMatcher.Content)
     if err != nil {
         return ctx, err
     }
@@ -188,7 +158,7 @@ func thePaymentsServicePublishTheFollowingEvent(ctx context.Context, eventMatche
         case msg := <-ch:
             msg.Acknowledger().Ack()
             testLogger.Debug("[TEST] published message", slog.String("message", string(msg.Payload())))
-            matched, err := matchEvent(ctx, expectationId, msg.Payload())
+            matched, err := matchJSON(ctx, expectationId, msg.Payload())
             if err != nil {
                 testLogger.Debug("[TEST] error matching published event", logattr.Error(err.Error()))
             }
@@ -199,7 +169,66 @@ func thePaymentsServicePublishTheFollowingEvent(ctx context.Context, eventMatche
     }
 }
 
-func matchEvent(ctx context.Context, expectationId string, payload []byte) (bool, error) {
+func thePaymentsServiceReceiveAPATCHRequestToUpdateThePayment(ctx context.Context, status string) (context.Context, error) {
+    payment := paymentCreatedFromCtx(ctx)
+    paymentsClient, err := api.NewClient(fmt.Sprintf("http://127.0.0.1:%d", httpServerPort))
+    if err != nil {
+        return nil, err
+    }
+    requestCtx, _ := context.WithTimeout(ctx, 200*time.Second)
+    _, err = paymentsClient.PatchPayment(requestCtx, &api.PaymentUpdate{
+        PaymentId: payment.ID.Value,
+        ExternalId: api.OptUUID{
+            Value: wuuid.NewUUID(),
+            Set:   true,
+        },
+        Status: api.PaymentStatus(status),
+    }, api.PatchPaymentParams{
+        XWalleteraCorrelationID: api.OptUUID{
+            Value: wuuid.NewUUID(),
+            Set:   true,
+        },
+        PaymentId: payment.ID.Value,
+    })
+    if err != nil {
+        return nil, err
+    }
+    return ctx, err
+}
+
+func createJSONMatcher(ctx context.Context, expectationId string, eventMatcher string) (context.Context, error) {
+    httpRequestExpectationWrapperTemplate := `
+    {
+      "id": "%s",
+      "httpRequest" : {
+        "method": "POST",
+        "path": "/matchevent",
+        "body": {
+            "type": "JSON",
+            "json": %s,
+            "matchType": "ONLY_MATCHING_FIELDS"
+        }
+      },
+      "httpResponse" : {
+        "statusCode" : 201,
+        "headers" : {
+          "content-type" : [ "application/json" ]
+        }
+      },
+      "priority" : 0,
+      "timeToLive" : {
+        "unlimited" : true
+      },
+      "times" : {
+        "unlimited" : true
+      }
+    }
+`
+    httpRequestExpectationWrapper := fmt.Sprintf(httpRequestExpectationWrapperTemplate, expectationId, eventMatcher)
+    return createMockServerExpectation(ctx, httpRequestExpectationWrapper, "")
+}
+
+func matchJSON(ctx context.Context, expectationId string, payload []byte) (bool, error) {
     _, err := http.Post(mockserverUrl+"/matchevent", "application/json", bytes.NewReader(payload))
     if err != nil {
         return false, err
@@ -264,6 +293,10 @@ func appCtxCancelFuncFromCtx(ctx context.Context) context.CancelFunc {
 
 func logsWatcherFromCtx(ctx context.Context) *slogwatcher.Watcher {
     return ctx.Value(logsWatcherKey).(*slogwatcher.Watcher)
+}
+
+func paymentCreatedFromCtx(ctx context.Context) *api.Payment {
+    return ctx.Value(paymentCreatedKey).(*api.Payment)
 }
 
 func newZapHandler() (slog.Handler, error) {

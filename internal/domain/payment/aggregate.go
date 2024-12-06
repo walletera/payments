@@ -36,7 +36,6 @@ type Aggregate struct {
 
 func CreatePayment(correlationId string, payment api.Payment) eventtypes.PaymentCreated {
     newPayment := payment
-    newPayment.ID = api.NewOptUUID(wuuid.NewUUID())
     newPayment.Status = api.OptPaymentStatus{
         Value: api.PaymentStatusPending,
         Set:   true,
@@ -52,7 +51,7 @@ func CreatePayment(correlationId string, payment api.Payment) eventtypes.Payment
 }
 
 func NewFromEvents(deserializer events.Deserializer[eventtypes.Handler], rawEvents []eventsourcing.RawEvent) (*Aggregate, error) {
-    p := &Aggregate{}
+    aggregate := &Aggregate{}
     for _, rawEvent := range rawEvents {
         event, err := deserializer.Deserialize(rawEvent)
         if err != nil {
@@ -61,20 +60,22 @@ func NewFromEvents(deserializer events.Deserializer[eventtypes.Handler], rawEven
         if event == nil {
             return nil, fmt.Errorf("failed deserializing event from raw event %s", rawEvent)
         }
-        event.Accept(context.Background(), p)
+        event.Accept(context.Background(), aggregate)
     }
-    return p, nil
+    return aggregate, nil
 }
 
-func (p *Aggregate) UpdatePayment(correlationId string, command UpdateCommand) eventtypes.PaymentUpdated {
+func (p *Aggregate) UpdatePayment(correlationId string, command UpdateCommand) (eventtypes.PaymentUpdated, error) {
     paymentUpdate := api.PaymentUpdate{
         PaymentId: p.payment.ID.Value,
     }
-    if p.canTransition(command.status) {
-        paymentUpdate.Status = command.status
+    if !p.canTransition(command.status) {
+        currentStatus, _ := p.payment.Status.Get()
+        return eventtypes.PaymentUpdated{}, fmt.Errorf("invalid payment status transition from %s to %s", currentStatus, command.status)
     }
+    paymentUpdate.Status = command.status
     paymentUpdate.ExternalId = command.externalId
-    return eventtypes.NewPaymentUpdated(correlationId, paymentUpdate)
+    return eventtypes.NewPaymentUpdated(correlationId, paymentUpdate), nil
 }
 
 func (p *Aggregate) HandlePaymentCreated(ctx context.Context, paymentCreatedEvent eventtypes.PaymentCreated) errors.ProcessingError {

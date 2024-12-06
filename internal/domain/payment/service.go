@@ -40,10 +40,13 @@ func (e *Service) UpdatePayment(ctx context.Context, correlationId string, payme
     if err != nil {
         return err
     }
-    paymentUpdated := paymentAggregate.UpdatePayment(correlationId, UpdateCommand{
+    paymentUpdated, err := paymentAggregate.UpdatePaymeqnt(correlationId, UpdateCommand{
         externalId: paymentUpdate.ExternalId,
         status:     paymentUpdate.Status,
     })
+    if err != nil {
+        return err
+    }
     err = e.eventDB.AppendEvents(ctx, buildStreamName(paymentUpdate.PaymentId), paymentUpdated)
     if err != nil {
         return fmt.Errorf("failed storing PaymentUpdatedEvent: %w", err)

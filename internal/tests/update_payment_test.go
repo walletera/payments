@@ -9,7 +9,6 @@ import (
 
     "github.com/cucumber/godog"
     "github.com/walletera/payments-types/api"
-    "github.com/walletera/payments/pkg/wuuid"
     "go.uber.org/zap/exp/zapslog"
 )
 
@@ -46,8 +45,6 @@ func InitializeUpdatePaymentScenario(ctx *godog.ScenarioContext) {
     ctx.After(afterScenarioHook)
 }
 
-var paymentKey = "paymentKey"
-
 func aPaymentInPendingStatus(ctx context.Context) (context.Context, error) {
     paymentStr := `
     {
@@ -71,38 +68,11 @@ func aPaymentInPendingStatus(ctx context.Context) (context.Context, error) {
         return ctx, fmt.Errorf("postPayment response is not what we expect: %v", resp)
     }
 
-    return context.WithValue(ctx, paymentKey, payment), nil
-}
-
-func thePaymentsServiceReceiveAPATCHRequestToUpdateThePayment(ctx context.Context, status string) (context.Context, error) {
-    payment := ctx.Value(paymentKey).(*api.Payment)
-    paymentsClient, err := api.NewClient(fmt.Sprintf("http://127.0.0.1:%d", httpServerPort))
-    if err != nil {
-        return nil, err
-    }
-    requestCtx, _ := context.WithTimeout(ctx, 200*time.Second)
-    _, err = paymentsClient.PatchPayment(requestCtx, &api.PaymentUpdate{
-        PaymentId: payment.ID.Value,
-        ExternalId: api.OptUUID{
-            Value: wuuid.NewUUID(),
-            Set:   true,
-        },
-        Status: api.PaymentStatus(status),
-    }, api.PatchPaymentParams{
-        XWalleteraCorrelationID: api.OptUUID{
-            Value: wuuid.NewUUID(),
-            Set:   true,
-        },
-        PaymentId: payment.ID.Value,
-    })
-    if err != nil {
-        return nil, err
-    }
-    return ctx, err
+    return context.WithValue(ctx, paymentCreatedKey, payment), nil
 }
 
 func thePaymentIsUpdatedToStatus(ctx context.Context, status string) (context.Context, error) {
-    payment := ctx.Value(paymentKey).(*api.Payment)
+    payment := ctx.Value(paymentCreatedKey).(*api.Payment)
     paymentsClient, err := api.NewClient(fmt.Sprintf("http://127.0.0.1:%d", httpServerPort))
     if err != nil {
         return nil, err
