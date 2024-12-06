@@ -164,7 +164,7 @@ func createPayment(ctx context.Context, paymentJson string) (api.PostPaymentRes,
     if err != nil {
         return nil, fmt.Errorf("failed unmarshalling expected payment: %w", err)
     }
-    requestCtx, _ := context.WithTimeout(ctx, 200*time.Second)
+    requestCtx, _ := context.WithTimeout(ctx, 5*time.Second)
     res, err := paymentsClient.PostPayment(requestCtx, &payment, api.PostPaymentParams{})
     if err != nil {
         return nil, err
@@ -180,7 +180,7 @@ func thePaymentsServicePublishTheFollowingEvent(ctx context.Context, eventMatche
         return ctx, err
     }
     ch := eventsMsgChFromCtx(ctx)
-    timeout := time.After(2000 * time.Second)
+    timeout := time.After(5 * time.Second)
     for {
         select {
         case <-timeout:
@@ -197,7 +197,6 @@ func thePaymentsServicePublishTheFollowingEvent(ctx context.Context, eventMatche
             }
         }
     }
-    return ctx, nil
 }
 
 func matchEvent(ctx context.Context, expectationId string, payload []byte) (bool, error) {

@@ -270,7 +270,7 @@ github.com/tklauser/numcpus
 ## explicit; go 1.20
 github.com/walletera/logs-watcher/newline
 github.com/walletera/logs-watcher/slog
-# github.com/walletera/message-processor v0.0.8
+# github.com/walletera/message-processor v0.0.9
 ## explicit; go 1.21
 github.com/walletera/message-processor/errors
 github.com/walletera/message-processor/events

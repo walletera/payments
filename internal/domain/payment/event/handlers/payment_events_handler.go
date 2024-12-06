@@ -14,6 +14,7 @@ import (
 const (
     PaymentsTopic            = "payments.events"
     PaymentCreatedRoutingKey = "payment.created"
+    PaymentUpdatedRoutingKey = "payment.updated"
 )
 
 type PaymentCreatedHandler struct {
@@ -29,30 +30,33 @@ func NewPaymentCreatedHandler(eventPublisher events.Publisher, logger *slog.Logg
 }
 
 func (p *PaymentCreatedHandler) HandlePaymentCreated(ctx context.Context, paymentCreatedEvent paymentEvents.PaymentCreated) errors.ProcessingError {
-    return p.publish(ctx, paymentCreatedEvent)
-}
-
-func (p *PaymentCreatedHandler) HandlePaymentUpdated(ctx context.Context, paymentUpdated paymentEvents.PaymentUpdated) errors.ProcessingError {
-    return p.publish(ctx, paymentUpdated)
-}
-
-func (p *PaymentCreatedHandler) publish(ctx context.Context, paymentCreatedEvent events.EventData) errors.ProcessingError {
-    err := p.eventPublisher.Publish(ctx, paymentCreatedEvent, events.RoutingInfo{
+    return p.publish(ctx, paymentCreatedEvent, events.RoutingInfo{
         Topic:      PaymentsTopic,
         RoutingKey: PaymentCreatedRoutingKey,
     })
+}
+
+func (p *PaymentCreatedHandler) HandlePaymentUpdated(ctx context.Context, paymentUpdated paymentEvents.PaymentUpdated) errors.ProcessingError {
+    return p.publish(ctx, paymentUpdated, events.RoutingInfo{
+        Topic:      PaymentsTopic,
+        RoutingKey: PaymentUpdatedRoutingKey,
+    })
+}
+
+func (p *PaymentCreatedHandler) publish(ctx context.Context, eventData events.EventData, routingInfo events.RoutingInfo) errors.ProcessingError {
+    err := p.eventPublisher.Publish(ctx, eventData, routingInfo)
     if err != nil {
         errStr := "failed publishing event"
         p.logger.Error(errStr,
-            logattr.CorrelationId(paymentCreatedEvent.CorrelationID()),
-            logattr.EventType(paymentCreatedEvent.Type()),
+            logattr.CorrelationId(eventData.CorrelationID()),
+            logattr.EventType(eventData.Type()),
             logattr.Error(err.Error()),
         )
         return errors.NewInternalError(fmt.Sprintf("%s: %s", errStr, err.Error()))
     }
     p.logger.Info("event published",
-        logattr.CorrelationId(paymentCreatedEvent.CorrelationID()),
-        logattr.EventType(paymentCreatedEvent.Type()),
+        logattr.CorrelationId(eventData.CorrelationID()),
+        logattr.EventType(eventData.Type()),
     )
     return nil
 }

@@ -37,8 +37,8 @@ func TestUpdatePayment(t *testing.T) {
 
 func InitializeUpdatePaymentScenario(ctx *godog.ScenarioContext) {
     ctx.Before(beforeScenarioHook)
-    ctx.Before(consumePaymentEvents)
     ctx.Step(`^a running payments service$`, aRunningPaymentsService)
+    ctx.Step(`^a running payments events consumer with queueName: "([^"]*)"$`, consumePaymentEvents)
     ctx.Step(`^a payment in pending status$`, aPaymentInPendingStatus)
     ctx.Step(`^the payments service receive a PATCH request to update the payment to status: "([^"]*)"$`, thePaymentsServiceReceiveAPATCHRequestToUpdateThePayment)
     ctx.Step(`^the payment is updated to status: "([^"]*)"$`, thePaymentIsUpdatedToStatus)

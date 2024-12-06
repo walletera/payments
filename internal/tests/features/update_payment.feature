@@ -3,6 +3,7 @@ Feature: Update outbound payment
 
   Background: the payments service is up and running
     Given a running payments service
+      And a running payments events consumer with queueName: "updatePaymentTestQueue"
 
   Scenario: a pending payment is successfully updated to confirmed
     Given a payment in pending status

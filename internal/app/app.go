@@ -172,6 +172,8 @@ func (app *App) createInternalMessageProcessor(logger *slog.Logger) (*messages.P
         rabbitmq.WithPassword(app.rabbitmqPassword),
         rabbitmq.WithExchangeName(PaymentsServiceExchangeName),
         rabbitmq.WithExchangeType(PaymentServiceExchangeType),
+        // FIXME this is for publishing events
+        // we should not set the consumer routing key
         rabbitmq.WithConsumerRoutingKeys(PaymentCreatedRoutingKey),
     )
     if err != nil {

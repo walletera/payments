@@ -12,6 +12,7 @@ import (
     "github.com/walletera/message-processor/rabbitmq"
     "github.com/walletera/payments-types/api"
     "github.com/walletera/payments/internal/app"
+    "github.com/walletera/payments/internal/domain/payment/event/handlers"
     "go.uber.org/zap"
     "go.uber.org/zap/exp/zapslog"
     "go.uber.org/zap/zapcore"
@@ -49,8 +50,8 @@ func TestCreatePayment(t *testing.T) {
 
 func InitializeCreatePaymentScenario(ctx *godog.ScenarioContext) {
     ctx.Before(beforeScenarioHook)
-    ctx.Before(consumePaymentEvents)
     ctx.Step(`^a running payments service$`, aRunningPaymentsService)
+    ctx.Step(`^a running payments events consumer with queueName: "([^"]*)"$`, consumePaymentEvents)
     ctx.Step(`^a walletera customer$`, aWalleteraCustomer)
     ctx.Step(`^the customer sends the following payment to the payments endpoint:$`, theCustomerSendsTheFollowingPayment)
     ctx.Step(`^the endpoint returns the http status code 201$`, theEndpointReturnsTheHttpStatusCode201)
@@ -58,12 +59,12 @@ func InitializeCreatePaymentScenario(ctx *godog.ScenarioContext) {
     ctx.After(afterScenarioHook)
 }
 
-func consumePaymentEvents(ctx context.Context, _ *godog.Scenario) (context.Context, error) {
+func consumePaymentEvents(ctx context.Context, queueName string) (context.Context, error) {
     client, err := rabbitmq.NewClient(
         rabbitmq.WithExchangeName(app.PaymentsServiceExchangeName),
         rabbitmq.WithExchangeType(app.PaymentServiceExchangeType),
-        rabbitmq.WithQueueName("createPaymentTestQueue"),
-        rabbitmq.WithConsumerRoutingKeys(app.PaymentCreatedRoutingKey),
+        rabbitmq.WithQueueName(queueName),
+        rabbitmq.WithConsumerRoutingKeys(handlers.PaymentCreatedRoutingKey, handlers.PaymentUpdatedRoutingKey),
     )
     if err != nil {
         return ctx, fmt.Errorf("failed creating rabbitmq client: %w", err)

@@ -3,6 +3,7 @@ Feature: Create outbound payment
 
   Background: the payments service is up and running
     Given a running payments service
+      And a running payments events consumer with queueName: "createPaymentTestQueue"
 
   Scenario: a payment is created successfully
     Given a walletera customer
@@ -44,19 +45,19 @@ Feature: Create outbound payment
     """
 
 
-  Scenario: a pending payment is successfully updated to confirmed
-    Given a payment in pending status
-    When the payments service receive a PATCH request to update the payment
-    Then the payment is updated to status: confirmed
-     And the payments service publish the following event:
-    """json
-    {
-      "id": "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
-      "type": "PaymentUpdated",
-      "data": {
-        "paymentId": "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
-        "externalId": "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
-        "status": "pending"
-      }
-    }
-    """
+#  Scenario: a pending payment is successfully updated to confirmed
+#    Given a payment in pending status
+#    When the payments service receive a PATCH request to update the payment
+#    Then the payment is updated to status: confirmed
+#     And the payments service publish the following event:
+#    """json
+#    {
+#      "id": "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+#      "type": "PaymentUpdated",
+#      "data": {
+#        "paymentId": "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+#        "externalId": "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+#        "status": "pending"
+#      }
+#    }
+#    """
