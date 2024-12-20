@@ -32,6 +32,12 @@ func encodeGetPaymentResponse(response GetPaymentRes, w http.ResponseWriter, spa
 
 		return nil
 
+	case *GetPaymentInternalServerError:
+		w.WriteHeader(500)
+		span.SetStatus(codes.Error, http.StatusText(500))
+
+		return nil
+
 	default:
 		return errors.Errorf("unexpected response type: %T", response)
 	}
@@ -45,7 +51,7 @@ func encodePatchPaymentResponse(response PatchPaymentRes, w http.ResponseWriter,
 
 		return nil
 
-	case *Payment:
+	case *ErrorMessage:
 		w.Header().Set("Content-Type", "application/json; charset=utf-8")
 		w.WriteHeader(400)
 		span.SetStatus(codes.Error, http.StatusText(400))
@@ -55,6 +61,12 @@ func encodePatchPaymentResponse(response PatchPaymentRes, w http.ResponseWriter,
 		if _, err := e.WriteTo(w); err != nil {
 			return errors.Wrap(err, "write")
 		}
+
+		return nil
+
+	case *PatchPaymentInternalServerError:
+		w.WriteHeader(500)
+		span.SetStatus(codes.Error, http.StatusText(500))
 
 		return nil
 

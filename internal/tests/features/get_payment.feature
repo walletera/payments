@@ -9,7 +9,7 @@ Feature: Get payment
     Given the following payment:
     """json
     {
-      "id": "bdf48329-d870-4fb4-882a-0fa0aef28a63",
+      "id": "8e38b2f9-af7d-4a80-a9ed-6f5f395004dd",
       "amount": 100,
       "currency": "ARS",
       "beneficiary": {
@@ -23,11 +23,11 @@ Feature: Get payment
     }
     """
     And the payments service receive a PATCH request to update the payment to status: "confirmed"
-    When the payments service receive a GET request to retrieve the payment with id: "bdf48329-d870-4fb4-882a-0fa0aef28a63"
+    When the payments service receive a GET request to retrieve the payment with id: "8e38b2f9-af7d-4a80-a9ed-6f5f395004dd"
     Then the payments service returns the following response:
     """json
     {
-      "id": "bdf48329-d870-4fb4-882a-0fa0aef28a63",
+      "id": "8e38b2f9-af7d-4a80-a9ed-6f5f395004dd",
       "amount": 100,
       "currency": "ARS",
       "direction": "outbound",

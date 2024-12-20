@@ -9,6 +9,7 @@ import (
 
     "github.com/cucumber/godog"
     "github.com/walletera/payments-types/api"
+    "github.com/walletera/payments/pkg/wuuid"
     "go.uber.org/zap/exp/zapslog"
 )
 
@@ -48,6 +49,7 @@ func InitializeUpdatePaymentScenario(ctx *godog.ScenarioContext) {
 func aPaymentInPendingStatus(ctx context.Context) (context.Context, error) {
     paymentStr := `
     {
+      "id": "%s",
       "amount": 100,
       "currency": "ARS",
       "beneficiary": {
@@ -58,7 +60,7 @@ func aPaymentInPendingStatus(ctx context.Context) (context.Context, error) {
       }
     }
 `
-    resp, err := createPayment(ctx, paymentStr)
+    resp, err := createPayment(ctx, fmt.Sprintf(paymentStr, wuuid.NewUUID()))
     if err != nil {
         return ctx, err
     }
@@ -79,7 +81,7 @@ func thePaymentIsUpdatedToStatus(ctx context.Context, status string) (context.Co
     }
     requestCtx, _ := context.WithTimeout(ctx, 200*time.Second)
     resp, err := paymentsClient.GetPayment(requestCtx, api.GetPaymentParams{
-        PaymentId: payment.ID.Value,
+        PaymentId: payment.ID,
     })
     if err != nil {
         return nil, err
@@ -87,7 +89,7 @@ func thePaymentIsUpdatedToStatus(ctx context.Context, status string) (context.Co
 
     retrievedPayment, ok := resp.(*api.Payment)
     if !ok {
-        return ctx, fmt.Errorf("GetPayment response is not of type *api.Payment: %v", resp)
+        return ctx, fmt.Errorf("Payment response is not of type *api.Payment: %v", resp)
     }
 
     if !retrievedPayment.Status.Set {

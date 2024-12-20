@@ -10,8 +10,8 @@ import (
 
     "github.com/testcontainers/testcontainers-go"
     "github.com/testcontainers/testcontainers-go/wait"
-    "github.com/walletera/message-processor/eventstoredb"
-    "github.com/walletera/message-processor/rabbitmq"
+    "github.com/walletera/eventskit/eventstoredb"
+    "github.com/walletera/eventskit/rabbitmq"
     "github.com/walletera/payments/internal/app"
 )
 

@@ -63,6 +63,9 @@ func decodeGetPaymentResponse(resp *http.Response) (res GetPaymentRes, _ error) 
 	case 404:
 		// Code 404.
 		return &GetPaymentNotFound{}, nil
+	case 500:
+		// Code 500.
+		return &GetPaymentInternalServerError{}, nil
 	}
 	return res, validate.UnexpectedStatusCode(resp.StatusCode)
 }
@@ -86,7 +89,7 @@ func decodePatchPaymentResponse(resp *http.Response) (res PatchPaymentRes, _ err
 			}
 			d := jx.DecodeBytes(buf)
 
-			var response Payment
+			var response ErrorMessage
 			if err := func() error {
 				if err := response.Decode(d); err != nil {
 					return err
@@ -116,6 +119,9 @@ func decodePatchPaymentResponse(resp *http.Response) (res PatchPaymentRes, _ err
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
+	case 500:
+		// Code 500.
+		return &PatchPaymentInternalServerError{}, nil
 	}
 	return res, validate.UnexpectedStatusCode(resp.StatusCode)
 }

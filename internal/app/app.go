@@ -8,16 +8,16 @@ import (
     "net/http"
     "time"
 
-    procerrors "github.com/walletera/message-processor/errors"
-    "github.com/walletera/message-processor/eventstoredb"
-    "github.com/walletera/message-processor/messages"
-    "github.com/walletera/message-processor/rabbitmq"
+    "github.com/walletera/eventskit/eventstoredb"
+    "github.com/walletera/eventskit/messages"
+    "github.com/walletera/eventskit/rabbitmq"
     "github.com/walletera/payments-types/api"
     paymentevents "github.com/walletera/payments-types/events"
     httpadapter "github.com/walletera/payments/internal/adapters/input/http"
     "github.com/walletera/payments/internal/domain/payment"
     "github.com/walletera/payments/internal/domain/payment/event/handlers"
     "github.com/walletera/payments/pkg/logattr"
+    "github.com/walletera/werrors"
     "go.uber.org/zap"
     "go.uber.org/zap/exp/zapslog"
     "go.uber.org/zap/zapcore"
@@ -198,7 +198,7 @@ func (app *App) createInternalMessageProcessor(logger *slog.Logger) (*messages.P
             ),
             eventsVisitor,
             messages.WithErrorCallback(
-                func(processingError procerrors.ProcessingError) {
+                func(processingError werrors.WError) {
                     logger.Error("failed processing esdb event",
                         logattr.Component("payments.service.esdb.MessageProcessor"),
                         logattr.Error(processingError.Message()))

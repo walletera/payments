@@ -6,8 +6,8 @@ import (
     "log/slog"
 
     "github.com/google/uuid"
+    "github.com/walletera/eventskit/eventsourcing"
     "github.com/walletera/message-processor/errors"
-    "github.com/walletera/message-processor/eventsourcing"
     "github.com/walletera/payments-types/api"
     "github.com/walletera/payments-types/events"
 )
@@ -27,10 +27,15 @@ func NewService(eventDB eventsourcing.DB, logger *slog.Logger) *Service {
 func (e *Service) CreatePayment(ctx context.Context, correlationId string, payment api.Payment) (*events.PaymentCreated, error) {
     // TODO do some customer related validations
     paymentCreatedEvent := CreatePayment(correlationId, payment)
-    streamName := buildStreamName(paymentCreatedEvent.Data.ID.Value)
-    err := e.eventDB.AppendEvents(ctx, streamName, paymentCreatedEvent)
+    streamName := buildStreamName(paymentCreatedEvent.Data.ID)
+    err := e.eventDB.AppendEvents(
+        ctx,
+        streamName,
+        eventsourcing.ExpectedAggregateVersion{IsNew: true},
+        paymentCreatedEvent,
+    )
     if err != nil {
-        return nil, fmt.Errorf("failed appending event %s to the stream %s", paymentCreatedEvent.EventType, streamName)
+        return nil, fmt.Errorf("failed appending event %s to the stream %s: %w", paymentCreatedEvent.EventType, streamName, err)
     }
     return &paymentCreatedEvent, nil
 }
@@ -47,7 +52,12 @@ func (e *Service) UpdatePayment(ctx context.Context, correlationId string, payme
     if err != nil {
         return err
     }
-    err = e.eventDB.AppendEvents(ctx, buildStreamName(paymentUpdate.PaymentId), paymentUpdated)
+    err = e.eventDB.AppendEvents(
+        ctx,
+        buildStreamName(paymentUpdate.PaymentId),
+        eventsourcing.ExpectedAggregateVersion{Version: paymentAggregate.Version()},
+        paymentUpdated,
+    )
     if err != nil {
         return fmt.Errorf("failed storing PaymentUpdatedEvent: %w", err)
     }
@@ -59,7 +69,7 @@ func (e *Service) GetPayment(ctx context.Context, paymentId uuid.UUID) (*api.Pay
     if err != nil {
         return nil, err
     }
-    return paymentAggregate.GetPayment(), nil
+    return paymentAggregate.Payment(), nil
 }
 
 func (e *Service) buildAggregateFromStoredEvents(ctx context.Context, paymentId uuid.UUID) (*Aggregate, error) {

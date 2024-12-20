@@ -2,7 +2,7 @@ package rabbitmq
 
 import (
     "github.com/rabbitmq/amqp091-go"
-    "github.com/walletera/message-processor/messages"
+    "github.com/walletera/eventskit/messages"
 )
 
 type Acknowledger struct {

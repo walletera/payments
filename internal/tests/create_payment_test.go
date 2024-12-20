@@ -8,8 +8,8 @@ import (
     "time"
 
     "github.com/cucumber/godog"
-    "github.com/walletera/message-processor/messages"
-    "github.com/walletera/message-processor/rabbitmq"
+    "github.com/walletera/eventskit/messages"
+    "github.com/walletera/eventskit/rabbitmq"
     "github.com/walletera/payments-types/api"
     "github.com/walletera/payments/internal/app"
     "github.com/walletera/payments/internal/domain/payment/event/handlers"

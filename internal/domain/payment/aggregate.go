@@ -5,12 +5,12 @@ import (
     "fmt"
     "time"
 
-    "github.com/walletera/message-processor/errors"
-    "github.com/walletera/message-processor/events"
-    "github.com/walletera/message-processor/eventsourcing"
+    "github.com/walletera/eventskit/events"
+    "github.com/walletera/eventskit/eventsourcing"
     "github.com/walletera/payments-types/api"
     eventtypes "github.com/walletera/payments-types/events"
     "github.com/walletera/payments/pkg/wuuid"
+    "github.com/walletera/werrors"
 )
 
 const (
@@ -32,6 +32,7 @@ type UpdateCommand struct {
 
 type Aggregate struct {
     payment api.Payment
+    version uint64
 }
 
 func CreatePayment(correlationId string, payment api.Payment) eventtypes.PaymentCreated {
@@ -50,40 +51,41 @@ func CreatePayment(correlationId string, payment api.Payment) eventtypes.Payment
     return eventtypes.NewPaymentCreated(correlationId, newPayment)
 }
 
-func NewFromEvents(deserializer events.Deserializer[eventtypes.Handler], rawEvents []eventsourcing.RawEvent) (*Aggregate, error) {
+func NewFromEvents(deserializer events.Deserializer[eventtypes.Handler], retrievedEvents []eventsourcing.RetrievedEvent) (*Aggregate, werrors.WError) {
     aggregate := &Aggregate{}
-    for _, rawEvent := range rawEvents {
-        event, err := deserializer.Deserialize(rawEvent)
+    for _, retrievedEvent := range retrievedEvents {
+        event, err := deserializer.Deserialize(retrievedEvent.RawEvent)
         if err != nil {
-            return nil, fmt.Errorf("failed deserializing event from raw event %s: %s", rawEvent, err.Error())
+            return nil, werrors.NewNonRetryableInternalError(fmt.Sprintf("failed deserializing event from raw event %s: %s", retrievedEvent, err.Error()))
         }
         if event == nil {
-            return nil, fmt.Errorf("failed deserializing event from raw event %s", rawEvent)
+            return nil, werrors.NewNonRetryableInternalError(fmt.Sprintf("failed deserializing event from raw event %s", retrievedEvent))
         }
         event.Accept(context.Background(), aggregate)
+        aggregate.version = retrievedEvent.AggregateVersion
     }
     return aggregate, nil
 }
 
 func (p *Aggregate) UpdatePayment(correlationId string, command UpdateCommand) (eventtypes.PaymentUpdated, error) {
     paymentUpdate := api.PaymentUpdate{
-        PaymentId: p.payment.ID.Value,
+        PaymentId: p.payment.ID,
     }
     if !p.canTransition(command.status) {
         currentStatus, _ := p.payment.Status.Get()
-        return eventtypes.PaymentUpdated{}, fmt.Errorf("invalid payment status transition from %s to %s", currentStatus, command.status)
+        return eventtypes.PaymentUpdated{}, werrors.NewValidationError(fmt.Sprintf("invalid payment status transition from %s to %s", currentStatus, command.status))
     }
     paymentUpdate.Status = command.status
     paymentUpdate.ExternalId = command.externalId
     return eventtypes.NewPaymentUpdated(correlationId, paymentUpdate), nil
 }
 
-func (p *Aggregate) HandlePaymentCreated(ctx context.Context, paymentCreatedEvent eventtypes.PaymentCreated) errors.ProcessingError {
+func (p *Aggregate) HandlePaymentCreated(ctx context.Context, paymentCreatedEvent eventtypes.PaymentCreated) werrors.WError {
     p.payment = paymentCreatedEvent.Data
     return nil
 }
 
-func (p *Aggregate) HandlePaymentUpdated(ctx context.Context, paymentUpdated eventtypes.PaymentUpdated) errors.ProcessingError {
+func (p *Aggregate) HandlePaymentUpdated(ctx context.Context, paymentUpdated eventtypes.PaymentUpdated) werrors.WError {
     p.payment.ExternalId = paymentUpdated.Data.ExternalId
     p.payment.Status = api.OptPaymentStatus{
         Value: paymentUpdated.Data.Status,
@@ -92,8 +94,12 @@ func (p *Aggregate) HandlePaymentUpdated(ctx context.Context, paymentUpdated eve
     return nil
 }
 
-func (p *Aggregate) GetPayment() *api.Payment {
+func (p *Aggregate) Payment() *api.Payment {
     return &p.payment
+}
+
+func (a *Aggregate) Version() uint64 {
+    return a.version
 }
 
 func (p *Aggregate) canTransition(status api.PaymentStatus) bool {

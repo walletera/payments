@@ -5,10 +5,10 @@ import (
     "fmt"
     "log/slog"
 
-    "github.com/walletera/message-processor/errors"
-    "github.com/walletera/message-processor/events"
+    "github.com/walletera/eventskit/events"
     paymentEvents "github.com/walletera/payments-types/events"
     "github.com/walletera/payments/pkg/logattr"
+    "github.com/walletera/werrors"
 )
 
 const (
@@ -29,21 +29,21 @@ func NewPaymentCreatedHandler(eventPublisher events.Publisher, logger *slog.Logg
     }
 }
 
-func (p *PaymentCreatedHandler) HandlePaymentCreated(ctx context.Context, paymentCreatedEvent paymentEvents.PaymentCreated) errors.ProcessingError {
+func (p *PaymentCreatedHandler) HandlePaymentCreated(ctx context.Context, paymentCreatedEvent paymentEvents.PaymentCreated) werrors.WError {
     return p.publish(ctx, paymentCreatedEvent, events.RoutingInfo{
         Topic:      PaymentsTopic,
         RoutingKey: PaymentCreatedRoutingKey,
     })
 }
 
-func (p *PaymentCreatedHandler) HandlePaymentUpdated(ctx context.Context, paymentUpdated paymentEvents.PaymentUpdated) errors.ProcessingError {
+func (p *PaymentCreatedHandler) HandlePaymentUpdated(ctx context.Context, paymentUpdated paymentEvents.PaymentUpdated) werrors.WError {
     return p.publish(ctx, paymentUpdated, events.RoutingInfo{
         Topic:      PaymentsTopic,
         RoutingKey: PaymentUpdatedRoutingKey,
     })
 }
 
-func (p *PaymentCreatedHandler) publish(ctx context.Context, eventData events.EventData, routingInfo events.RoutingInfo) errors.ProcessingError {
+func (p *PaymentCreatedHandler) publish(ctx context.Context, eventData events.EventData, routingInfo events.RoutingInfo) werrors.WError {
     err := p.eventPublisher.Publish(ctx, eventData, routingInfo)
     if err != nil {
         errStr := "failed publishing event"
@@ -52,7 +52,7 @@ func (p *PaymentCreatedHandler) publish(ctx context.Context, eventData events.Ev
             logattr.EventType(eventData.Type()),
             logattr.Error(err.Error()),
         )
-        return errors.NewInternalError(fmt.Sprintf("%s: %s", errStr, err.Error()))
+        return werrors.NewRetryableInternalError(fmt.Sprintf("%s: %s", errStr, err.Error()))
     }
     p.logger.Info("event published",
         logattr.CorrelationId(eventData.CorrelationID()),

@@ -6,7 +6,7 @@ import (
     "log"
     "log/slog"
 
-    "github.com/walletera/message-processor/events"
+    "github.com/walletera/eventskit/events"
     "github.com/walletera/payments-types/api"
 )
 
