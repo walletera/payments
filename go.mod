@@ -9,7 +9,7 @@ require (
 	github.com/walletera/logs-watcher v0.0.3
 	github.com/walletera/message-processor v0.0.9
 	github.com/walletera/mockserver-go-client v0.0.1
-	github.com/walletera/payments-types v0.0.5
+	github.com/walletera/payments-types v0.0.6
 	go.uber.org/zap v1.27.0
 	go.uber.org/zap/exp v0.2.0
 	golang.org/x/sync v0.7.0
@@ -86,5 +86,3 @@ require (
 	google.golang.org/protobuf v1.33.0 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 )
-
-replace github.com/walletera/payments-types v0.0.5 => /home/fedev/Code/walletera/payments-types

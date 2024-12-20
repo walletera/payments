@@ -86,7 +86,7 @@ func decodePatchPaymentResponse(resp *http.Response) (res PatchPaymentRes, _ err
 			}
 			d := jx.DecodeBytes(buf)
 
-			var response ErrorMessage
+			var response Payment
 			if err := func() error {
 				if err := response.Decode(d); err != nil {
 					return err
@@ -116,9 +116,6 @@ func decodePatchPaymentResponse(resp *http.Response) (res PatchPaymentRes, _ err
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 500:
-		// Code 500.
-		return &PatchPaymentInternalServerError{}, nil
 	}
 	return res, validate.UnexpectedStatusCode(resp.StatusCode)
 }

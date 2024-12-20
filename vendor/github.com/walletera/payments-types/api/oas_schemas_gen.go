@@ -82,8 +82,7 @@ func (s *AccountDetails) SetRoutingKey(val OptString) {
 
 type ErrorMessage string
 
-func (*ErrorMessage) patchPaymentRes() {}
-func (*ErrorMessage) postPaymentRes()  {}
+func (*ErrorMessage) postPaymentRes() {}
 
 // GetPaymentNotFound is response for GetPayment operation.
 type GetPaymentNotFound struct{}
@@ -366,11 +365,6 @@ func (o OptUUID) Or(d uuid.UUID) uuid.UUID {
 	return d
 }
 
-// PatchPaymentInternalServerError is response for PatchPayment operation.
-type PatchPaymentInternalServerError struct{}
-
-func (*PatchPaymentInternalServerError) patchPaymentRes() {}
-
 // PatchPaymentOK is response for PatchPayment operation.
 type PatchPaymentOK struct{}
 
@@ -507,8 +501,9 @@ func (s *Payment) SetUpdatedAt(val OptDateTime) {
 	s.UpdatedAt = val
 }
 
-func (*Payment) getPaymentRes()  {}
-func (*Payment) postPaymentRes() {}
+func (*Payment) getPaymentRes()   {}
+func (*Payment) patchPaymentRes() {}
+func (*Payment) postPaymentRes()  {}
 
 type PaymentDirection string
 

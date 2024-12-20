@@ -40,7 +40,7 @@ func (e *Service) UpdatePayment(ctx context.Context, correlationId string, payme
     if err != nil {
         return err
     }
-    paymentUpdated, err := paymentAggregate.UpdatePaymeqnt(correlationId, UpdateCommand{
+    paymentUpdated, err := paymentAggregate.UpdatePayment(correlationId, UpdateCommand{
         externalId: paymentUpdate.ExternalId,
         status:     paymentUpdate.Status,
     })
