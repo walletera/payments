@@ -7,9 +7,9 @@ import (
 
     "github.com/google/uuid"
     "github.com/walletera/eventskit/eventsourcing"
-    "github.com/walletera/message-processor/errors"
     "github.com/walletera/payments-types/api"
     "github.com/walletera/payments-types/events"
+    "github.com/walletera/werrors"
 )
 
 type Service struct {
@@ -24,7 +24,7 @@ func NewService(eventDB eventsourcing.DB, logger *slog.Logger) *Service {
     }
 }
 
-func (e *Service) CreatePayment(ctx context.Context, correlationId string, payment api.Payment) (*events.PaymentCreated, error) {
+func (e *Service) CreatePayment(ctx context.Context, correlationId string, payment api.Payment) (*events.PaymentCreated, werrors.WError) {
     // TODO do some customer related validations
     paymentCreatedEvent := CreatePayment(correlationId, payment)
     streamName := buildStreamName(paymentCreatedEvent.Data.ID)
@@ -35,12 +35,12 @@ func (e *Service) CreatePayment(ctx context.Context, correlationId string, payme
         paymentCreatedEvent,
     )
     if err != nil {
-        return nil, fmt.Errorf("failed appending event %s to the stream %s: %w", paymentCreatedEvent.EventType, streamName, err)
+        return nil, werrors.NewWrappedError(err, "failed appending event %s to the stream %s", paymentCreatedEvent.EventType, streamName)
     }
     return &paymentCreatedEvent, nil
 }
 
-func (e *Service) UpdatePayment(ctx context.Context, correlationId string, paymentUpdate *api.PaymentUpdate) error {
+func (e *Service) UpdatePayment(ctx context.Context, correlationId string, paymentUpdate *api.PaymentUpdate) werrors.WError {
     paymentAggregate, err := e.buildAggregateFromStoredEvents(ctx, paymentUpdate.PaymentId)
     if err != nil {
         return err
@@ -52,14 +52,15 @@ func (e *Service) UpdatePayment(ctx context.Context, correlationId string, payme
     if err != nil {
         return err
     }
+    streamName := buildStreamName(paymentUpdate.PaymentId)
     err = e.eventDB.AppendEvents(
         ctx,
-        buildStreamName(paymentUpdate.PaymentId),
+        streamName,
         eventsourcing.ExpectedAggregateVersion{Version: paymentAggregate.Version()},
         paymentUpdated,
     )
     if err != nil {
-        return fmt.Errorf("failed storing PaymentUpdatedEvent: %w", err)
+        return werrors.NewWrappedError(err, "failed appending event %s to the stream %s", paymentUpdated.EventType, streamName)
     }
     return nil
 }
@@ -72,15 +73,15 @@ func (e *Service) GetPayment(ctx context.Context, paymentId uuid.UUID) (*api.Pay
     return paymentAggregate.Payment(), nil
 }
 
-func (e *Service) buildAggregateFromStoredEvents(ctx context.Context, paymentId uuid.UUID) (*Aggregate, error) {
+func (e *Service) buildAggregateFromStoredEvents(ctx context.Context, paymentId uuid.UUID) (*Aggregate, werrors.WError) {
     streamName := buildStreamName(paymentId)
     rawEvents, err := e.eventDB.ReadEvents(ctx, streamName)
     if err != nil {
-        return nil, errors.NewInternalError(fmt.Sprintf("failed retrieving events from stream %s: %s", streamName, err.Error()))
+        return nil, werrors.NewWrappedError(err, "failed retrieving events from stream %s: %s", streamName)
     }
     paymentAggregate, err := NewFromEvents(e.deserializer, rawEvents)
     if err != nil {
-        return nil, fmt.Errorf("failed creating building payments aggregate from events: %w", err)
+        return nil, werrors.NewWrappedError(err, "failed creating building payments aggregate from events")
     }
     return paymentAggregate, nil
 }

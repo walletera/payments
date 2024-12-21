@@ -277,9 +277,6 @@ github.com/walletera/eventskit/rabbitmq
 ## explicit; go 1.20
 github.com/walletera/logs-watcher/newline
 github.com/walletera/logs-watcher/slog
-# github.com/walletera/message-processor v0.0.7
-## explicit; go 1.21
-github.com/walletera/message-processor/errors
 # github.com/walletera/mockserver-go-client v0.0.1
 ## explicit; go 1.20
 github.com/walletera/mockserver-go-client/pkg/client

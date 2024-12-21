@@ -5,7 +5,7 @@ import "fmt"
 type ErrorCode int
 
 const (
-    InternalErrorCode ErrorCode = iota + 1
+    InternalErrorCode ErrorCode = iota + 1000
     ResourceNotFoundErrorCode
     TimeoutErrorCode
     ValidationErrorCode
@@ -13,6 +13,37 @@ const (
     WrongResourceVersionErrorCode
     UnprocessableMessageErrorCode
 )
+
+// WrappedError is used to bubble up a WError
+// up to the service edge (interface) adding
+// to it contextual information from the layer where
+// it was wrapped
+type WrappedError struct {
+    werr WError
+    msg  string
+}
+
+// NewWrappedError returns a new WrappedError from werr
+func NewWrappedError(werr WError, msgf string, a ...any) *WrappedError {
+    msg := fmt.Sprintf(msgf, a)
+    return &WrappedError{werr: werr, msg: msg}
+}
+
+func (w WrappedError) Error() string {
+    return w.msg
+}
+
+func (w WrappedError) IsRetryable() bool {
+    return w.werr.IsRetryable()
+}
+
+func (w WrappedError) Code() ErrorCode {
+    return w.werr.Code()
+}
+
+func (w WrappedError) Message() string {
+    return fmt.Sprintf("%s: %s", w.msg, w.werr.Error())
+}
 
 type InternalError struct {
     wError
@@ -28,7 +59,11 @@ func newInternalError(msg string, retryable bool) InternalError {
     }
 }
 
-func NewRetryableInternalError(msg string) InternalError {
+// NewRetryableInternalError returns a retryable InternalError
+// accepts a message with optional 'verbs' (format string) and a variable list of arguments
+// the same way fmt.Sprintf functions does
+func NewRetryableInternalError(msgf string, a ...any) InternalError {
+    msg := fmt.Sprintf(msgf, a)
     return newInternalError(msg, true)
 }
 
@@ -40,12 +75,16 @@ type ResourceNotFoundError struct {
     wError
 }
 
-func NewResourceNotFoundError(msg string) ResourceNotFoundError {
+// NewResourceNotFoundError returns a ResourceNotFoundError
+// accepts a message with optional 'verbs' (format string) and a variable list of arguments
+// the same way fmt.Sprintf functions does
+func NewResourceNotFoundError(msgf string, a ...any) ResourceNotFoundError {
+    msg := fmt.Sprintf(msgf, a)
     return ResourceNotFoundError{
         wError{
             retryable: false,
             code:      ResourceNotFoundErrorCode,
-            message:   fmt.Sprintf("Resource not found error: %s", msg),
+            message:   fmt.Sprintf("resource not found error: %s", msg),
         },
     }
 }
@@ -54,7 +93,11 @@ type TimeoutError struct {
     wError
 }
 
-func NewTimeoutError(msg string) TimeoutError {
+// NewTimeoutError returns a TimeoutError
+// accepts a message with optional 'verbs' (format string) and a variable list of arguments
+// the same way fmt.Sprintf functions does
+func NewTimeoutError(msgf string, a ...any) TimeoutError {
+    msg := fmt.Sprintf(msgf, a)
     return TimeoutError{
         wError{
             retryable: true,
@@ -68,7 +111,11 @@ type ValidationError struct {
     wError
 }
 
-func NewValidationError(msg string) ValidationError {
+// NewValidationError returns a ValidationError
+// accepts a message with optional 'verbs' (format string) and a variable list of arguments
+// the same way fmt.Sprintf functions does
+func NewValidationError(msgf string, a ...any) ValidationError {
+    msg := fmt.Sprintf(msgf, a)
     return ValidationError{
         wError{
             retryable: true,
@@ -82,7 +129,11 @@ type ResourceAlreadyExistError struct {
     wError
 }
 
-func NewResourceAlreadyExistError(msg string) ResourceAlreadyExistError {
+// NewResourceAlreadyExistError returns a ResourceAlreadyExistError
+// accepts a message with optional 'verbs' (format string) and a variable list of arguments
+// the same way fmt.Sprintf functions does
+func NewResourceAlreadyExistError(msgf string, a ...any) ResourceAlreadyExistError {
+    msg := fmt.Sprintf(msgf, a)
     return ResourceAlreadyExistError{
         wError{
             retryable: false,
@@ -96,7 +147,11 @@ type WrongResourceVersionError struct {
     wError
 }
 
-func NewWrongResourceVersionError(msg string) WrongResourceVersionError {
+// NewWrongResourceVersionError returns a WrongResourceVersionError
+// accepts a message with optional 'verbs' (format string) and a variable list of arguments
+// the same way fmt.Sprintf functions does
+func NewWrongResourceVersionError(msgf string, a ...any) WrongResourceVersionError {
+    msg := fmt.Sprintf(msgf, a)
     return WrongResourceVersionError{
         wError{
             retryable: true,
@@ -110,8 +165,12 @@ type UnprocessableMessageError struct {
     wError
 }
 
-func NewUnprocessableMessageError(msg string) WrongResourceVersionError {
-    return WrongResourceVersionError{
+// NewUnprocessableMessageError returns a UnprocessableMessageError
+// accepts a message with optional 'verbs' (format string) and a variable list of arguments
+// the same way fmt.Sprintf functions does
+func NewUnprocessableMessageError(msgf string, a ...any) UnprocessableMessageError {
+    msg := fmt.Sprintf(msgf, a)
+    return UnprocessableMessageError{
         wError{
             retryable: false,
             code:      UnprocessableMessageErrorCode,

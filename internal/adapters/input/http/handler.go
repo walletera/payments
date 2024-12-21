@@ -8,6 +8,7 @@ import (
     "github.com/walletera/payments/internal/domain/payment"
     "github.com/walletera/payments/pkg/logattr"
     "github.com/walletera/payments/pkg/wuuid"
+    "github.com/walletera/werrors"
 )
 
 type Handler struct {
@@ -43,9 +44,14 @@ func (h *Handler) PatchPayment(ctx context.Context, req *api.PaymentUpdate, para
     }
     err := h.service.UpdatePayment(ctx, correlationId, req)
     if err != nil {
-        // FIXME improve error handling
-        h.logger.Error("failed getting payment", logattr.Error(err.Error()))
-        return &api.PatchPaymentInternalServerError{}, nil
+        h.logger.Error("payment creation failed", logattr.Error(err.Error()))
+        switch err.Code() {
+        case werrors.ValidationErrorCode:
+            resp := api.ErrorMessage(err.Message())
+            return &resp, nil
+        default:
+            return &api.PatchPaymentInternalServerError{}, nil
+        }
     }
     return &api.PatchPaymentOK{}, nil
 }
@@ -55,8 +61,20 @@ func (h *Handler) PostPayment(ctx context.Context, req *api.Payment, _ api.PostP
     paymentCreated, err := h.service.CreatePayment(ctx, correlationId.String(), *req)
     if err != nil {
         h.logger.Error("payment creation failed", logattr.Error(err.Error()))
-        return &api.PostPaymentInternalServerError{}, nil
+        switch err.Code() {
+        case werrors.ResourceAlreadyExistErrorCode:
+            resp := api.PostPaymentConflict("the payment you are trying to create already exist")
+            return &resp, nil
+        case werrors.ValidationErrorCode:
+            resp := api.PostPaymentBadRequest(err.Message())
+            return &resp, nil
+        default:
+            return &api.PostPaymentInternalServerError{}, nil
+        }
     }
-    h.logger.Info("payment created")
+    h.logger.Info("payment created",
+        logattr.CorrelationId(correlationId.String()),
+        logattr.PaymentId(paymentCreated.Data.ID.String()),
+    )
     return &paymentCreated.Data, nil
 }

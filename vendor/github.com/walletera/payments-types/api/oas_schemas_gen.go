@@ -83,7 +83,6 @@ func (s *AccountDetails) SetRoutingKey(val OptString) {
 type ErrorMessage string
 
 func (*ErrorMessage) patchPaymentRes() {}
-func (*ErrorMessage) postPaymentRes()  {}
 
 // GetPaymentInternalServerError is response for GetPayment operation.
 type GetPaymentInternalServerError struct{}
@@ -652,6 +651,14 @@ func (s *PaymentUpdate) SetExternalId(val OptUUID) {
 func (s *PaymentUpdate) SetStatus(val PaymentStatus) {
 	s.Status = val
 }
+
+type PostPaymentBadRequest ErrorMessage
+
+func (*PostPaymentBadRequest) postPaymentRes() {}
+
+type PostPaymentConflict ErrorMessage
+
+func (*PostPaymentConflict) postPaymentRes() {}
 
 // PostPaymentInternalServerError is response for PostPayment operation.
 type PostPaymentInternalServerError struct{}

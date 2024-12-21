@@ -67,13 +67,17 @@ func NewFromEvents(deserializer events.Deserializer[eventtypes.Handler], retriev
     return aggregate, nil
 }
 
-func (p *Aggregate) UpdatePayment(correlationId string, command UpdateCommand) (eventtypes.PaymentUpdated, error) {
+func (p *Aggregate) UpdatePayment(correlationId string, command UpdateCommand) (eventtypes.PaymentUpdated, werrors.WError) {
     paymentUpdate := api.PaymentUpdate{
         PaymentId: p.payment.ID,
     }
     if !p.canTransition(command.status) {
         currentStatus, _ := p.payment.Status.Get()
-        return eventtypes.PaymentUpdated{}, werrors.NewValidationError(fmt.Sprintf("invalid payment status transition from %s to %s", currentStatus, command.status))
+        return eventtypes.PaymentUpdated{}, werrors.NewValidationError(
+            "invalid payment status transition from %s to %s",
+            currentStatus,
+            command.status,
+        )
     }
     paymentUpdate.Status = command.status
     paymentUpdate.ExternalId = command.externalId

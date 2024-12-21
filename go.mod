@@ -8,7 +8,6 @@ require (
 	github.com/testcontainers/testcontainers-go v0.30.0
 	github.com/walletera/eventskit v0.0.0-20241220121922-5fc47ec05384
 	github.com/walletera/logs-watcher v0.0.3
-	github.com/walletera/message-processor v0.0.7
 	github.com/walletera/mockserver-go-client v0.0.1
 	github.com/walletera/payments-types v0.0.6
 	github.com/walletera/werrors v0.0.3
