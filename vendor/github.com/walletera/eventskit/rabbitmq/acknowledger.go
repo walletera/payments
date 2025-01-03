@@ -20,5 +20,6 @@ func (a *Acknowledger) Ack() error {
 }
 
 func (a *Acknowledger) Nack(opts messages.NackOpts) error {
-    return a.delivery.Nack(false, opts.Requeue)
+    // TODO implement a way to limit the retries
+    return a.delivery.Nack(false, false)
 }

@@ -2,7 +2,6 @@ package payment
 
 import (
     "context"
-    "fmt"
     "time"
 
     "github.com/walletera/eventskit/events"
@@ -56,10 +55,10 @@ func NewFromEvents(deserializer events.Deserializer[eventtypes.Handler], retriev
     for _, retrievedEvent := range retrievedEvents {
         event, err := deserializer.Deserialize(retrievedEvent.RawEvent)
         if err != nil {
-            return nil, werrors.NewNonRetryableInternalError(fmt.Sprintf("failed deserializing event from raw event %s: %s", retrievedEvent, err.Error()))
+            return nil, werrors.NewNonRetryableInternalError("failed deserializing event from raw event %s: %s", retrievedEvent.RawEvent, err.Error())
         }
         if event == nil {
-            return nil, werrors.NewNonRetryableInternalError(fmt.Sprintf("failed deserializing event from raw event %s", retrievedEvent))
+            return nil, werrors.NewNonRetryableInternalError("failed deserializing event from raw event %s", retrievedEvent.RawEvent)
         }
         event.Accept(context.Background(), aggregate)
         aggregate.version = retrievedEvent.AggregateVersion

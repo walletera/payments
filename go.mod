@@ -6,11 +6,11 @@ require (
 	github.com/cucumber/godog v0.14.1
 	github.com/google/uuid v1.6.0
 	github.com/testcontainers/testcontainers-go v0.30.0
-	github.com/walletera/eventskit v0.0.0-20241220121922-5fc47ec05384
+	github.com/walletera/eventskit v0.0.2
 	github.com/walletera/logs-watcher v0.0.3
 	github.com/walletera/mockserver-go-client v0.0.1
-	github.com/walletera/payments-types v0.0.6
-	github.com/walletera/werrors v0.0.3
+	github.com/walletera/payments-types v0.0.8
+	github.com/walletera/werrors v0.0.6
 	go.uber.org/zap v1.27.0
 	go.uber.org/zap/exp v0.2.0
 	golang.org/x/sync v0.7.0
@@ -86,10 +86,4 @@ require (
 	google.golang.org/grpc v1.63.2 // indirect
 	google.golang.org/protobuf v1.33.0 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
-)
-
-replace (
-	github.com/walletera/eventskit v0.0.0-20241220121922-5fc47ec05384 => /home/fedev/Code/walletera/eventskit
-	github.com/walletera/payments-types v0.0.6 => /home/fedev/Code/walletera/payments-types
-	github.com/walletera/werrors v0.0.3 => /home/fedev/Code/walletera/werrors
 )

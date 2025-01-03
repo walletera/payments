@@ -23,9 +23,17 @@ type WrappedError struct {
     msg  string
 }
 
-// NewWrappedError returns a new WrappedError from werr
-func NewWrappedError(werr WError, msgf string, a ...any) *WrappedError {
-    msg := fmt.Sprintf(msgf, a)
+// NewWrappedError returns a new WrappedError from werr.
+// It accepts a msgf with optional 'verbs' (format string) and a variable list of arguments
+// the same way fmt.Sprintf functions does
+func NewWrappedError(werr WError, msgfAndArgs ...any) *WrappedError {
+    var msg string
+    if len(msgfAndArgs) >= 1 {
+        msg, _ = msgfAndArgs[0].(string)
+        if len(msg) > 0 && len(msgfAndArgs) > 1 {
+            msg = fmt.Sprintf(msg, msgfAndArgs[1:]...)
+        }
+    }
     return &WrappedError{werr: werr, msg: msg}
 }
 
@@ -42,7 +50,11 @@ func (w WrappedError) Code() ErrorCode {
 }
 
 func (w WrappedError) Message() string {
-    return fmt.Sprintf("%s: %s", w.msg, w.werr.Error())
+    if len(w.msg) > 0 {
+        return fmt.Sprintf("%s: %s", w.msg, w.werr.Error())
+    } else {
+        return w.werr.Error()
+    }
 }
 
 type InternalError struct {
@@ -67,7 +79,11 @@ func NewRetryableInternalError(msgf string, a ...any) InternalError {
     return newInternalError(msg, true)
 }
 
-func NewNonRetryableInternalError(msg string) InternalError {
+// NewNonRetryableInternalError returns a retryable InternalError
+// accepts a message with optional 'verbs' (format string) and a variable list of arguments
+// the same way fmt.Sprintf functions does
+func NewNonRetryableInternalError(msgf string, a ...any) InternalError {
+    msg := fmt.Sprintf(msgf, a)
     return newInternalError(msg, false)
 }
 
