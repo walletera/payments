@@ -6,7 +6,8 @@ Feature: Get payment
     Given a running payments service
 
   Scenario: A customer can retrieve an outbound payment by id
-    Given the following payment:
+    Given an authorized walletera customer
+      And the following payment:
     """json
     {
       "id": "8e38b2f9-af7d-4a80-a9ed-6f5f395004dd",
@@ -47,6 +48,7 @@ Feature: Get payment
     """
 
   Scenario: A customer try to retrieve a non existent outbound payment
-    When the payments service receive a GET request to retrieve the payment with id: "01939cfe-849e-79c4-b2aa-285522817e69"
-    Then the payments service returns 404 Not Found
+    Given an authorized walletera customer
+     When the payments service receive a GET request to retrieve the payment with id: "01939cfe-849e-79c4-b2aa-285522817e69"
+     Then the payments service returns 404 Not Found
 

@@ -2,12 +2,14 @@ package app
 
 import (
     "context"
+    "encoding/base64"
     "errors"
     "fmt"
     "log/slog"
     "net/http"
     "time"
 
+    "github.com/golang-jwt/jwt"
     "github.com/walletera/eventskit/eventstoredb"
     "github.com/walletera/eventskit/messages"
     "github.com/walletera/eventskit/rabbitmq"
@@ -33,14 +35,15 @@ const (
 )
 
 type App struct {
-    rabbitmqHost     string
-    rabbitmqPort     int
-    rabbitmqUser     string
-    rabbitmqPassword string
-    httpServerPort   int
-    esdbUrl          string
-    logHandler       slog.Handler
-    logger           *slog.Logger
+    rabbitmqHost            string
+    rabbitmqPort            int
+    rabbitmqUser            string
+    rabbitmqPassword        string
+    httpServerPort          int
+    esdbUrl                 string
+    authServiceBase64PubKey string
+    logHandler              slog.Handler
+    logger                  *slog.Logger
 }
 
 func NewApp(opts ...Option) (*App, error) {
@@ -126,11 +129,16 @@ func (app *App) startHTTPServer(appLogger *slog.Logger) (*http.Server, error) {
     }
     db := eventstoredb.NewDB(esdbClient)
     paymentService := payment.NewService(db, appLogger)
+    securityHandler, err := app.newSecurityHandler()
+    if err != nil {
+        return nil, err
+    }
     server, err := api.NewServer(
         httpadapter.NewHandler(
             paymentService,
             appLogger.With(logattr.Component("http.Handler")),
         ),
+        securityHandler,
     )
     if err != nil {
         panic(err)
@@ -150,6 +158,18 @@ func (app *App) startHTTPServer(appLogger *slog.Logger) (*http.Server, error) {
     appLogger.Info("http server started")
 
     return httpServer, nil
+}
+
+func (app *App) newSecurityHandler() (*httpadapter.SecurityHandler, error) {
+    pemPubKey, err := base64.StdEncoding.DecodeString(app.authServiceBase64PubKey)
+    if err != nil {
+        return nil, err
+    }
+    rsaPubKey, err := jwt.ParseRSAPublicKeyFromPEM(pemPubKey)
+    if err != nil {
+        return nil, err
+    }
+    return httpadapter.NewSecurityHandler(rsaPubKey), nil
 }
 
 func (app *App) stopHTTPServer(ctx context.Context, httpServer *http.Server, appLogger *slog.Logger) {

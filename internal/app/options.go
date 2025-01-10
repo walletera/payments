@@ -4,6 +4,12 @@ import "log/slog"
 
 type Option func(app *App)
 
+func WithBase64AuthPubKey(key string) func(a *App) {
+    return func(a *App) {
+        a.authServiceBase64PubKey = key
+    }
+}
+
 func WithRabbitmqHost(host string) func(a *App) {
     return func(a *App) {
         a.rabbitmqHost = host

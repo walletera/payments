@@ -52,9 +52,12 @@ func InitializeCreatePaymentScenario(ctx *godog.ScenarioContext) {
     ctx.Before(beforeScenarioHook)
     ctx.Step(`^a running payments service$`, aRunningPaymentsService)
     ctx.Step(`^a running payments events consumer with queueName: "([^"]*)"$`, consumePaymentEvents)
-    ctx.Step(`^a walletera customer$`, aWalleteraCustomer)
+    ctx.Step(`^an authorized walletera customer$`, anAuthorizedWalleteraCustomer)
+    ctx.Step(`^an unauthorized walletera customer$`, anUnauthorizedWalleteraCustomer)
+    ctx.Step(`^a walletera customer with an invalid token$`, aWalleteraCustomerWithAnInvalidToken)
     ctx.Step(`^the customer sends the following payment to the payments endpoint:$`, theCustomerSendsTheFollowingPayment)
     ctx.Step(`^the endpoint returns the http status code 201$`, theEndpointReturnsTheHttpStatusCode201)
+    ctx.Step(`^the endpoint returns the http status code 401`, theEndpointReturnsTheHttpStatusCode401)
     ctx.Step(`^the payments service publish the following event:$`, thePaymentsServicePublishTheFollowingEvent)
     ctx.After(afterScenarioHook)
 }
@@ -77,10 +80,6 @@ func consumePaymentEvents(ctx context.Context, queueName string) (context.Contex
     return ctx, nil
 }
 
-func aWalleteraCustomer(ctx context.Context) (context.Context, error) {
-    return ctx, nil
-}
-
 func theCustomerSendsTheFollowingPayment(ctx context.Context, rawPayment *godog.DocString) (context.Context, error) {
     res, err := createPayment(ctx, rawPayment.Content)
     if err != nil {
@@ -91,6 +90,14 @@ func theCustomerSendsTheFollowingPayment(ctx context.Context, rawPayment *godog.
 
 func theEndpointReturnsTheHttpStatusCode201(ctx context.Context) (context.Context, error) {
     res, ok := ctx.Value(postPaymentResponseKey).(*api.Payment)
+    if !ok {
+        return ctx, fmt.Errorf("postPayment response is not what we expect: %v", res)
+    }
+    return ctx, nil
+}
+
+func theEndpointReturnsTheHttpStatusCode401(ctx context.Context) (context.Context, error) {
+    res, ok := ctx.Value(postPaymentResponseKey).(*api.PostPaymentUnauthorized)
     if !ok {
         return ctx, fmt.Errorf("postPayment response is not what we expect: %v", res)
     }

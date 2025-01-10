@@ -3,21 +3,26 @@ package tests
 import (
     "bytes"
     "context"
+    "encoding/base64"
     "encoding/json"
     "fmt"
     "log/slog"
     "math/rand"
     "net/http"
     "net/url"
+    "os"
     "strconv"
     "time"
 
     "github.com/cucumber/godog"
+    "github.com/golang-jwt/jwt"
     "github.com/walletera/eventskit/rabbitmq"
     slogwatcher "github.com/walletera/logs-watcher/slog"
     msClient "github.com/walletera/mockserver-go-client/pkg/client"
     "github.com/walletera/payments-types/api"
     "github.com/walletera/payments/internal/app"
+    "github.com/walletera/payments/internal/tests/httpauth"
+    "github.com/walletera/payments/pkg/auth"
     "github.com/walletera/payments/pkg/logattr"
     "github.com/walletera/payments/pkg/wuuid"
     "go.uber.org/zap"
@@ -32,6 +37,8 @@ const (
     paymentCreatedKey         = "paymentCreatedKey"
     appCtxCancelFuncKey       = "appCtxCancelFuncKey"
     logsWatcherKey            = "logsWatcher"
+    authTokenKey              = "authToken"
+    customerIdKey             = "customerIdKey"
     logsWatcherWaitForTimeout = 5 * time.Second
 )
 
@@ -70,10 +77,16 @@ func afterScenarioHook(ctx context.Context, _ *godog.Scenario, err error) (conte
 func aRunningPaymentsService(ctx context.Context) (context.Context, error) {
 
     logHandler := logsWatcherFromCtx(ctx).DecoratedHandler()
-
     appCtx, appCtxCancelFunc := context.WithCancel(ctx)
+
+    base64Key, err := os.ReadFile("testdata/rsa_pub_key_base64")
+    if err != nil {
+        return ctx, err
+    }
+
     go func() {
         app, err := app.NewApp(
+            app.WithBase64AuthPubKey(string(base64Key)),
             app.WithRabbitmqHost(rabbitmq.DefaultHost),
             app.WithRabbitmqPort(rabbitmq.DefaultPort),
             app.WithRabbitmqUser(rabbitmq.DefaultUser),
@@ -101,6 +114,111 @@ func aRunningPaymentsService(ctx context.Context) (context.Context, error) {
     return ctx, nil
 }
 
+func aWalleteraCustomerWithAnInvalidToken(ctx context.Context) (context.Context, error) {
+    customerId := wuuid.NewUUID().String()
+    wjwt := auth.WJWT{
+        UID:   customerId,
+        State: "active",
+        StandardClaims: jwt.StandardClaims{
+            Audience:  "payments",
+            ExpiresAt: time.Now().Add(10 * time.Second).Unix(),
+            Id:        wuuid.NewUUID().String(),
+            IssuedAt:  time.Now().Unix(),
+            Issuer:    "auth-service",
+        },
+    }
+
+    rawRsaPrivateKey, err := readBase64RsaKeyFromFile("testdata/rsa_priv_key_base64_invalid")
+    if err != nil {
+        return ctx, err
+    }
+
+    rsaPrivateKey, err := jwt.ParseRSAPrivateKeyFromPEM(rawRsaPrivateKey)
+    if err != nil {
+        return ctx, err
+    }
+
+    signedToken, err := jwt.NewWithClaims(jwt.SigningMethodRS256, wjwt).SignedString(rsaPrivateKey)
+    if err != nil {
+        return ctx, err
+    }
+
+    return context.WithValue(
+        context.WithValue(
+            ctx,
+            authTokenKey,
+            signedToken,
+        ),
+        customerIdKey,
+        customerId,
+    ), nil
+}
+
+func anUnauthorizedWalleteraCustomer(ctx context.Context) (context.Context, error) {
+    customerId := wuuid.NewUUID().String()
+    return context.WithValue(
+        context.WithValue(
+            ctx,
+            authTokenKey,
+            "",
+        ),
+        customerIdKey,
+        customerId,
+    ), nil
+}
+
+func anAuthorizedWalleteraCustomer(ctx context.Context) (context.Context, error) {
+    customerId := wuuid.NewUUID().String()
+    wjwt := auth.WJWT{
+        UID:   customerId,
+        State: "active",
+        StandardClaims: jwt.StandardClaims{
+            Audience:  "payments",
+            ExpiresAt: time.Now().Add(10 * time.Second).Unix(),
+            Id:        wuuid.NewUUID().String(),
+            IssuedAt:  time.Now().Unix(),
+            Issuer:    "auth-service",
+        },
+    }
+
+    rawRsaPrivateKey, err := readBase64RsaKeyFromFile("testdata/rsa_priv_key_base64")
+    if err != nil {
+        return ctx, err
+    }
+
+    rsaPrivateKey, err := jwt.ParseRSAPrivateKeyFromPEM(rawRsaPrivateKey)
+    if err != nil {
+        return ctx, err
+    }
+
+    signedToken, err := jwt.NewWithClaims(jwt.SigningMethodRS256, wjwt).SignedString(rsaPrivateKey)
+    if err != nil {
+        return ctx, err
+    }
+
+    return context.WithValue(
+        context.WithValue(
+            ctx,
+            authTokenKey,
+            signedToken,
+        ),
+        customerIdKey,
+        customerId,
+    ), nil
+}
+
+func readBase64RsaKeyFromFile(filePath string) ([]byte, error) {
+    base64RsaPrivKey, err := os.ReadFile(filePath)
+    if err != nil {
+        return nil, err
+    }
+    rsaPrivKey, err := base64.StdEncoding.DecodeString(string(base64RsaPrivKey))
+    if err != nil {
+        return nil, err
+    }
+    return rsaPrivKey, nil
+}
+
 func createMockServerExpectation(ctx context.Context, mockserverExpectation string, ctxKey string) (context.Context, error) {
     if len(mockserverExpectation) == 0 {
         return nil, fmt.Errorf("the mockserver expectation is empty or was not defined")
@@ -125,7 +243,10 @@ func createMockServerExpectation(ctx context.Context, mockserverExpectation stri
 }
 
 func createPayment(ctx context.Context, paymentJson string) (api.PostPaymentRes, error) {
-    paymentsClient, err := api.NewClient(fmt.Sprintf("http://127.0.0.1:%d", httpServerPort))
+    paymentsClient, err := api.NewClient(
+        fmt.Sprintf("http://127.0.0.1:%d", httpServerPort),
+        httpauth.NewSecuritySource(authTokenFromCtx(ctx)),
+    )
     if err != nil {
         return nil, err
     }
@@ -171,7 +292,10 @@ func thePaymentsServicePublishTheFollowingEvent(ctx context.Context, eventMatche
 
 func thePaymentsServiceReceiveAPATCHRequestToUpdateThePayment(ctx context.Context, status string) (context.Context, error) {
     payment := paymentCreatedFromCtx(ctx)
-    paymentsClient, err := api.NewClient(fmt.Sprintf("http://127.0.0.1:%d", httpServerPort))
+    paymentsClient, err := api.NewClient(
+        fmt.Sprintf("http://127.0.0.1:%d", httpServerPort),
+        httpauth.NewSecuritySource(authTokenFromCtx(ctx)),
+    )
     if err != nil {
         return nil, err
     }
@@ -293,6 +417,10 @@ func appCtxCancelFuncFromCtx(ctx context.Context) context.CancelFunc {
 
 func logsWatcherFromCtx(ctx context.Context) *slogwatcher.Watcher {
     return ctx.Value(logsWatcherKey).(*slogwatcher.Watcher)
+}
+
+func authTokenFromCtx(ctx context.Context) string {
+    return ctx.Value(authTokenKey).(string)
 }
 
 func paymentCreatedFromCtx(ctx context.Context) *api.Payment {

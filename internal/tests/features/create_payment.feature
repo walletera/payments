@@ -6,7 +6,7 @@ Feature: Create outbound payment
       And a running payments events consumer with queueName: "createPaymentTestQueue"
 
   Scenario: a payment is created successfully
-    Given a walletera customer
+    Given an authorized walletera customer
     When  the customer sends the following payment to the payments endpoint:
     """json
     {
@@ -44,3 +44,39 @@ Feature: Create outbound payment
       }
     }
     """
+
+  Scenario: payment creation failed due to missing authentication token
+    Given an unauthorized walletera customer
+    When  the customer sends the following payment to the payments endpoint:
+    """json
+    {
+      "id": "bdf48329-d870-4fb4-882a-0fa0aef28a63",
+      "amount": 100,
+      "currency": "ARS",
+      "beneficiary": {
+        "bankName": "dinopay",
+        "bankId": "dinopay",
+        "accountHolder": "John Doe",
+        "routingKey": "123456789123456"
+      }
+    }
+    """
+    Then the endpoint returns the http status code 401
+
+  Scenario: payment creation failed due to invalid authentication token
+    Given a walletera customer with an invalid token
+    When  the customer sends the following payment to the payments endpoint:
+    """json
+    {
+      "id": "bdf48329-d870-4fb4-882a-0fa0aef28a63",
+      "amount": 100,
+      "currency": "ARS",
+      "beneficiary": {
+        "bankName": "dinopay",
+        "bankId": "dinopay",
+        "accountHolder": "John Doe",
+        "routingKey": "123456789123456"
+      }
+    }
+    """
+    Then the endpoint returns the http status code 401

@@ -11,6 +11,7 @@ import (
     "github.com/cucumber/godog"
     "github.com/google/uuid"
     "github.com/walletera/payments-types/api"
+    "github.com/walletera/payments/internal/tests/httpauth"
     "go.uber.org/zap/exp/zapslog"
 )
 
@@ -65,7 +66,10 @@ func theFollowingPayment(ctx context.Context, paymentJson *godog.DocString) (con
 }
 
 func thePaymentsServiceReceivesAGETRequestToRetrieveThePayment(ctx context.Context, paymentIdStr string) (context.Context, error) {
-    paymentsClient, err := api.NewClient(fmt.Sprintf("http://127.0.0.1:%d", httpServerPort))
+    paymentsClient, err := api.NewClient(
+        fmt.Sprintf("http://127.0.0.1:%d", httpServerPort),
+        httpauth.NewSecuritySource(authTokenFromCtx(ctx)),
+    )
     if err != nil {
         return nil, err
     }
