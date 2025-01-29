@@ -34,8 +34,12 @@ func WithRabbitmqPassword(password string) func(a *App) {
     }
 }
 
-func WithHttpServerPort(port int) func(app *App) {
-    return func(app *App) { app.httpServerPort = port }
+func WithPublicAPIHttpServerPort(port int) func(app *App) {
+    return func(app *App) { app.publicAPIHttpServerPort = port }
+}
+
+func WithPrivateAPIHttpServerPort(port int) func(app *App) {
+    return func(app *App) { app.privateAPIHttpServerPort = port }
 }
 
 func WithESDBUrl(url string) func(app *App) {

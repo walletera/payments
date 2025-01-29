@@ -8,10 +8,10 @@ require (
 	github.com/google/uuid v1.6.0
 	github.com/stretchr/testify v1.9.0
 	github.com/testcontainers/testcontainers-go v0.30.0
-	github.com/walletera/eventskit v0.0.2
+	github.com/walletera/eventskit v0.0.3
 	github.com/walletera/logs-watcher v0.0.3
 	github.com/walletera/mockserver-go-client v0.0.1
-	github.com/walletera/payments-types v0.0.8
+	github.com/walletera/payments-types v0.0.9
 	github.com/walletera/werrors v0.0.6
 	go.uber.org/zap v1.27.0
 	go.uber.org/zap/exp v0.2.0
@@ -92,5 +92,3 @@ require (
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
-
-replace github.com/walletera/payments-types v0.0.8 => /home/fedev/Code/walletera/payments-types

@@ -1,4 +1,4 @@
-package http
+package private
 
 import (
     "context"
@@ -26,7 +26,6 @@ func NewHandler(service *payment.Service, logger *slog.Logger) *Handler {
 }
 
 func (h *Handler) GetPayment(ctx context.Context, params api.GetPaymentParams) (api.GetPaymentRes, error) {
-    _ = getCustomerIdFromCtx(ctx)
     // TODO add customer to payment stream name
     payment, err := h.service.GetPayment(ctx, params.PaymentId)
     if err != nil {
@@ -38,7 +37,6 @@ func (h *Handler) GetPayment(ctx context.Context, params api.GetPaymentParams) (
 }
 
 func (h *Handler) PatchPayment(ctx context.Context, req *api.PaymentUpdate, params api.PatchPaymentParams) (api.PatchPaymentRes, error) {
-    _ = getCustomerIdFromCtx(ctx)
     var correlationId string
     if params.XWalleteraCorrelationID.Set {
         correlationId = params.XWalleteraCorrelationID.Value.String()
@@ -61,7 +59,6 @@ func (h *Handler) PatchPayment(ctx context.Context, req *api.PaymentUpdate, para
 }
 
 func (h *Handler) PostPayment(ctx context.Context, req *api.Payment, params api.PostPaymentParams) (api.PostPaymentRes, error) {
-    _ = getCustomerIdFromCtx(ctx)
     var correlationId string
     if params.XWalleteraCorrelationID.Set {
         correlationId = params.XWalleteraCorrelationID.Value.String()
@@ -89,16 +86,4 @@ func (h *Handler) PostPayment(ctx context.Context, req *api.Payment, params api.
         logattr.PaymentId(paymentCreated.Data.ID.String()),
     )
     return &paymentCreated.Data, nil
-}
-
-func getCustomerIdFromCtx(ctx context.Context) string {
-    customerIdFromCtx := ctx.Value(WJWTCustomerIdCtxKey)
-    if customerIdFromCtx == nil {
-        panic("customerId not found in context")
-    }
-    customerId, _ := customerIdFromCtx.(string)
-    if len(customerId) == 0 {
-        panic("customerId is empty")
-    }
-    return customerId
 }

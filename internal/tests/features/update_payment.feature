@@ -6,7 +6,7 @@ Feature: Update outbound payment
       And a running payments events consumer with queueName: "updatePaymentTestQueue"
 
   Scenario: a pending payment is successfully updated to confirmed
-    Given an authorized walletera customer
+    Given an authorized walletera internal service
       And a payment in pending status
      When the payments service receive a PATCH request to update the payment to status: "confirmed"
      Then the payment is updated to status: "confirmed"
@@ -24,7 +24,7 @@ Feature: Update outbound payment
     """
 
   Scenario: a pending payment is successfully updated to failed
-    Given an authorized walletera customer
+    Given an authorized walletera internal service
       And a payment in pending status
      When the payments service receive a PATCH request to update the payment to status: "failed"
      Then the payment is updated to status: "failed"

@@ -34,6 +34,8 @@ import (
 const (
     eventStoreDBUrl           = "esdb://localhost:2113?tls=false"
     mockserverUrl             = "http://localhost:2090"
+    publicApiHttpServerPort   = 8484
+    privateApiHttpServerPort  = 8585
     paymentCreatedKey         = "paymentCreatedKey"
     appCtxCancelFuncKey       = "appCtxCancelFuncKey"
     logsWatcherKey            = "logsWatcher"
@@ -92,7 +94,8 @@ func aRunningPaymentsService(ctx context.Context) (context.Context, error) {
             app.WithRabbitmqUser(rabbitmq.DefaultUser),
             app.WithRabbitmqPassword(rabbitmq.DefaultPassword),
             app.WithESDBUrl(eventStoreDBUrl),
-            app.WithHttpServerPort(httpServerPort),
+            app.WithPublicAPIHttpServerPort(publicApiHttpServerPort),
+            app.WithPrivateAPIHttpServerPort(privateApiHttpServerPort),
             app.WithLogHandler(logHandler),
         )
         if err != nil {
@@ -242,9 +245,9 @@ func createMockServerExpectation(ctx context.Context, mockserverExpectation stri
     return ctx, nil
 }
 
-func createPayment(ctx context.Context, paymentJson string) (api.PostPaymentRes, error) {
+func createPayment(ctx context.Context, paymentJson string, port int) (api.PostPaymentRes, error) {
     paymentsClient, err := api.NewClient(
-        fmt.Sprintf("http://127.0.0.1:%d", httpServerPort),
+        fmt.Sprintf("http://127.0.0.1:%d", port),
         httpauth.NewSecuritySource(authTokenFromCtx(ctx)),
     )
     if err != nil {
@@ -293,14 +296,14 @@ func thePaymentsServicePublishTheFollowingEvent(ctx context.Context, eventMatche
 func thePaymentsServiceReceiveAPATCHRequestToUpdateThePayment(ctx context.Context, status string) (context.Context, error) {
     payment := paymentCreatedFromCtx(ctx)
     paymentsClient, err := api.NewClient(
-        fmt.Sprintf("http://127.0.0.1:%d", httpServerPort),
+        fmt.Sprintf("http://127.0.0.1:%d", privateApiHttpServerPort),
         httpauth.NewSecuritySource(authTokenFromCtx(ctx)),
     )
     if err != nil {
         return nil, err
     }
     requestCtx, _ := context.WithTimeout(ctx, 200*time.Second)
-    _, err = paymentsClient.PatchPayment(requestCtx, &api.PaymentUpdate{
+    patchPaymentResp, err := paymentsClient.PatchPayment(requestCtx, &api.PaymentUpdate{
         PaymentId: payment.ID,
         ExternalId: api.OptUUID{
             Value: wuuid.NewUUID(),
@@ -317,7 +320,16 @@ func thePaymentsServiceReceiveAPATCHRequestToUpdateThePayment(ctx context.Contex
     if err != nil {
         return nil, err
     }
-    return ctx, err
+    switch patchPaymentResp.(type) {
+    case *api.PatchPaymentOK:
+        return ctx, nil
+    case *api.PatchPaymentUnauthorized:
+        return ctx, fmt.Errorf("unauthorized patch payment request")
+    case *api.PatchPaymentInternalServerError:
+        return ctx, fmt.Errorf("patch payment request returned internal server error")
+    default:
+        return ctx, fmt.Errorf("patch payment request return unexpected response")
+    }
 }
 
 func createJSONMatcher(ctx context.Context, expectationId string, eventMatcher string) (context.Context, error) {

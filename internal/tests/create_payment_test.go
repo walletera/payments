@@ -21,7 +21,6 @@ import (
 const (
     postPaymentResponseKey = "postPaymentResponse"
     eventsMsgChKey         = "eventsMsgChKey"
-    httpServerPort         = 8484
 )
 
 var testLogger *slog.Logger
@@ -81,7 +80,7 @@ func consumePaymentEvents(ctx context.Context, queueName string) (context.Contex
 }
 
 func theCustomerSendsTheFollowingPayment(ctx context.Context, rawPayment *godog.DocString) (context.Context, error) {
-    res, err := createPayment(ctx, rawPayment.Content)
+    res, err := createPayment(ctx, rawPayment.Content, publicApiHttpServerPort)
     if err != nil {
         return ctx, err
     }

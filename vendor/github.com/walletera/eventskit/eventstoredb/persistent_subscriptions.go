@@ -9,12 +9,7 @@ import (
 )
 
 func CreatePersistentSubscription(connectionString string, streamName string, groupName string) error {
-    settings, err := esdb.ParseConnectionString(connectionString)
-    if err != nil {
-        return err
-    }
-
-    esdbClient, err := esdb.NewClient(settings)
+    esdbClient, err := GetESDBClient(connectionString)
     if err != nil {
         return err
     }

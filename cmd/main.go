@@ -22,7 +22,8 @@ func main() {
     rabbitmqUser := mustGetEnv("RABBITMQ_USER")
     rabbitmqPassword := mustGetEnv("RABBITMQ_PASSWORD")
     eventstoredbURL := mustGetEnv("EVENTSTOREDB_URL")
-    httpServerPort := mustGetIntEnv("HTTP_SERVER_PORT")
+    publicApiHttpServerPort := mustGetIntEnv("PUBLIC_API_HTTP_SERVER_PORT")
+    privateApiHttpServerPort := mustGetIntEnv("PRIVATE_API_HTTP_SERVER_PORT")
     base64AuthPubKey := mustGetEnv("BASE64_AUTH_PUB_KEY")
 
     app, err := app.NewApp(
@@ -31,7 +32,8 @@ func main() {
         app.WithRabbitmqUser(rabbitmqUser),
         app.WithRabbitmqPassword(rabbitmqPassword),
         app.WithESDBUrl(eventstoredbURL),
-        app.WithHttpServerPort(httpServerPort),
+        app.WithPublicAPIHttpServerPort(publicApiHttpServerPort),
+        app.WithPrivateAPIHttpServerPort(privateApiHttpServerPort),
         app.WithBase64AuthPubKey(base64AuthPubKey),
     )
     if err != nil {

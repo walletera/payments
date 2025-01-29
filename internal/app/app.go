@@ -15,7 +15,8 @@ import (
     "github.com/walletera/eventskit/rabbitmq"
     "github.com/walletera/payments-types/api"
     paymentevents "github.com/walletera/payments-types/events"
-    httpadapter "github.com/walletera/payments/internal/adapters/input/http"
+    "github.com/walletera/payments/internal/adapters/input/http/private"
+    "github.com/walletera/payments/internal/adapters/input/http/public"
     "github.com/walletera/payments/internal/domain/payment"
     "github.com/walletera/payments/internal/domain/payment/event/handlers"
     "github.com/walletera/payments/pkg/logattr"
@@ -35,15 +36,16 @@ const (
 )
 
 type App struct {
-    rabbitmqHost            string
-    rabbitmqPort            int
-    rabbitmqUser            string
-    rabbitmqPassword        string
-    httpServerPort          int
-    esdbUrl                 string
-    authServiceBase64PubKey string
-    logHandler              slog.Handler
-    logger                  *slog.Logger
+    rabbitmqHost             string
+    rabbitmqPort             int
+    rabbitmqUser             string
+    rabbitmqPassword         string
+    publicAPIHttpServerPort  int
+    privateAPIHttpServerPort int
+    esdbUrl                  string
+    authServiceBase64PubKey  string
+    logHandler               slog.Handler
+    logger                   *slog.Logger
 }
 
 func NewApp(opts ...Option) (*App, error) {
@@ -69,9 +71,14 @@ func (app *App) Run(ctx context.Context) error {
         return fmt.Errorf("failed enabling esdb by category projection: %w", err)
     }
 
-    httpServer, err := app.startHTTPServer(appLogger)
+    publicApiHttpServer, err := app.startPublicAPIHTTPServer(appLogger)
     if err != nil {
-        return fmt.Errorf("failed starting HTTP server: %w", err)
+        return fmt.Errorf("failed starting public api http server: %w", err)
+    }
+
+    privateApiHttpServer, err := app.startPrivateAPIHTTPServer(appLogger)
+    if err != nil {
+        return fmt.Errorf("failed starting private api http server: %w", err)
     }
 
     messageProcessor, err := app.createInternalMessageProcessor(appLogger)
@@ -90,7 +97,7 @@ func (app *App) Run(ctx context.Context) error {
     shutdownCtx, cancel := context.WithTimeout(context.Background(), shutdownTimeout)
     defer cancel()
 
-    app.stopHTTPServer(shutdownCtx, httpServer, appLogger)
+    app.stopHTTPServers(shutdownCtx, appLogger, publicApiHttpServer, privateApiHttpServer)
 
     // TODO Close messageProcessor
 
@@ -122,21 +129,21 @@ func (app *App) execESDBSetupTasks(ctx context.Context) error {
     return nil
 }
 
-func (app *App) startHTTPServer(appLogger *slog.Logger) (*http.Server, error) {
+func (app *App) startPublicAPIHTTPServer(appLogger *slog.Logger) (*http.Server, error) {
     esdbClient, err := eventstoredb.GetESDBClient(app.esdbUrl)
     if err != nil {
         panic(err)
     }
     db := eventstoredb.NewDB(esdbClient)
     paymentService := payment.NewService(db, appLogger)
-    securityHandler, err := app.newSecurityHandler()
+    securityHandler, err := app.newPublicAPISecurityHandler()
     if err != nil {
         return nil, err
     }
     server, err := api.NewServer(
-        httpadapter.NewHandler(
+        public.NewHandler(
             paymentService,
-            appLogger.With(logattr.Component("http.Handler")),
+            appLogger.With(logattr.Component("http.PublicAPIHandler")),
         ),
         securityHandler,
     )
@@ -144,7 +151,7 @@ func (app *App) startHTTPServer(appLogger *slog.Logger) (*http.Server, error) {
         panic(err)
     }
     httpServer := &http.Server{
-        Addr:    fmt.Sprintf("0.0.0.0:%d", app.httpServerPort),
+        Addr:    fmt.Sprintf("0.0.0.0:%d", app.publicAPIHttpServerPort),
         Handler: server,
     }
 
@@ -160,7 +167,45 @@ func (app *App) startHTTPServer(appLogger *slog.Logger) (*http.Server, error) {
     return httpServer, nil
 }
 
-func (app *App) newSecurityHandler() (*httpadapter.SecurityHandler, error) {
+func (app *App) startPrivateAPIHTTPServer(appLogger *slog.Logger) (*http.Server, error) {
+    esdbClient, err := eventstoredb.GetESDBClient(app.esdbUrl)
+    if err != nil {
+        panic(err)
+    }
+    db := eventstoredb.NewDB(esdbClient)
+    paymentService := payment.NewService(db, appLogger)
+    securityHandler := private.NewSecurityHandler()
+    if err != nil {
+        return nil, err
+    }
+    server, err := api.NewServer(
+        private.NewHandler(
+            paymentService,
+            appLogger.With(logattr.Component("http.PrivateAPIHandler")),
+        ),
+        securityHandler,
+    )
+    if err != nil {
+        panic(err)
+    }
+    httpServer := &http.Server{
+        Addr:    fmt.Sprintf("0.0.0.0:%d", app.privateAPIHttpServerPort),
+        Handler: server,
+    }
+
+    go func() {
+        defer appLogger.Info("http server stopped")
+        if err := httpServer.ListenAndServe(); err != nil && !errors.Is(err, http.ErrServerClosed) {
+            appLogger.Error("http server error", logattr.Error(err.Error()))
+        }
+    }()
+
+    appLogger.Info("http server started")
+
+    return httpServer, nil
+}
+
+func (app *App) newPublicAPISecurityHandler() (*public.SecurityHandler, error) {
     pemPubKey, err := base64.StdEncoding.DecodeString(app.authServiceBase64PubKey)
     if err != nil {
         return nil, err
@@ -169,17 +214,19 @@ func (app *App) newSecurityHandler() (*httpadapter.SecurityHandler, error) {
     if err != nil {
         return nil, err
     }
-    return httpadapter.NewSecurityHandler(rsaPubKey), nil
+    return public.NewSecurityHandler(rsaPubKey), nil
 }
 
-func (app *App) stopHTTPServer(ctx context.Context, httpServer *http.Server, appLogger *slog.Logger) {
+func (app *App) stopHTTPServers(ctx context.Context, appLogger *slog.Logger, httpServer ...*http.Server) {
     appLogger.Info("shutting down http server")
 
-    shutdownCtx, cancel := context.WithTimeout(context.Background(), shutdownTimeout)
-    defer cancel()
-    err := httpServer.Shutdown(shutdownCtx)
-    if err != nil {
-        appLogger.Error("failed shutting down http server", logattr.Error(err.Error()))
+    for _, server := range httpServer {
+        shutdownCtx, cancel := context.WithTimeout(ctx, shutdownTimeout)
+        defer cancel()
+        err := server.Shutdown(shutdownCtx)
+        if err != nil {
+            appLogger.Error("failed shutting down http server", logattr.Error(err.Error()))
+        }
     }
 }
 
