@@ -57,6 +57,7 @@ func aPaymentInPendingStatus(ctx context.Context) (context.Context, error) {
     paymentStr := `
     {
       "id": "%s",
+      "customerId": "%s",
       "amount": 100,
       "currency": "ARS",
       "beneficiary": {
@@ -67,7 +68,8 @@ func aPaymentInPendingStatus(ctx context.Context) (context.Context, error) {
       }
     }
 `
-    resp, err := createPayment(ctx, fmt.Sprintf(paymentStr, wuuid.NewUUID()), privateApiHttpServerPort)
+    paymentJson := fmt.Sprintf(paymentStr, wuuid.NewUUID(), wuuid.NewUUID())
+    resp, err := createPayment(ctx, paymentJson, privateApiHttpServerPort)
     if err != nil {
         return ctx, fmt.Errorf("error creating payment: %v", err)
     }
