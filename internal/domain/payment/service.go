@@ -24,11 +24,22 @@ func NewService(eventDB eventsourcing.DB, logger *slog.Logger) *Service {
     }
 }
 
-func (e *Service) CreatePayment(ctx context.Context, correlationId string, payment api.Payment) (*events.PaymentCreated, werrors.WError) {
-    // TODO do some customer related validations
-    paymentCreatedEvent := CreatePayment(correlationId, payment)
+func (e *Service) CreatePayment(
+    ctx context.Context,
+    correlationId string,
+    customerId uuid.UUID,
+    payment api.Payment,
+) (*events.PaymentCreated, werrors.WError) {
+    paymentCreatedEvent, err := CreatePayment(
+        correlationId,
+        customerId,
+        payment,
+    )
+    if err != nil {
+        return nil, werrors.NewWrappedError(err, "failed creating payment")
+    }
     streamName := buildStreamName(paymentCreatedEvent.Data.ID)
-    err := e.eventDB.AppendEvents(
+    err = e.eventDB.AppendEvents(
         ctx,
         streamName,
         eventsourcing.ExpectedAggregateVersion{IsNew: true},

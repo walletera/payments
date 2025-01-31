@@ -80,6 +80,35 @@ func (s *AccountDetails) SetRoutingKey(val OptString) {
 	s.RoutingKey = val
 }
 
+// Body of the error responses.
+// Ref: #/components/schemas/apiError
+type ApiError struct {
+	// A message describing the error.
+	ErrorMessage string `json:"errorMessage"`
+	// A unique identifier for the specific error.
+	ErrorCode uuid.UUID `json:"errorCode"`
+}
+
+// GetErrorMessage returns the value of ErrorMessage.
+func (s *ApiError) GetErrorMessage() string {
+	return s.ErrorMessage
+}
+
+// GetErrorCode returns the value of ErrorCode.
+func (s *ApiError) GetErrorCode() uuid.UUID {
+	return s.ErrorCode
+}
+
+// SetErrorMessage sets the value of ErrorMessage.
+func (s *ApiError) SetErrorMessage(val string) {
+	s.ErrorMessage = val
+}
+
+// SetErrorCode sets the value of ErrorCode.
+func (s *ApiError) SetErrorCode(val uuid.UUID) {
+	s.ErrorCode = val
+}
+
 type BearerAuth struct {
 	Token string
 }
@@ -93,10 +122,6 @@ func (s *BearerAuth) GetToken() string {
 func (s *BearerAuth) SetToken(val string) {
 	s.Token = val
 }
-
-type ErrorMessage string
-
-func (*ErrorMessage) patchPaymentRes() {}
 
 // GetPaymentInternalServerError is response for GetPayment operation.
 type GetPaymentInternalServerError struct{}
@@ -389,8 +414,11 @@ func (o OptUUID) Or(d uuid.UUID) uuid.UUID {
 	return d
 }
 
-// PatchPaymentInternalServerError is response for PatchPayment operation.
-type PatchPaymentInternalServerError struct{}
+type PatchPaymentBadRequest ApiError
+
+func (*PatchPaymentBadRequest) patchPaymentRes() {}
+
+type PatchPaymentInternalServerError ApiError
 
 func (*PatchPaymentInternalServerError) patchPaymentRes() {}
 
@@ -399,8 +427,7 @@ type PatchPaymentOK struct{}
 
 func (*PatchPaymentOK) patchPaymentRes() {}
 
-// PatchPaymentUnauthorized is response for PatchPayment operation.
-type PatchPaymentUnauthorized struct{}
+type PatchPaymentUnauthorized ApiError
 
 func (*PatchPaymentUnauthorized) patchPaymentRes() {}
 
@@ -676,16 +703,15 @@ func (s *PaymentUpdate) SetStatus(val PaymentStatus) {
 	s.Status = val
 }
 
-type PostPaymentBadRequest ErrorMessage
+type PostPaymentBadRequest ApiError
 
 func (*PostPaymentBadRequest) postPaymentRes() {}
 
-type PostPaymentConflict ErrorMessage
+type PostPaymentConflict ApiError
 
 func (*PostPaymentConflict) postPaymentRes() {}
 
-// PostPaymentInternalServerError is response for PostPayment operation.
-type PostPaymentInternalServerError struct{}
+type PostPaymentInternalServerError ApiError
 
 func (*PostPaymentInternalServerError) postPaymentRes() {}
 

@@ -92,3 +92,5 @@ require (
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
+
+replace github.com/walletera/payments-types v0.0.9 => /home/fedev/Code/walletera/payments-types

@@ -5,6 +5,7 @@ import (
     "log/slog"
 
     "github.com/walletera/payments-types/api"
+    "github.com/walletera/payments/internal/adapters/input/http/shared"
     "github.com/walletera/payments/internal/domain/payment"
     "github.com/walletera/payments/pkg/logattr"
     "github.com/walletera/payments/pkg/wuuid"
@@ -12,21 +13,22 @@ import (
 )
 
 type Handler struct {
-    service *payment.Service
-    logger  *slog.Logger
+    sharedOperations *shared.Operations
+    service          *payment.Service
+    logger           *slog.Logger
 }
 
 var _ api.Handler = (*Handler)(nil)
 
 func NewHandler(service *payment.Service, logger *slog.Logger) *Handler {
     return &Handler{
-        service: service,
-        logger:  logger,
+        sharedOperations: shared.NewOperations(service, logger),
+        service:          service,
+        logger:           logger,
     }
 }
 
 func (h *Handler) GetPayment(ctx context.Context, params api.GetPaymentParams) (api.GetPaymentRes, error) {
-    // TODO add customer to payment stream name
     payment, err := h.service.GetPayment(ctx, params.PaymentId)
     if err != nil {
         // FIXME improve error handling
@@ -43,16 +45,26 @@ func (h *Handler) PatchPayment(ctx context.Context, req *api.PaymentUpdate, para
     } else {
         correlationId = wuuid.NewUUID().String()
     }
-    // TODO add customer to payment stream name
     err := h.service.UpdatePayment(ctx, correlationId, req)
     if err != nil {
-        h.logger.Error("payment creation failed", logattr.Error(err.Error()))
+        errorCode := wuuid.NewUUID()
+        h.logger.Error(
+            "payment creation failed",
+            logattr.CorrelationId(correlationId),
+            logattr.Error(err.Error()),
+            logattr.ErrorCode(errorCode),
+        )
         switch err.Code() {
         case werrors.ValidationErrorCode:
-            resp := api.ErrorMessage(err.Message())
-            return &resp, nil
+            return &api.PatchPaymentBadRequest{
+                ErrorMessage: err.Message(),
+                ErrorCode:    errorCode,
+            }, nil
         default:
-            return &api.PatchPaymentInternalServerError{}, nil
+            return &api.PatchPaymentInternalServerError{
+                ErrorMessage: "unexpected internal error",
+                ErrorCode:    errorCode,
+            }, nil
         }
     }
     return &api.PatchPaymentOK{}, nil
@@ -65,25 +77,18 @@ func (h *Handler) PostPayment(ctx context.Context, req *api.Payment, params api.
     } else {
         correlationId = wuuid.NewUUID().String()
     }
-    // TODO add customer to payment stream name
-    // TODO add customer to CreatePayment method
-    paymentCreated, err := h.service.CreatePayment(ctx, correlationId, *req)
-    if err != nil {
-        h.logger.Error("payment creation failed", logattr.Error(err.Error()))
-        switch err.Code() {
-        case werrors.ResourceAlreadyExistErrorCode:
-            resp := api.PostPaymentConflict("the payment you are trying to create already exist")
-            return &resp, nil
-        case werrors.ValidationErrorCode:
-            resp := api.PostPaymentBadRequest(err.Message())
-            return &resp, nil
-        default:
-            return &api.PostPaymentInternalServerError{}, nil
+    if !req.CustomerId.Set {
+        errorCode := wuuid.NewUUID()
+        h.logger.Error(
+            "missing customerId in request",
+            logattr.ErrorCode(errorCode),
+            logattr.CorrelationId(correlationId),
+        )
+        resp := api.PostPaymentBadRequest{
+            ErrorMessage: "missing customerId",
+            ErrorCode:    errorCode,
         }
+        return &resp, nil
     }
-    h.logger.Info("payment created",
-        logattr.CorrelationId(correlationId),
-        logattr.PaymentId(paymentCreated.Data.ID.String()),
-    )
-    return &paymentCreated.Data, nil
+    return h.sharedOperations.CreatePayment(ctx, correlationId, req.CustomerId.Value, *req)
 }

@@ -4,11 +4,11 @@ import (
     "context"
     "time"
 
+    "github.com/google/uuid"
     "github.com/walletera/eventskit/events"
     "github.com/walletera/eventskit/eventsourcing"
     "github.com/walletera/payments-types/api"
     eventtypes "github.com/walletera/payments-types/events"
-    "github.com/walletera/payments/pkg/wuuid"
     "github.com/walletera/werrors"
 )
 
@@ -34,20 +34,22 @@ type Aggregate struct {
     version uint64
 }
 
-func CreatePayment(correlationId string, payment api.Payment) eventtypes.PaymentCreated {
+func CreatePayment(correlationId string, customerId uuid.UUID, payment api.Payment) (eventtypes.PaymentCreated, werrors.WError) {
     newPayment := payment
+    newPayment.CustomerId = api.OptUUID{
+        Value: customerId,
+        Set:   true,
+    }
     newPayment.Status = api.OptPaymentStatus{
         Value: api.PaymentStatusPending,
         Set:   true,
     }
     newPayment.Direction = api.NewOptPaymentDirection(api.PaymentDirectionOutbound)
-    // FIXME hardcoded to make test pass
-    newPayment.CustomerId = api.NewOptUUID(wuuid.NewUUID())
     newPayment.CreatedAt = api.OptDateTime{
         Value: time.Now(),
         Set:   true,
     }
-    return eventtypes.NewPaymentCreated(correlationId, newPayment)
+    return eventtypes.NewPaymentCreated(correlationId, newPayment), nil
 }
 
 func NewFromEvents(deserializer events.Deserializer[eventtypes.Handler], retrievedEvents []eventsourcing.RetrievedEvent) (*Aggregate, werrors.WError) {

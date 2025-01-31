@@ -1,6 +1,10 @@
 package logattr
 
-import "log/slog"
+import (
+    "log/slog"
+
+    "github.com/google/uuid"
+)
 
 func ServiceName(serviceName string) slog.Attr {
     return slog.String("service_name", serviceName)
@@ -20,6 +24,10 @@ func EventType(eventType string) slog.Attr {
 
 func Error(err string) slog.Attr {
     return slog.String("error", err)
+}
+
+func ErrorCode(err uuid.UUID) slog.Attr {
+    return slog.String("error_code", err.String())
 }
 
 func CorrelationId(correlationId string) slog.Attr {

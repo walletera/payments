@@ -8,22 +8,6 @@ import (
 	"github.com/ogen-go/ogen/validate"
 )
 
-func (s ErrorMessage) Validate() error {
-	alias := (string)(s)
-	if err := (validate.String{
-		MinLength:    0,
-		MinLengthSet: false,
-		MaxLength:    256,
-		MaxLengthSet: true,
-		Email:        false,
-		Hostname:     false,
-		Regex:        nil,
-	}).Validate(string(alias)); err != nil {
-		return errors.Wrap(err, "string")
-	}
-	return nil
-}
-
 func (s *Payment) Validate() error {
 	if s == nil {
 		return validate.ErrNilPointer
@@ -128,22 +112,6 @@ func (s *PaymentUpdate) Validate() error {
 	}
 	if len(failures) > 0 {
 		return &validate.Error{Fields: failures}
-	}
-	return nil
-}
-
-func (s PostPaymentBadRequest) Validate() error {
-	alias := (ErrorMessage)(s)
-	if err := alias.Validate(); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (s PostPaymentConflict) Validate() error {
-	alias := (ErrorMessage)(s)
-	if err := alias.Validate(); err != nil {
-		return err
 	}
 	return nil
 }
