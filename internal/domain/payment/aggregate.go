@@ -25,7 +25,7 @@ var validStatusTransitions = map[api.PaymentStatus][]api.PaymentStatus{
 }
 
 type UpdateCommand struct {
-    externalId api.OptUUID
+    externalId api.OptString
     status     api.PaymentStatus
 }
 

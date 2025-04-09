@@ -12,72 +12,186 @@ import (
 // Bank account details.
 // Ref: #/components/schemas/accountDetails
 type AccountDetails struct {
-	BankName          OptString `json:"bankName"`
-	BankId            OptString `json:"bankId"`
-	AccountHolder     OptString `json:"accountHolder"`
-	AccountNumber     OptString `json:"accountNumber"`
-	AccountNumberType OptString `json:"accountNumberType"`
-	RoutingKey        OptString `json:"routingKey"`
+	InstitutionName OptString                    `json:"institutionName"`
+	InstitutionId   OptString                    `json:"institutionId"`
+	Currency        OptString                    `json:"currency"`
+	AccountType     OptAccountDetailsAccountType `json:"accountType"`
+	// Extra account details. The details depend on the accountType.
+	AccountDetails OptAccountDetailsAccountDetails `json:"accountDetails"`
 }
 
-// GetBankName returns the value of BankName.
-func (s *AccountDetails) GetBankName() OptString {
-	return s.BankName
+// GetInstitutionName returns the value of InstitutionName.
+func (s *AccountDetails) GetInstitutionName() OptString {
+	return s.InstitutionName
 }
 
-// GetBankId returns the value of BankId.
-func (s *AccountDetails) GetBankId() OptString {
-	return s.BankId
+// GetInstitutionId returns the value of InstitutionId.
+func (s *AccountDetails) GetInstitutionId() OptString {
+	return s.InstitutionId
 }
 
-// GetAccountHolder returns the value of AccountHolder.
-func (s *AccountDetails) GetAccountHolder() OptString {
-	return s.AccountHolder
+// GetCurrency returns the value of Currency.
+func (s *AccountDetails) GetCurrency() OptString {
+	return s.Currency
 }
 
-// GetAccountNumber returns the value of AccountNumber.
-func (s *AccountDetails) GetAccountNumber() OptString {
-	return s.AccountNumber
+// GetAccountType returns the value of AccountType.
+func (s *AccountDetails) GetAccountType() OptAccountDetailsAccountType {
+	return s.AccountType
 }
 
-// GetAccountNumberType returns the value of AccountNumberType.
-func (s *AccountDetails) GetAccountNumberType() OptString {
-	return s.AccountNumberType
+// GetAccountDetails returns the value of AccountDetails.
+func (s *AccountDetails) GetAccountDetails() OptAccountDetailsAccountDetails {
+	return s.AccountDetails
 }
 
-// GetRoutingKey returns the value of RoutingKey.
-func (s *AccountDetails) GetRoutingKey() OptString {
-	return s.RoutingKey
+// SetInstitutionName sets the value of InstitutionName.
+func (s *AccountDetails) SetInstitutionName(val OptString) {
+	s.InstitutionName = val
 }
 
-// SetBankName sets the value of BankName.
-func (s *AccountDetails) SetBankName(val OptString) {
-	s.BankName = val
+// SetInstitutionId sets the value of InstitutionId.
+func (s *AccountDetails) SetInstitutionId(val OptString) {
+	s.InstitutionId = val
 }
 
-// SetBankId sets the value of BankId.
-func (s *AccountDetails) SetBankId(val OptString) {
-	s.BankId = val
+// SetCurrency sets the value of Currency.
+func (s *AccountDetails) SetCurrency(val OptString) {
+	s.Currency = val
 }
 
-// SetAccountHolder sets the value of AccountHolder.
-func (s *AccountDetails) SetAccountHolder(val OptString) {
-	s.AccountHolder = val
+// SetAccountType sets the value of AccountType.
+func (s *AccountDetails) SetAccountType(val OptAccountDetailsAccountType) {
+	s.AccountType = val
 }
 
-// SetAccountNumber sets the value of AccountNumber.
-func (s *AccountDetails) SetAccountNumber(val OptString) {
-	s.AccountNumber = val
+// SetAccountDetails sets the value of AccountDetails.
+func (s *AccountDetails) SetAccountDetails(val OptAccountDetailsAccountDetails) {
+	s.AccountDetails = val
 }
 
-// SetAccountNumberType sets the value of AccountNumberType.
-func (s *AccountDetails) SetAccountNumberType(val OptString) {
-	s.AccountNumberType = val
+// Extra account details. The details depend on the accountType.
+type AccountDetailsAccountDetails struct {
+	OneOf AccountDetailsAccountDetailsSum
 }
 
-// SetRoutingKey sets the value of RoutingKey.
-func (s *AccountDetails) SetRoutingKey(val OptString) {
-	s.RoutingKey = val
+// GetOneOf returns the value of OneOf.
+func (s *AccountDetailsAccountDetails) GetOneOf() AccountDetailsAccountDetailsSum {
+	return s.OneOf
+}
+
+// SetOneOf sets the value of OneOf.
+func (s *AccountDetailsAccountDetails) SetOneOf(val AccountDetailsAccountDetailsSum) {
+	s.OneOf = val
+}
+
+// AccountDetailsAccountDetailsSum represents sum type.
+type AccountDetailsAccountDetailsSum struct {
+	Type                  AccountDetailsAccountDetailsSumType // switch on this field
+	CvuAccountDetails     CvuAccountDetails
+	DinopayAccountDetails DinopayAccountDetails
+}
+
+// AccountDetailsAccountDetailsSumType is oneOf type of AccountDetailsAccountDetailsSum.
+type AccountDetailsAccountDetailsSumType string
+
+// Possible values for AccountDetailsAccountDetailsSumType.
+const (
+	CvuAccountDetailsAccountDetailsAccountDetailsSum     AccountDetailsAccountDetailsSumType = "CvuAccountDetails"
+	DinopayAccountDetailsAccountDetailsAccountDetailsSum AccountDetailsAccountDetailsSumType = "DinopayAccountDetails"
+)
+
+// IsCvuAccountDetails reports whether AccountDetailsAccountDetailsSum is CvuAccountDetails.
+func (s AccountDetailsAccountDetailsSum) IsCvuAccountDetails() bool {
+	return s.Type == CvuAccountDetailsAccountDetailsAccountDetailsSum
+}
+
+// IsDinopayAccountDetails reports whether AccountDetailsAccountDetailsSum is DinopayAccountDetails.
+func (s AccountDetailsAccountDetailsSum) IsDinopayAccountDetails() bool {
+	return s.Type == DinopayAccountDetailsAccountDetailsAccountDetailsSum
+}
+
+// SetCvuAccountDetails sets AccountDetailsAccountDetailsSum to CvuAccountDetails.
+func (s *AccountDetailsAccountDetailsSum) SetCvuAccountDetails(v CvuAccountDetails) {
+	s.Type = CvuAccountDetailsAccountDetailsAccountDetailsSum
+	s.CvuAccountDetails = v
+}
+
+// GetCvuAccountDetails returns CvuAccountDetails and true boolean if AccountDetailsAccountDetailsSum is CvuAccountDetails.
+func (s AccountDetailsAccountDetailsSum) GetCvuAccountDetails() (v CvuAccountDetails, ok bool) {
+	if !s.IsCvuAccountDetails() {
+		return v, false
+	}
+	return s.CvuAccountDetails, true
+}
+
+// NewCvuAccountDetailsAccountDetailsAccountDetailsSum returns new AccountDetailsAccountDetailsSum from CvuAccountDetails.
+func NewCvuAccountDetailsAccountDetailsAccountDetailsSum(v CvuAccountDetails) AccountDetailsAccountDetailsSum {
+	var s AccountDetailsAccountDetailsSum
+	s.SetCvuAccountDetails(v)
+	return s
+}
+
+// SetDinopayAccountDetails sets AccountDetailsAccountDetailsSum to DinopayAccountDetails.
+func (s *AccountDetailsAccountDetailsSum) SetDinopayAccountDetails(v DinopayAccountDetails) {
+	s.Type = DinopayAccountDetailsAccountDetailsAccountDetailsSum
+	s.DinopayAccountDetails = v
+}
+
+// GetDinopayAccountDetails returns DinopayAccountDetails and true boolean if AccountDetailsAccountDetailsSum is DinopayAccountDetails.
+func (s AccountDetailsAccountDetailsSum) GetDinopayAccountDetails() (v DinopayAccountDetails, ok bool) {
+	if !s.IsDinopayAccountDetails() {
+		return v, false
+	}
+	return s.DinopayAccountDetails, true
+}
+
+// NewDinopayAccountDetailsAccountDetailsAccountDetailsSum returns new AccountDetailsAccountDetailsSum from DinopayAccountDetails.
+func NewDinopayAccountDetailsAccountDetailsAccountDetailsSum(v DinopayAccountDetails) AccountDetailsAccountDetailsSum {
+	var s AccountDetailsAccountDetailsSum
+	s.SetDinopayAccountDetails(v)
+	return s
+}
+
+type AccountDetailsAccountType string
+
+const (
+	AccountDetailsAccountTypeCvu     AccountDetailsAccountType = "cvu"
+	AccountDetailsAccountTypeDinopay AccountDetailsAccountType = "dinopay"
+)
+
+// AllValues returns all AccountDetailsAccountType values.
+func (AccountDetailsAccountType) AllValues() []AccountDetailsAccountType {
+	return []AccountDetailsAccountType{
+		AccountDetailsAccountTypeCvu,
+		AccountDetailsAccountTypeDinopay,
+	}
+}
+
+// MarshalText implements encoding.TextMarshaler.
+func (s AccountDetailsAccountType) MarshalText() ([]byte, error) {
+	switch s {
+	case AccountDetailsAccountTypeCvu:
+		return []byte(s), nil
+	case AccountDetailsAccountTypeDinopay:
+		return []byte(s), nil
+	default:
+		return nil, errors.Errorf("invalid value: %q", s)
+	}
+}
+
+// UnmarshalText implements encoding.TextUnmarshaler.
+func (s *AccountDetailsAccountType) UnmarshalText(data []byte) error {
+	switch AccountDetailsAccountType(data) {
+	case AccountDetailsAccountTypeCvu:
+		*s = AccountDetailsAccountTypeCvu
+		return nil
+	case AccountDetailsAccountTypeDinopay:
+		*s = AccountDetailsAccountTypeDinopay
+		return nil
+	default:
+		return errors.Errorf("invalid value: %q", data)
+	}
 }
 
 // Body of the error responses.
@@ -121,6 +235,72 @@ func (s *BearerAuth) GetToken() string {
 // SetToken sets the value of Token.
 func (s *BearerAuth) SetToken(val string) {
 	s.Token = val
+}
+
+// Ref: #/components/schemas/cvuAccountDetails
+type CvuAccountDetails struct {
+	// Account owner national identification number.
+	Cuit  OptString `json:"cuit"`
+	Cvu   OptString `json:"cvu"`
+	Alias OptString `json:"alias"`
+}
+
+// GetCuit returns the value of Cuit.
+func (s *CvuAccountDetails) GetCuit() OptString {
+	return s.Cuit
+}
+
+// GetCvu returns the value of Cvu.
+func (s *CvuAccountDetails) GetCvu() OptString {
+	return s.Cvu
+}
+
+// GetAlias returns the value of Alias.
+func (s *CvuAccountDetails) GetAlias() OptString {
+	return s.Alias
+}
+
+// SetCuit sets the value of Cuit.
+func (s *CvuAccountDetails) SetCuit(val OptString) {
+	s.Cuit = val
+}
+
+// SetCvu sets the value of Cvu.
+func (s *CvuAccountDetails) SetCvu(val OptString) {
+	s.Cvu = val
+}
+
+// SetAlias sets the value of Alias.
+func (s *CvuAccountDetails) SetAlias(val OptString) {
+	s.Alias = val
+}
+
+// Ref: #/components/schemas/dinopayAccountDetails
+type DinopayAccountDetails struct {
+	// Name of the owner of the account.
+	AccountHolder string `json:"accountHolder"`
+	// Account number on DinoPay.
+	AccountNumber string `json:"accountNumber"`
+}
+
+// GetAccountHolder returns the value of AccountHolder.
+func (s *DinopayAccountDetails) GetAccountHolder() string {
+	return s.AccountHolder
+}
+
+// GetAccountNumber returns the value of AccountNumber.
+func (s *DinopayAccountDetails) GetAccountNumber() string {
+	return s.AccountNumber
+}
+
+// SetAccountHolder sets the value of AccountHolder.
+func (s *DinopayAccountDetails) SetAccountHolder(val string) {
+	s.AccountHolder = val
+}
+
+// SetAccountNumber sets the value of AccountNumber.
+func (s *DinopayAccountDetails) SetAccountNumber(val string) {
+	s.AccountNumber = val
 }
 
 // GetPaymentInternalServerError is response for GetPayment operation.
@@ -178,6 +358,98 @@ func (o OptAccountDetails) Get() (v AccountDetails, ok bool) {
 
 // Or returns value if set, or given parameter if does not.
 func (o OptAccountDetails) Or(d AccountDetails) AccountDetails {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptAccountDetailsAccountDetails returns new OptAccountDetailsAccountDetails with value set to v.
+func NewOptAccountDetailsAccountDetails(v AccountDetailsAccountDetails) OptAccountDetailsAccountDetails {
+	return OptAccountDetailsAccountDetails{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptAccountDetailsAccountDetails is optional AccountDetailsAccountDetails.
+type OptAccountDetailsAccountDetails struct {
+	Value AccountDetailsAccountDetails
+	Set   bool
+}
+
+// IsSet returns true if OptAccountDetailsAccountDetails was set.
+func (o OptAccountDetailsAccountDetails) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptAccountDetailsAccountDetails) Reset() {
+	var v AccountDetailsAccountDetails
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptAccountDetailsAccountDetails) SetTo(v AccountDetailsAccountDetails) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptAccountDetailsAccountDetails) Get() (v AccountDetailsAccountDetails, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptAccountDetailsAccountDetails) Or(d AccountDetailsAccountDetails) AccountDetailsAccountDetails {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptAccountDetailsAccountType returns new OptAccountDetailsAccountType with value set to v.
+func NewOptAccountDetailsAccountType(v AccountDetailsAccountType) OptAccountDetailsAccountType {
+	return OptAccountDetailsAccountType{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptAccountDetailsAccountType is optional AccountDetailsAccountType.
+type OptAccountDetailsAccountType struct {
+	Value AccountDetailsAccountType
+	Set   bool
+}
+
+// IsSet returns true if OptAccountDetailsAccountType was set.
+func (o OptAccountDetailsAccountType) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptAccountDetailsAccountType) Reset() {
+	var v AccountDetailsAccountType
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptAccountDetailsAccountType) SetTo(v AccountDetailsAccountType) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptAccountDetailsAccountType) Get() (v AccountDetailsAccountType, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptAccountDetailsAccountType) Or(d AccountDetailsAccountType) AccountDetailsAccountType {
 	if v, ok := o.Get(); ok {
 		return v
 	}
@@ -427,7 +699,8 @@ type PatchPaymentOK struct{}
 
 func (*PatchPaymentOK) patchPaymentRes() {}
 
-type PatchPaymentUnauthorized ApiError
+// PatchPaymentUnauthorized is response for PatchPayment operation.
+type PatchPaymentUnauthorized struct{}
 
 func (*PatchPaymentUnauthorized) patchPaymentRes() {}
 
@@ -444,7 +717,9 @@ type Payment struct {
 	// The customer that sent or received the payment.
 	CustomerId OptUUID `json:"customerId"`
 	// Id assigned to the operation by an external payment provider.
-	ExternalId  OptUUID           `json:"externalId"`
+	ExternalId OptString `json:"externalId"`
+	// Id assigned to the operation by the payment scheme or clearing institution.
+	SchemeId    OptString         `json:"schemeId"`
 	Beneficiary OptAccountDetails `json:"beneficiary"`
 	Debtor      OptAccountDetails `json:"debtor"`
 	Status      OptPaymentStatus  `json:"status"`
@@ -478,8 +753,13 @@ func (s *Payment) GetCustomerId() OptUUID {
 }
 
 // GetExternalId returns the value of ExternalId.
-func (s *Payment) GetExternalId() OptUUID {
+func (s *Payment) GetExternalId() OptString {
 	return s.ExternalId
+}
+
+// GetSchemeId returns the value of SchemeId.
+func (s *Payment) GetSchemeId() OptString {
+	return s.SchemeId
 }
 
 // GetBeneficiary returns the value of Beneficiary.
@@ -533,8 +813,13 @@ func (s *Payment) SetCustomerId(val OptUUID) {
 }
 
 // SetExternalId sets the value of ExternalId.
-func (s *Payment) SetExternalId(val OptUUID) {
+func (s *Payment) SetExternalId(val OptString) {
 	s.ExternalId = val
+}
+
+// SetSchemeId sets the value of SchemeId.
+func (s *Payment) SetSchemeId(val OptString) {
+	s.SchemeId = val
 }
 
 // SetBeneficiary sets the value of Beneficiary.
@@ -614,6 +899,7 @@ const (
 	PaymentStatusDelivered PaymentStatus = "delivered"
 	PaymentStatusConfirmed PaymentStatus = "confirmed"
 	PaymentStatusFailed    PaymentStatus = "failed"
+	PaymentStatusRejected  PaymentStatus = "rejected"
 )
 
 // AllValues returns all PaymentStatus values.
@@ -623,6 +909,7 @@ func (PaymentStatus) AllValues() []PaymentStatus {
 		PaymentStatusDelivered,
 		PaymentStatusConfirmed,
 		PaymentStatusFailed,
+		PaymentStatusRejected,
 	}
 }
 
@@ -636,6 +923,8 @@ func (s PaymentStatus) MarshalText() ([]byte, error) {
 	case PaymentStatusConfirmed:
 		return []byte(s), nil
 	case PaymentStatusFailed:
+		return []byte(s), nil
+	case PaymentStatusRejected:
 		return []byte(s), nil
 	default:
 		return nil, errors.Errorf("invalid value: %q", s)
@@ -657,6 +946,9 @@ func (s *PaymentStatus) UnmarshalText(data []byte) error {
 	case PaymentStatusFailed:
 		*s = PaymentStatusFailed
 		return nil
+	case PaymentStatusRejected:
+		*s = PaymentStatusRejected
+		return nil
 	default:
 		return errors.Errorf("invalid value: %q", data)
 	}
@@ -668,7 +960,7 @@ type PaymentUpdate struct {
 	// Payment Id.
 	PaymentId uuid.UUID `json:"paymentId"`
 	// Id assigned to the operation by the external payment provider.
-	ExternalId OptUUID `json:"externalId"`
+	ExternalId OptString `json:"externalId"`
 	// Payment status.
 	Status PaymentStatus `json:"status"`
 }
@@ -679,7 +971,7 @@ func (s *PaymentUpdate) GetPaymentId() uuid.UUID {
 }
 
 // GetExternalId returns the value of ExternalId.
-func (s *PaymentUpdate) GetExternalId() OptUUID {
+func (s *PaymentUpdate) GetExternalId() OptString {
 	return s.ExternalId
 }
 
@@ -694,7 +986,7 @@ func (s *PaymentUpdate) SetPaymentId(val uuid.UUID) {
 }
 
 // SetExternalId sets the value of ExternalId.
-func (s *PaymentUpdate) SetExternalId(val OptUUID) {
+func (s *PaymentUpdate) SetExternalId(val OptString) {
 	s.ExternalId = val
 }
 

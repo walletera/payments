@@ -31,7 +31,7 @@ func TestCreatePayment(t *testing.T) {
     if err != nil {
         panic(err)
     }
-    testLogger = slog.New(zapslog.NewHandler(zapLogger.Core(), nil))
+    testLogger = slog.New(zapslog.NewHandler(zapLogger.Core()))
 
     suite := godog.TestSuite{
         ScenarioInitializer: InitializeCreatePaymentScenario,

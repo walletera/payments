@@ -14,10 +14,14 @@ Feature: Create outbound payment
       "amount": 100,
       "currency": "ARS",
       "beneficiary": {
-        "bankName": "dinopay",
-        "bankId": "dinopay",
-        "accountHolder": "John Doe",
-        "routingKey": "123456789123456"
+        "institutionName": "dinopay",
+        "institutionId": "dinopay",
+        "currency": "ARS",
+        "accountType": "cvu",
+        "accountDetails": {
+          "cuit": "23679876453",
+          "cvu": "1122334455667788554433"
+        }
       }
     }
     """
@@ -34,12 +38,16 @@ Feature: Create outbound payment
         "direction": "outbound",
         "customerId": "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
         "status": "pending",
-        "beneficiary": {
-          "bankName": "dinopay",
-          "bankId": "dinopay",
-          "accountHolder": "John Doe",
-          "routingKey": "123456789123456"
-        },
+      "beneficiary": {
+        "institutionName": "dinopay",
+        "institutionId": "dinopay",
+        "currency": "ARS",
+        "accountType": "cvu",
+        "accountDetails": {
+          "cuit": "23679876453",
+          "cvu": "1122334455667788554433"
+        }
+      },
         "createdAt": "${json-unit.any-string}"
       }
     }
@@ -54,10 +62,14 @@ Feature: Create outbound payment
       "amount": 100,
       "currency": "ARS",
       "beneficiary": {
-        "bankName": "dinopay",
-        "bankId": "dinopay",
-        "accountHolder": "John Doe",
-        "routingKey": "123456789123456"
+        "institutionName": "dinopay",
+        "institutionId": "dinopay",
+        "currency": "ARS",
+        "accountType": "cvu",
+        "accountDetails": {
+          "cuit": "23679876453",
+          "cvu": "1122334455667788554433"
+        }
       }
     }
     """
@@ -72,10 +84,14 @@ Feature: Create outbound payment
       "amount": 100,
       "currency": "ARS",
       "beneficiary": {
-        "bankName": "dinopay",
-        "bankId": "dinopay",
-        "accountHolder": "John Doe",
-        "routingKey": "123456789123456"
+        "institutionName": "dinopay",
+        "institutionId": "dinopay",
+        "currency": "ARS",
+        "accountType": "cvu",
+        "accountDetails": {
+          "cuit": "23679876453",
+          "cvu": "1122334455667788554433"
+        }
       }
     }
     """

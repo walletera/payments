@@ -82,8 +82,10 @@ func NewRetryableInternalError(msgf string, a ...any) InternalError {
 // NewNonRetryableInternalError returns a retryable InternalError
 // accepts a message with optional 'verbs' (format string) and a variable list of arguments
 // the same way fmt.Sprintf functions does
-func NewNonRetryableInternalError(msgf string, a ...any) InternalError {
-    msg := fmt.Sprintf(msgf, a)
+func NewNonRetryableInternalError(msg string, args ...any) InternalError {
+    if args != nil {
+        msg = fmt.Sprintf(msg, args)
+    }
     return newInternalError(msg, false)
 }
 
@@ -94,8 +96,10 @@ type ResourceNotFoundError struct {
 // NewResourceNotFoundError returns a ResourceNotFoundError
 // accepts a message with optional 'verbs' (format string) and a variable list of arguments
 // the same way fmt.Sprintf functions does
-func NewResourceNotFoundError(msgf string, a ...any) ResourceNotFoundError {
-    msg := fmt.Sprintf(msgf, a)
+func NewResourceNotFoundError(msg string, args ...any) ResourceNotFoundError {
+    if args != nil {
+        msg = fmt.Sprintf(msg, args)
+    }
     return ResourceNotFoundError{
         wError{
             retryable: false,
@@ -112,8 +116,10 @@ type TimeoutError struct {
 // NewTimeoutError returns a TimeoutError
 // accepts a message with optional 'verbs' (format string) and a variable list of arguments
 // the same way fmt.Sprintf functions does
-func NewTimeoutError(msgf string, a ...any) TimeoutError {
-    msg := fmt.Sprintf(msgf, a)
+func NewTimeoutError(msg string, args ...any) TimeoutError {
+    if args != nil {
+        msg = fmt.Sprintf(msg, args)
+    }
     return TimeoutError{
         wError{
             retryable: true,
@@ -130,8 +136,10 @@ type ValidationError struct {
 // NewValidationError returns a ValidationError
 // accepts a message with optional 'verbs' (format string) and a variable list of arguments
 // the same way fmt.Sprintf functions does
-func NewValidationError(msgf string, a ...any) ValidationError {
-    msg := fmt.Sprintf(msgf, a)
+func NewValidationError(msg string, args ...any) ValidationError {
+    if args != nil {
+        msg = fmt.Sprintf(msg, args)
+    }
     return ValidationError{
         wError{
             retryable: true,
@@ -148,8 +156,10 @@ type ResourceAlreadyExistError struct {
 // NewResourceAlreadyExistError returns a ResourceAlreadyExistError
 // accepts a message with optional 'verbs' (format string) and a variable list of arguments
 // the same way fmt.Sprintf functions does
-func NewResourceAlreadyExistError(msgf string, a ...any) ResourceAlreadyExistError {
-    msg := fmt.Sprintf(msgf, a)
+func NewResourceAlreadyExistError(msg string, args ...any) ResourceAlreadyExistError {
+    if args != nil {
+        msg = fmt.Sprintf(msg, args)
+    }
     return ResourceAlreadyExistError{
         wError{
             retryable: false,
@@ -166,8 +176,10 @@ type WrongResourceVersionError struct {
 // NewWrongResourceVersionError returns a WrongResourceVersionError
 // accepts a message with optional 'verbs' (format string) and a variable list of arguments
 // the same way fmt.Sprintf functions does
-func NewWrongResourceVersionError(msgf string, a ...any) WrongResourceVersionError {
-    msg := fmt.Sprintf(msgf, a)
+func NewWrongResourceVersionError(msg string, args ...any) WrongResourceVersionError {
+    if args != nil {
+        msg = fmt.Sprintf(msg, args)
+    }
     return WrongResourceVersionError{
         wError{
             retryable: true,
@@ -184,8 +196,10 @@ type UnprocessableMessageError struct {
 // NewUnprocessableMessageError returns a UnprocessableMessageError
 // accepts a message with optional 'verbs' (format string) and a variable list of arguments
 // the same way fmt.Sprintf functions does
-func NewUnprocessableMessageError(msgf string, a ...any) UnprocessableMessageError {
-    msg := fmt.Sprintf(msgf, a)
+func NewUnprocessableMessageError(msg string, args ...any) UnprocessableMessageError {
+    if args != nil {
+        msg = fmt.Sprintf(msg, args)
+    }
     return UnprocessableMessageError{
         wError{
             retryable: false,

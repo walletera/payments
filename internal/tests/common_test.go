@@ -305,8 +305,8 @@ func thePaymentsServiceReceiveAPATCHRequestToUpdateThePayment(ctx context.Contex
     requestCtx, _ := context.WithTimeout(ctx, 200*time.Second)
     patchPaymentResp, err := paymentsClient.PatchPayment(requestCtx, &api.PaymentUpdate{
         PaymentId: payment.ID,
-        ExternalId: api.OptUUID{
-            Value: wuuid.NewUUID(),
+        ExternalId: api.OptString{
+            Value: wuuid.NewUUID().String(),
             Set:   true,
         },
         Status: api.PaymentStatus(status),
@@ -458,5 +458,5 @@ func newZapHandler() (slog.Handler, error) {
     if err != nil {
         return nil, err
     }
-    return zapslog.NewHandler(zapLogger.Core(), nil), nil
+    return zapslog.NewHandler(zapLogger.Core()), nil
 }

@@ -9,6 +9,7 @@ import (
     "net/http"
     "time"
 
+    "github.com/EventStore/EventStore-Client-Go/v4/esdb"
     "github.com/golang-jwt/jwt"
     "github.com/walletera/eventskit/eventstoredb"
     "github.com/walletera/eventskit/messages"
@@ -110,6 +111,8 @@ func (app *App) Stop(ctx context.Context) {
     app.logger.Info("dinopay-gateway stopped")
 }
 
+// this tasks must be moved outside the payments service
+// idea: move it to a CRD and let your customer operator create it ;)
 func (app *App) execESDBSetupTasks(ctx context.Context) error {
     err := eventstoredb.EnableByCategoryProjection(ctx, app.esdbUrl)
     if err != nil {
@@ -121,7 +124,15 @@ func (app *App) execESDBSetupTasks(ctx context.Context) error {
         return fmt.Errorf("failed setting esdb by category projection separator: %w", err)
     }
 
-    err = eventstoredb.CreatePersistentSubscription(app.esdbUrl, ESDB_ByCategoryProjection_Payments, ESDB_SubscriptionGroupName)
+    subscriptionSettings := esdb.SubscriptionSettingsDefault()
+    subscriptionSettings.ResolveLinkTos = true
+
+    err = eventstoredb.CreatePersistentSubscription(
+        app.esdbUrl,
+        ESDB_ByCategoryProjection_Payments,
+        ESDB_SubscriptionGroupName,
+        subscriptionSettings,
+    )
     if err != nil {
         return fmt.Errorf("failed creating persistent subscription for %s: %w", ESDB_ByCategoryProjection_Payments, err)
     }
@@ -280,7 +291,7 @@ func setDefaultOpts(app *App) error {
     if err != nil {
         return err
     }
-    app.logHandler = zapslog.NewHandler(zapLogger.Core(), nil)
+    app.logHandler = zapslog.NewHandler(zapLogger.Core())
     return nil
 }
 

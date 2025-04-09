@@ -10,9 +10,7 @@ import (
 
     "github.com/testcontainers/testcontainers-go"
     "github.com/testcontainers/testcontainers-go/wait"
-    "github.com/walletera/eventskit/eventstoredb"
     "github.com/walletera/eventskit/rabbitmq"
-    "github.com/walletera/payments/internal/app"
 )
 
 const (
@@ -28,11 +26,6 @@ func TestMain(m *testing.M) {
     terminateEventSToreDBContainer, err := startEventStoreDBContainer(ctx)
     if err != nil {
         panic("error starting esdb container: " + err.Error())
-    }
-
-    err = createEventstoreDBPersistentSubscriptionForCategory(ctx, app.ESDB_ByCategoryProjection_Payments)
-    if err != nil {
-        panic(err.Error())
     }
 
     terminateRabbitMQContainer, err := startRabbitMQContainer(ctx)
@@ -101,14 +94,6 @@ func startEventStoreDBContainer(ctx context.Context) (func() error, error) {
         }
         return nil
     }, nil
-}
-
-func createEventstoreDBPersistentSubscriptionForCategory(ctx context.Context, categoryName string) error {
-    err := eventstoredb.CreatePersistentSubscription(eventStoreDBUrl, categoryName, app.ESDB_SubscriptionGroupName)
-    if err != nil {
-        return err
-    }
-    return nil
 }
 
 func startRabbitMQContainer(ctx context.Context) (func() error, error) {

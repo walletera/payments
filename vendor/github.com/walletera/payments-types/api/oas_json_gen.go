@@ -24,50 +24,43 @@ func (s *AccountDetails) Encode(e *jx.Encoder) {
 // encodeFields encodes fields.
 func (s *AccountDetails) encodeFields(e *jx.Encoder) {
 	{
-		if s.BankName.Set {
-			e.FieldStart("bankName")
-			s.BankName.Encode(e)
+		if s.InstitutionName.Set {
+			e.FieldStart("institutionName")
+			s.InstitutionName.Encode(e)
 		}
 	}
 	{
-		if s.BankId.Set {
-			e.FieldStart("bankId")
-			s.BankId.Encode(e)
+		if s.InstitutionId.Set {
+			e.FieldStart("institutionId")
+			s.InstitutionId.Encode(e)
 		}
 	}
 	{
-		if s.AccountHolder.Set {
-			e.FieldStart("accountHolder")
-			s.AccountHolder.Encode(e)
+		if s.Currency.Set {
+			e.FieldStart("currency")
+			s.Currency.Encode(e)
 		}
 	}
 	{
-		if s.AccountNumber.Set {
-			e.FieldStart("accountNumber")
-			s.AccountNumber.Encode(e)
+		if s.AccountType.Set {
+			e.FieldStart("accountType")
+			s.AccountType.Encode(e)
 		}
 	}
 	{
-		if s.AccountNumberType.Set {
-			e.FieldStart("accountNumberType")
-			s.AccountNumberType.Encode(e)
-		}
-	}
-	{
-		if s.RoutingKey.Set {
-			e.FieldStart("routingKey")
-			s.RoutingKey.Encode(e)
+		if s.AccountDetails.Set {
+			e.FieldStart("accountDetails")
+			s.AccountDetails.Encode(e)
 		}
 	}
 }
 
-var jsonFieldsNameOfAccountDetails = [6]string{
-	0: "bankName",
-	1: "bankId",
-	2: "accountHolder",
-	3: "accountNumber",
-	4: "accountNumberType",
-	5: "routingKey",
+var jsonFieldsNameOfAccountDetails = [5]string{
+	0: "institutionName",
+	1: "institutionId",
+	2: "currency",
+	3: "accountType",
+	4: "accountDetails",
 }
 
 // Decode decodes AccountDetails from json.
@@ -78,65 +71,55 @@ func (s *AccountDetails) Decode(d *jx.Decoder) error {
 
 	if err := d.ObjBytes(func(d *jx.Decoder, k []byte) error {
 		switch string(k) {
-		case "bankName":
+		case "institutionName":
 			if err := func() error {
-				s.BankName.Reset()
-				if err := s.BankName.Decode(d); err != nil {
+				s.InstitutionName.Reset()
+				if err := s.InstitutionName.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"bankName\"")
+				return errors.Wrap(err, "decode field \"institutionName\"")
 			}
-		case "bankId":
+		case "institutionId":
 			if err := func() error {
-				s.BankId.Reset()
-				if err := s.BankId.Decode(d); err != nil {
+				s.InstitutionId.Reset()
+				if err := s.InstitutionId.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"bankId\"")
+				return errors.Wrap(err, "decode field \"institutionId\"")
 			}
-		case "accountHolder":
+		case "currency":
 			if err := func() error {
-				s.AccountHolder.Reset()
-				if err := s.AccountHolder.Decode(d); err != nil {
+				s.Currency.Reset()
+				if err := s.Currency.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"accountHolder\"")
+				return errors.Wrap(err, "decode field \"currency\"")
 			}
-		case "accountNumber":
+		case "accountType":
 			if err := func() error {
-				s.AccountNumber.Reset()
-				if err := s.AccountNumber.Decode(d); err != nil {
+				s.AccountType.Reset()
+				if err := s.AccountType.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"accountNumber\"")
+				return errors.Wrap(err, "decode field \"accountType\"")
 			}
-		case "accountNumberType":
+		case "accountDetails":
 			if err := func() error {
-				s.AccountNumberType.Reset()
-				if err := s.AccountNumberType.Decode(d); err != nil {
+				s.AccountDetails.Reset()
+				if err := s.AccountDetails.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"accountNumberType\"")
-			}
-		case "routingKey":
-			if err := func() error {
-				s.RoutingKey.Reset()
-				if err := s.RoutingKey.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"routingKey\"")
+				return errors.Wrap(err, "decode field \"accountDetails\"")
 			}
 		default:
 			return d.Skip()
@@ -158,6 +141,206 @@ func (s *AccountDetails) MarshalJSON() ([]byte, error) {
 
 // UnmarshalJSON implements stdjson.Unmarshaler.
 func (s *AccountDetails) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode implements json.Marshaler.
+func (s *AccountDetailsAccountDetails) Encode(e *jx.Encoder) {
+	e.ObjStart()
+	s.encodeFields(e)
+	e.ObjEnd()
+}
+
+// encodeFields encodes fields.
+func (s *AccountDetailsAccountDetails) encodeFields(e *jx.Encoder) {
+	s.OneOf.encodeFields(e)
+}
+
+var jsonFieldsNameOfAccountDetailsAccountDetails = [0]string{}
+
+// Decode decodes AccountDetailsAccountDetails from json.
+func (s *AccountDetailsAccountDetails) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode AccountDetailsAccountDetails to nil")
+	}
+	if err := d.Capture(func(d *jx.Decoder) error {
+		return s.OneOf.Decode(d)
+	}); err != nil {
+		return errors.Wrap(err, "decode field OneOf")
+	}
+
+	if err := d.ObjBytes(func(d *jx.Decoder, k []byte) error {
+		switch string(k) {
+		default:
+			return d.Skip()
+		}
+	}); err != nil {
+		return errors.Wrap(err, "decode AccountDetailsAccountDetails")
+	}
+
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s *AccountDetailsAccountDetails) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *AccountDetailsAccountDetails) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes AccountDetailsAccountDetailsSum as json.
+func (s AccountDetailsAccountDetailsSum) Encode(e *jx.Encoder) {
+	switch s.Type {
+	case CvuAccountDetailsAccountDetailsAccountDetailsSum:
+		s.CvuAccountDetails.Encode(e)
+	case DinopayAccountDetailsAccountDetailsAccountDetailsSum:
+		s.DinopayAccountDetails.Encode(e)
+	}
+}
+
+func (s AccountDetailsAccountDetailsSum) encodeFields(e *jx.Encoder) {
+	switch s.Type {
+	case CvuAccountDetailsAccountDetailsAccountDetailsSum:
+		s.CvuAccountDetails.encodeFields(e)
+	case DinopayAccountDetailsAccountDetailsAccountDetailsSum:
+		s.DinopayAccountDetails.encodeFields(e)
+	}
+}
+
+// Decode decodes AccountDetailsAccountDetailsSum from json.
+func (s *AccountDetailsAccountDetailsSum) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode AccountDetailsAccountDetailsSum to nil")
+	}
+	// Sum type fields.
+	if typ := d.Next(); typ != jx.Object {
+		return errors.Errorf("unexpected json type %q", typ)
+	}
+
+	var found bool
+	if err := d.Capture(func(d *jx.Decoder) error {
+		return d.ObjBytes(func(d *jx.Decoder, key []byte) error {
+			switch string(key) {
+			case "cuit":
+				match := CvuAccountDetailsAccountDetailsAccountDetailsSum
+				if found && s.Type != match {
+					s.Type = ""
+					return errors.Errorf("multiple oneOf matches: (%v, %v)", s.Type, match)
+				}
+				found = true
+				s.Type = match
+			case "cvu":
+				match := CvuAccountDetailsAccountDetailsAccountDetailsSum
+				if found && s.Type != match {
+					s.Type = ""
+					return errors.Errorf("multiple oneOf matches: (%v, %v)", s.Type, match)
+				}
+				found = true
+				s.Type = match
+			case "alias":
+				match := CvuAccountDetailsAccountDetailsAccountDetailsSum
+				if found && s.Type != match {
+					s.Type = ""
+					return errors.Errorf("multiple oneOf matches: (%v, %v)", s.Type, match)
+				}
+				found = true
+				s.Type = match
+			case "accountHolder":
+				match := DinopayAccountDetailsAccountDetailsAccountDetailsSum
+				if found && s.Type != match {
+					s.Type = ""
+					return errors.Errorf("multiple oneOf matches: (%v, %v)", s.Type, match)
+				}
+				found = true
+				s.Type = match
+			case "accountNumber":
+				match := DinopayAccountDetailsAccountDetailsAccountDetailsSum
+				if found && s.Type != match {
+					s.Type = ""
+					return errors.Errorf("multiple oneOf matches: (%v, %v)", s.Type, match)
+				}
+				found = true
+				s.Type = match
+			}
+			return d.Skip()
+		})
+	}); err != nil {
+		return errors.Wrap(err, "capture")
+	}
+	if !found {
+		return errors.New("unable to detect sum type variant")
+	}
+	switch s.Type {
+	case CvuAccountDetailsAccountDetailsAccountDetailsSum:
+		if err := s.CvuAccountDetails.Decode(d); err != nil {
+			return err
+		}
+	case DinopayAccountDetailsAccountDetailsAccountDetailsSum:
+		if err := s.DinopayAccountDetails.Decode(d); err != nil {
+			return err
+		}
+	default:
+		return errors.Errorf("inferred invalid type: %s", s.Type)
+	}
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s AccountDetailsAccountDetailsSum) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *AccountDetailsAccountDetailsSum) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes AccountDetailsAccountType as json.
+func (s AccountDetailsAccountType) Encode(e *jx.Encoder) {
+	e.Str(string(s))
+}
+
+// Decode decodes AccountDetailsAccountType from json.
+func (s *AccountDetailsAccountType) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode AccountDetailsAccountType to nil")
+	}
+	v, err := d.StrBytes()
+	if err != nil {
+		return err
+	}
+	// Try to use constant string.
+	switch AccountDetailsAccountType(v) {
+	case AccountDetailsAccountTypeCvu:
+		*s = AccountDetailsAccountTypeCvu
+	case AccountDetailsAccountTypeDinopay:
+		*s = AccountDetailsAccountTypeDinopay
+	default:
+		*s = AccountDetailsAccountType(v)
+	}
+
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s AccountDetailsAccountType) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *AccountDetailsAccountType) UnmarshalJSON(data []byte) error {
 	d := jx.DecodeBytes(data)
 	return s.Decode(d)
 }
@@ -275,6 +458,216 @@ func (s *ApiError) UnmarshalJSON(data []byte) error {
 	return s.Decode(d)
 }
 
+// Encode implements json.Marshaler.
+func (s *CvuAccountDetails) Encode(e *jx.Encoder) {
+	e.ObjStart()
+	s.encodeFields(e)
+	e.ObjEnd()
+}
+
+// encodeFields encodes fields.
+func (s *CvuAccountDetails) encodeFields(e *jx.Encoder) {
+	{
+		if s.Cuit.Set {
+			e.FieldStart("cuit")
+			s.Cuit.Encode(e)
+		}
+	}
+	{
+		if s.Cvu.Set {
+			e.FieldStart("cvu")
+			s.Cvu.Encode(e)
+		}
+	}
+	{
+		if s.Alias.Set {
+			e.FieldStart("alias")
+			s.Alias.Encode(e)
+		}
+	}
+}
+
+var jsonFieldsNameOfCvuAccountDetails = [3]string{
+	0: "cuit",
+	1: "cvu",
+	2: "alias",
+}
+
+// Decode decodes CvuAccountDetails from json.
+func (s *CvuAccountDetails) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode CvuAccountDetails to nil")
+	}
+
+	if err := d.ObjBytes(func(d *jx.Decoder, k []byte) error {
+		switch string(k) {
+		case "cuit":
+			if err := func() error {
+				s.Cuit.Reset()
+				if err := s.Cuit.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"cuit\"")
+			}
+		case "cvu":
+			if err := func() error {
+				s.Cvu.Reset()
+				if err := s.Cvu.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"cvu\"")
+			}
+		case "alias":
+			if err := func() error {
+				s.Alias.Reset()
+				if err := s.Alias.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"alias\"")
+			}
+		default:
+			return d.Skip()
+		}
+		return nil
+	}); err != nil {
+		return errors.Wrap(err, "decode CvuAccountDetails")
+	}
+
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s *CvuAccountDetails) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *CvuAccountDetails) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode implements json.Marshaler.
+func (s *DinopayAccountDetails) Encode(e *jx.Encoder) {
+	e.ObjStart()
+	s.encodeFields(e)
+	e.ObjEnd()
+}
+
+// encodeFields encodes fields.
+func (s *DinopayAccountDetails) encodeFields(e *jx.Encoder) {
+	{
+		e.FieldStart("accountHolder")
+		e.Str(s.AccountHolder)
+	}
+	{
+		e.FieldStart("accountNumber")
+		e.Str(s.AccountNumber)
+	}
+}
+
+var jsonFieldsNameOfDinopayAccountDetails = [2]string{
+	0: "accountHolder",
+	1: "accountNumber",
+}
+
+// Decode decodes DinopayAccountDetails from json.
+func (s *DinopayAccountDetails) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode DinopayAccountDetails to nil")
+	}
+	var requiredBitSet [1]uint8
+
+	if err := d.ObjBytes(func(d *jx.Decoder, k []byte) error {
+		switch string(k) {
+		case "accountHolder":
+			requiredBitSet[0] |= 1 << 0
+			if err := func() error {
+				v, err := d.Str()
+				s.AccountHolder = string(v)
+				if err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"accountHolder\"")
+			}
+		case "accountNumber":
+			requiredBitSet[0] |= 1 << 1
+			if err := func() error {
+				v, err := d.Str()
+				s.AccountNumber = string(v)
+				if err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"accountNumber\"")
+			}
+		default:
+			return d.Skip()
+		}
+		return nil
+	}); err != nil {
+		return errors.Wrap(err, "decode DinopayAccountDetails")
+	}
+	// Validate required fields.
+	var failures []validate.FieldError
+	for i, mask := range [1]uint8{
+		0b00000011,
+	} {
+		if result := (requiredBitSet[i] & mask) ^ mask; result != 0 {
+			// Mask only required fields and check equality to mask using XOR.
+			//
+			// If XOR result is not zero, result is not equal to expected, so some fields are missed.
+			// Bits of fields which would be set are actually bits of missed fields.
+			missed := bits.OnesCount8(result)
+			for bitN := 0; bitN < missed; bitN++ {
+				bitIdx := bits.TrailingZeros8(result)
+				fieldIdx := i*8 + bitIdx
+				var name string
+				if fieldIdx < len(jsonFieldsNameOfDinopayAccountDetails) {
+					name = jsonFieldsNameOfDinopayAccountDetails[fieldIdx]
+				} else {
+					name = strconv.Itoa(fieldIdx)
+				}
+				failures = append(failures, validate.FieldError{
+					Name:  name,
+					Error: validate.ErrFieldRequired,
+				})
+				// Reset bit.
+				result &^= 1 << bitIdx
+			}
+		}
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s *DinopayAccountDetails) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *DinopayAccountDetails) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
 // Encode encodes AccountDetails as json.
 func (o OptAccountDetails) Encode(e *jx.Encoder) {
 	if !o.Set {
@@ -304,6 +697,72 @@ func (s OptAccountDetails) MarshalJSON() ([]byte, error) {
 
 // UnmarshalJSON implements stdjson.Unmarshaler.
 func (s *OptAccountDetails) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes AccountDetailsAccountDetails as json.
+func (o OptAccountDetailsAccountDetails) Encode(e *jx.Encoder) {
+	if !o.Set {
+		return
+	}
+	o.Value.Encode(e)
+}
+
+// Decode decodes AccountDetailsAccountDetails from json.
+func (o *OptAccountDetailsAccountDetails) Decode(d *jx.Decoder) error {
+	if o == nil {
+		return errors.New("invalid: unable to decode OptAccountDetailsAccountDetails to nil")
+	}
+	o.Set = true
+	if err := o.Value.Decode(d); err != nil {
+		return err
+	}
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s OptAccountDetailsAccountDetails) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *OptAccountDetailsAccountDetails) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes AccountDetailsAccountType as json.
+func (o OptAccountDetailsAccountType) Encode(e *jx.Encoder) {
+	if !o.Set {
+		return
+	}
+	e.Str(string(o.Value))
+}
+
+// Decode decodes AccountDetailsAccountType from json.
+func (o *OptAccountDetailsAccountType) Decode(d *jx.Decoder) error {
+	if o == nil {
+		return errors.New("invalid: unable to decode OptAccountDetailsAccountType to nil")
+	}
+	o.Set = true
+	if err := o.Value.Decode(d); err != nil {
+		return err
+	}
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s OptAccountDetailsAccountType) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *OptAccountDetailsAccountType) UnmarshalJSON(data []byte) error {
 	d := jx.DecodeBytes(data)
 	return s.Decode(d)
 }
@@ -555,44 +1014,6 @@ func (s *PatchPaymentInternalServerError) UnmarshalJSON(data []byte) error {
 	return s.Decode(d)
 }
 
-// Encode encodes PatchPaymentUnauthorized as json.
-func (s *PatchPaymentUnauthorized) Encode(e *jx.Encoder) {
-	unwrapped := (*ApiError)(s)
-
-	unwrapped.Encode(e)
-}
-
-// Decode decodes PatchPaymentUnauthorized from json.
-func (s *PatchPaymentUnauthorized) Decode(d *jx.Decoder) error {
-	if s == nil {
-		return errors.New("invalid: unable to decode PatchPaymentUnauthorized to nil")
-	}
-	var unwrapped ApiError
-	if err := func() error {
-		if err := unwrapped.Decode(d); err != nil {
-			return err
-		}
-		return nil
-	}(); err != nil {
-		return errors.Wrap(err, "alias")
-	}
-	*s = PatchPaymentUnauthorized(unwrapped)
-	return nil
-}
-
-// MarshalJSON implements stdjson.Marshaler.
-func (s *PatchPaymentUnauthorized) MarshalJSON() ([]byte, error) {
-	e := jx.Encoder{}
-	s.Encode(&e)
-	return e.Bytes(), nil
-}
-
-// UnmarshalJSON implements stdjson.Unmarshaler.
-func (s *PatchPaymentUnauthorized) UnmarshalJSON(data []byte) error {
-	d := jx.DecodeBytes(data)
-	return s.Decode(d)
-}
-
 // Encode implements json.Marshaler.
 func (s *Payment) Encode(e *jx.Encoder) {
 	e.ObjStart()
@@ -633,6 +1054,12 @@ func (s *Payment) encodeFields(e *jx.Encoder) {
 		}
 	}
 	{
+		if s.SchemeId.Set {
+			e.FieldStart("schemeId")
+			s.SchemeId.Encode(e)
+		}
+	}
+	{
 		if s.Beneficiary.Set {
 			e.FieldStart("beneficiary")
 			s.Beneficiary.Encode(e)
@@ -664,18 +1091,19 @@ func (s *Payment) encodeFields(e *jx.Encoder) {
 	}
 }
 
-var jsonFieldsNameOfPayment = [11]string{
+var jsonFieldsNameOfPayment = [12]string{
 	0:  "id",
 	1:  "amount",
 	2:  "currency",
 	3:  "direction",
 	4:  "customerId",
 	5:  "externalId",
-	6:  "beneficiary",
-	7:  "debtor",
-	8:  "status",
-	9:  "createdAt",
-	10: "updatedAt",
+	6:  "schemeId",
+	7:  "beneficiary",
+	8:  "debtor",
+	9:  "status",
+	10: "createdAt",
+	11: "updatedAt",
 }
 
 // Decode decodes Payment from json.
@@ -752,6 +1180,16 @@ func (s *Payment) Decode(d *jx.Decoder) error {
 				return nil
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"externalId\"")
+			}
+		case "schemeId":
+			if err := func() error {
+				s.SchemeId.Reset()
+				if err := s.SchemeId.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"schemeId\"")
 			}
 		case "beneficiary":
 			if err := func() error {
@@ -924,6 +1362,8 @@ func (s *PaymentStatus) Decode(d *jx.Decoder) error {
 		*s = PaymentStatusConfirmed
 	case PaymentStatusFailed:
 		*s = PaymentStatusFailed
+	case PaymentStatusRejected:
+		*s = PaymentStatusRejected
 	default:
 		*s = PaymentStatus(v)
 	}
