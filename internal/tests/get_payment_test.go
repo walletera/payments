@@ -4,7 +4,6 @@ import (
     "context"
     "encoding/json"
     "fmt"
-    "log/slog"
     "testing"
     "time"
 
@@ -12,18 +11,11 @@ import (
     "github.com/google/uuid"
     "github.com/walletera/payments-types/api"
     "github.com/walletera/payments/internal/tests/httpauth"
-    "go.uber.org/zap/exp/zapslog"
 )
 
 const getPaymentResponse = "getPaymentResponseFromCtx"
 
 func TestGetPayment(t *testing.T) {
-
-    zapLogger, err := newZapLogger()
-    if err != nil {
-        panic(err)
-    }
-    testLogger = slog.New(zapslog.NewHandler(zapLogger.Core(), nil))
 
     suite := godog.TestSuite{
         ScenarioInitializer: InitializeGetPaymentScenario,

@@ -5,6 +5,7 @@ go 1.23.0
 toolchain go1.23.8
 
 require (
+	github.com/EventStore/EventStore-Client-Go/v4 v4.2.0
 	github.com/cucumber/godog v0.14.1
 	github.com/golang-jwt/jwt v3.2.2+incompatible
 	github.com/google/uuid v1.6.0
@@ -13,8 +14,8 @@ require (
 	github.com/walletera/eventskit v0.0.5
 	github.com/walletera/logs-watcher v0.0.4
 	github.com/walletera/mockserver-go-client v0.0.1
-	github.com/walletera/payments-types v0.0.10
-	github.com/walletera/werrors v0.0.7
+	github.com/walletera/payments-types v0.0.11
+	github.com/walletera/werrors v0.0.8
 	go.uber.org/zap v1.27.0
 	go.uber.org/zap/exp v0.3.0
 	golang.org/x/sync v0.13.0
@@ -23,7 +24,6 @@ require (
 require (
 	dario.cat/mergo v1.0.0 // indirect
 	github.com/Azure/go-ansiterm v0.0.0-20210617225240-d185dfc1b5a1 // indirect
-	github.com/EventStore/EventStore-Client-Go/v4 v4.2.0 // indirect
 	github.com/Microsoft/go-winio v0.6.1 // indirect
 	github.com/Microsoft/hcsshim v0.11.4 // indirect
 	github.com/cenkalti/backoff/v4 v4.2.1 // indirect
@@ -96,5 +96,3 @@ require (
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
-
-replace github.com/walletera/payments-types v0.0.10 => /home/fedev/Code/walletera/payments-types

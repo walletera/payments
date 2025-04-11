@@ -14,13 +14,15 @@ Feature: Get payment
       "amount": 100,
       "currency": "ARS",
       "beneficiary": {
-        "bankName": "Banco Macro",
-        "bankId": "123456",
-        "accountHolder": "Ricardo Alfonsin",
-        "accountNumber": "123456789",
-        "accountNumberType": "ARBank",
-        "routingKey": "123456789123456789"
-       }
+        "institutionName": "dinopay",
+        "institutionId": "dinopay",
+        "currency": "ARS",
+        "accountType": "cvu",
+        "accountDetails": {
+          "cuit": "23679876453",
+          "cvu": "1122334455667788554433"
+        }
+      }
     }
     """
     And the payments service receive a PATCH request to update the payment to status: "confirmed"
@@ -35,12 +37,14 @@ Feature: Get payment
       "customerId": "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
       "externalId": "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
       "beneficiary": {
-          "bankName": "Banco Macro",
-          "bankId": "123456",
-          "accountHolder": "Ricardo Alfonsin",
-          "accountNumber": "123456789",
-          "accountNumberType": "ARBank",
-          "routingKey": "123456789123456789"
+        "institutionName": "dinopay",
+        "institutionId": "dinopay",
+        "currency": "ARS",
+        "accountType": "cvu",
+        "accountDetails": {
+          "cuit": "23679876453",
+          "cvu": "1122334455667788554433"
+        }
       },
       "status": "confirmed",
       "createdAt": "${json-unit.any-string}"

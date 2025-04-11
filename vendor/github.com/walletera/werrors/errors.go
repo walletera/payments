@@ -38,7 +38,7 @@ func NewWrappedError(werr WError, msgfAndArgs ...any) *WrappedError {
 }
 
 func (w WrappedError) Error() string {
-    return w.msg
+    return w.Message()
 }
 
 func (w WrappedError) IsRetryable() bool {

@@ -88,7 +88,7 @@ func (e *Service) buildAggregateFromStoredEvents(ctx context.Context, paymentId 
     streamName := buildStreamName(paymentId)
     rawEvents, err := e.eventDB.ReadEvents(ctx, streamName)
     if err != nil {
-        return nil, werrors.NewWrappedError(err, "failed retrieving events from stream %s: %s", streamName)
+        return nil, werrors.NewWrappedError(err, "failed retrieving events from stream %s", streamName)
     }
     paymentAggregate, err := NewFromEvents(e.deserializer, rawEvents)
     if err != nil {

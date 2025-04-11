@@ -3,7 +3,6 @@ package tests
 import (
     "context"
     "fmt"
-    "log/slog"
     "testing"
     "time"
 
@@ -14,7 +13,6 @@ import (
     "github.com/walletera/payments/internal/app"
     "github.com/walletera/payments/internal/domain/payment/event/handlers"
     "go.uber.org/zap"
-    "go.uber.org/zap/exp/zapslog"
     "go.uber.org/zap/zapcore"
 )
 
@@ -23,15 +21,7 @@ const (
     eventsMsgChKey         = "eventsMsgChKey"
 )
 
-var testLogger *slog.Logger
-
 func TestCreatePayment(t *testing.T) {
-
-    zapLogger, err := newZapLogger()
-    if err != nil {
-        panic(err)
-    }
-    testLogger = slog.New(zapslog.NewHandler(zapLogger.Core()))
 
     suite := godog.TestSuite{
         ScenarioInitializer: InitializeCreatePaymentScenario,
