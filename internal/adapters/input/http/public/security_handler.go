@@ -5,7 +5,7 @@ import (
     "crypto/rsa"
     "fmt"
 
-    "github.com/walletera/payments-types/api"
+    api "github.com/walletera/payments-types/publicapi"
     "github.com/walletera/payments/pkg/auth"
 )
 

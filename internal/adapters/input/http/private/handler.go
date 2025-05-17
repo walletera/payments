@@ -4,8 +4,7 @@ import (
     "context"
     "log/slog"
 
-    "github.com/walletera/payments-types/api"
-    "github.com/walletera/payments/internal/adapters/input/http/shared"
+    privapi "github.com/walletera/payments-types/privateapi"
     "github.com/walletera/payments/internal/domain/payment"
     "github.com/walletera/payments/pkg/logattr"
     "github.com/walletera/payments/pkg/wuuid"
@@ -13,82 +12,127 @@ import (
 )
 
 type Handler struct {
-    sharedOperations *shared.Operations
-    service          *payment.Service
-    logger           *slog.Logger
+    service *payment.Service
+    logger  *slog.Logger
 }
 
-var _ api.Handler = (*Handler)(nil)
+var _ privapi.Handler = (*Handler)(nil)
 
 func NewHandler(service *payment.Service, logger *slog.Logger) *Handler {
     return &Handler{
-        sharedOperations: shared.NewOperations(service, logger),
-        service:          service,
-        logger:           logger,
+        service: service,
+        logger:  logger,
     }
 }
 
-func (h *Handler) GetPayment(ctx context.Context, params api.GetPaymentParams) (api.GetPaymentRes, error) {
-    payment, err := h.service.GetPayment(ctx, params.PaymentId)
-    if err != nil {
-        // FIXME improve error handling
-        h.logger.Error("failed getting payment", logattr.Error(err.Error()))
-        return &api.GetPaymentNotFound{}, nil
+func (h *Handler) GetPayment(ctx context.Context, params privapi.GetPaymentParams) (privapi.GetPaymentRes, error) {
+    retrievedPayment, getPaymentErr := h.service.GetPayment(ctx, params.PaymentId)
+    if getPaymentErr != nil {
+        h.logger.Error("failed getting payment",
+            logattr.Error(getPaymentErr.Error()),
+            logattr.ErrorCode(getPaymentErr.Code()),
+            logattr.PaymentId(params.PaymentId.String()),
+        )
+        switch getPaymentErr.Code() {
+        case werrors.ResourceNotFoundErrorCode:
+            return &privapi.GetPaymentNotFound{}, nil
+        default:
+            return &privapi.GetPaymentInternalServerError{}, nil
+        }
     }
-    return payment, nil
+    return &retrievedPayment, nil
 }
 
-func (h *Handler) PatchPayment(ctx context.Context, req *api.PaymentUpdate, params api.PatchPaymentParams) (api.PatchPaymentRes, error) {
+func (h *Handler) PatchPayment(ctx context.Context, req *privapi.PaymentUpdate, params privapi.PatchPaymentParams) (privapi.PatchPaymentRes, error) {
     var correlationId string
     if params.XWalleteraCorrelationID.Set {
         correlationId = params.XWalleteraCorrelationID.Value.String()
     } else {
         correlationId = wuuid.NewUUID().String()
     }
-    err := h.service.UpdatePayment(ctx, correlationId, req)
+    err := h.service.UpdatePayment(ctx, correlationId, *req)
     if err != nil {
-        errorCode := wuuid.NewUUID()
         h.logger.Error(
             "payment creation failed",
             logattr.CorrelationId(correlationId),
             logattr.Error(err.Error()),
-            logattr.ErrorCode(errorCode),
+            logattr.ErrorCode(err.Code()),
         )
         switch err.Code() {
         case werrors.ValidationErrorCode:
-            return &api.PatchPaymentBadRequest{
+            return &privapi.PatchPaymentBadRequest{
                 ErrorMessage: err.Message(),
-                ErrorCode:    errorCode,
+                ErrorCode:    err.Code().String(),
             }, nil
         default:
-            return &api.PatchPaymentInternalServerError{
+            return &privapi.PatchPaymentInternalServerError{
                 ErrorMessage: "unexpected internal error",
-                ErrorCode:    errorCode,
+                ErrorCode:    err.Code().String(),
             }, nil
         }
     }
-    return &api.PatchPaymentOK{}, nil
+    return &privapi.PatchPaymentOK{}, nil
 }
 
-func (h *Handler) PostPayment(ctx context.Context, req *api.Payment, params api.PostPaymentParams) (api.PostPaymentRes, error) {
+func (h *Handler) PostPayment(ctx context.Context, req *privapi.PostPaymentReq, params privapi.PostPaymentParams) (privapi.PostPaymentRes, error) {
     var correlationId string
     if params.XWalleteraCorrelationID.Set {
         correlationId = params.XWalleteraCorrelationID.Value.String()
     } else {
         correlationId = wuuid.NewUUID().String()
     }
-    if !req.CustomerId.Set {
-        errorCode := wuuid.NewUUID()
+    return h.createPayment(ctx, correlationId, req)
+}
+
+func (h *Handler) createPayment(ctx context.Context, correlationId string, paymentCreationRequest *privapi.PostPaymentReq, ) (privapi.PostPaymentRes, error) {
+    privPayment := buildPrivPaymentFromPaymentCreationRequest(paymentCreationRequest)
+    paymentCreated, createPaymentErr := h.service.CreatePayment(ctx, correlationId, privPayment)
+    if createPaymentErr != nil {
         h.logger.Error(
-            "missing customerId in request",
-            logattr.ErrorCode(errorCode),
+            "payment creation failed",
+            logattr.Error(createPaymentErr.Error()),
+            logattr.ErrorCode(createPaymentErr.Code()),
             logattr.CorrelationId(correlationId),
         )
-        resp := api.PostPaymentBadRequest{
-            ErrorMessage: "missing customerId",
-            ErrorCode:    errorCode,
+        switch createPaymentErr.Code() {
+        case werrors.ResourceAlreadyExistErrorCode:
+            return &privapi.PostPaymentConflict{
+                ErrorMessage: "the payment you are trying to create already exist",
+                ErrorCode:    createPaymentErr.Code().String(),
+            }, nil
+        case werrors.ValidationErrorCode:
+            return &privapi.PostPaymentBadRequest{
+                ErrorMessage: createPaymentErr.Message(),
+                ErrorCode:    createPaymentErr.Code().String(),
+            }, nil
+        default:
+            return &privapi.PostPaymentInternalServerError{
+                ErrorMessage: "unexpected internal error",
+                ErrorCode:    createPaymentErr.Code().String(),
+            }, nil
         }
-        return &resp, nil
     }
-    return h.sharedOperations.CreatePayment(ctx, correlationId, req.CustomerId.Value, *req)
+
+    h.logger.Info("payment created",
+        logattr.CorrelationId(correlationId),
+        logattr.PaymentId(paymentCreated.Data.ID.String()),
+    )
+
+    return &paymentCreated.Data, nil
+}
+
+func buildPrivPaymentFromPaymentCreationRequest(paymentCreationRequest *privapi.PostPaymentReq) privapi.Payment {
+    return privapi.Payment{
+        ID:          paymentCreationRequest.ID,
+        Amount:      paymentCreationRequest.Amount,
+        Currency:    paymentCreationRequest.Currency,
+        Gateway:     paymentCreationRequest.Gateway,
+        Debtor:      paymentCreationRequest.Debtor,
+        Beneficiary: paymentCreationRequest.Beneficiary,
+        Direction:   paymentCreationRequest.Direction,
+        CustomerId:  paymentCreationRequest.CustomerId,
+        Status:      paymentCreationRequest.Status,
+        ExternalId:  paymentCreationRequest.ExternalId,
+        SchemeId:    paymentCreationRequest.SchemeId,
+    }
 }

@@ -14,8 +14,9 @@ import (
     "github.com/walletera/eventskit/eventstoredb"
     "github.com/walletera/eventskit/messages"
     "github.com/walletera/eventskit/rabbitmq"
-    "github.com/walletera/payments-types/api"
     paymentevents "github.com/walletera/payments-types/events"
+    "github.com/walletera/payments-types/privateapi"
+    "github.com/walletera/payments-types/publicapi"
     "github.com/walletera/payments/internal/adapters/input/http/private"
     "github.com/walletera/payments/internal/adapters/input/http/public"
     "github.com/walletera/payments/internal/domain/payment"
@@ -41,10 +42,9 @@ type App struct {
     rabbitmqPort             int
     rabbitmqUser             string
     rabbitmqPassword         string
-    publicAPIHttpServerPort  int
     privateAPIHttpServerPort int
     esdbUrl                  string
-    authServiceBase64PubKey  string
+    publicAPIConfig          Optional[PublicAPIConfig]
     logHandler               slog.Handler
     logger                   *slog.Logger
 }
@@ -72,15 +72,24 @@ func (app *App) Run(ctx context.Context) error {
         return fmt.Errorf("failed enabling esdb by category projection: %w", err)
     }
 
-    publicApiHttpServer, err := app.startPublicAPIHTTPServer(appLogger)
-    if err != nil {
-        return fmt.Errorf("failed starting public api http server: %w", err)
+    var httpServersToStop []*http.Server
+
+    var publicApiHttpServer *http.Server
+    if app.publicAPIConfig.Set {
+        publicApiHttpServer, err = app.startPublicAPIHTTPServer(appLogger)
+        if err != nil {
+            return fmt.Errorf("failed starting public api http server: %w", err)
+        }
+
+        httpServersToStop = append(httpServersToStop, publicApiHttpServer)
     }
 
     privateApiHttpServer, err := app.startPrivateAPIHTTPServer(appLogger)
     if err != nil {
         return fmt.Errorf("failed starting private api http server: %w", err)
     }
+
+    httpServersToStop = append(httpServersToStop, privateApiHttpServer)
 
     messageProcessor, err := app.createInternalMessageProcessor(appLogger)
     if err != nil {
@@ -98,7 +107,7 @@ func (app *App) Run(ctx context.Context) error {
     shutdownCtx, cancel := context.WithTimeout(context.Background(), shutdownTimeout)
     defer cancel()
 
-    app.stopHTTPServers(shutdownCtx, appLogger, publicApiHttpServer, privateApiHttpServer)
+    app.stopHTTPServers(shutdownCtx, appLogger, httpServersToStop...)
 
     // TODO Close messageProcessor
 
@@ -107,12 +116,12 @@ func (app *App) Run(ctx context.Context) error {
 }
 
 func (app *App) Stop(ctx context.Context) {
-    // TODO implement processor gracefull shutdown
+    // TODO implement processor graceful shutdown
     app.logger.Info("dinopay-gateway stopped")
 }
 
-// this tasks must be moved outside the payments service
-// idea: move it to a CRD and let your customer operator create it ;)
+// this task must be moved outside the payments service
+// idea: move it to a CRD and let your custom operator create it ;)
 func (app *App) execESDBSetupTasks(ctx context.Context) error {
     err := eventstoredb.EnableByCategoryProjection(ctx, app.esdbUrl)
     if err != nil {
@@ -151,7 +160,7 @@ func (app *App) startPublicAPIHTTPServer(appLogger *slog.Logger) (*http.Server, 
     if err != nil {
         return nil, err
     }
-    server, err := api.NewServer(
+    server, err := publicapi.NewServer(
         public.NewHandler(
             paymentService,
             appLogger.With(logattr.Component("http.PublicAPIHandler")),
@@ -162,7 +171,7 @@ func (app *App) startPublicAPIHTTPServer(appLogger *slog.Logger) (*http.Server, 
         panic(err)
     }
     httpServer := &http.Server{
-        Addr:    fmt.Sprintf("0.0.0.0:%d", app.publicAPIHttpServerPort),
+        Addr:    fmt.Sprintf("0.0.0.0:%d", app.publicAPIConfig.Value.PublicAPIHttpServerPort),
         Handler: server,
     }
 
@@ -185,16 +194,11 @@ func (app *App) startPrivateAPIHTTPServer(appLogger *slog.Logger) (*http.Server,
     }
     db := eventstoredb.NewDB(esdbClient)
     paymentService := payment.NewService(db, appLogger)
-    securityHandler := private.NewSecurityHandler()
-    if err != nil {
-        return nil, err
-    }
-    server, err := api.NewServer(
+    server, err := privateapi.NewServer(
         private.NewHandler(
             paymentService,
             appLogger.With(logattr.Component("http.PrivateAPIHandler")),
         ),
-        securityHandler,
     )
     if err != nil {
         panic(err)
@@ -217,7 +221,7 @@ func (app *App) startPrivateAPIHTTPServer(appLogger *slog.Logger) (*http.Server,
 }
 
 func (app *App) newPublicAPISecurityHandler() (*public.SecurityHandler, error) {
-    pemPubKey, err := base64.StdEncoding.DecodeString(app.authServiceBase64PubKey)
+    pemPubKey, err := base64.StdEncoding.DecodeString(app.publicAPIConfig.Value.AuthServiceBase64PubKey)
     if err != nil {
         return nil, err
     }

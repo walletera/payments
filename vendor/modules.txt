@@ -271,6 +271,7 @@ github.com/spf13/pflag
 ## explicit; go 1.17
 github.com/stretchr/testify/assert
 github.com/stretchr/testify/require
+github.com/stretchr/testify/suite
 # github.com/testcontainers/testcontainers-go v0.30.0
 ## explicit; go 1.21
 github.com/testcontainers/testcontainers-go
@@ -299,13 +300,17 @@ github.com/walletera/logs-watcher/slog
 # github.com/walletera/mockserver-go-client v0.0.1
 ## explicit; go 1.20
 github.com/walletera/mockserver-go-client/pkg/client
-# github.com/walletera/payments-types v0.0.11
+# github.com/walletera/payments-types v0.0.14 => /home/fedev/Code/walletera/payments-types
 ## explicit; go 1.22.4
-github.com/walletera/payments-types/api
+github.com/walletera/payments-types/builders/publicapi
+github.com/walletera/payments-types/converters/privateapi
+github.com/walletera/payments-types/converters/publicapi
 github.com/walletera/payments-types/events
 github.com/walletera/payments-types/pkg/wogen
 github.com/walletera/payments-types/pkg/wuuid
-# github.com/walletera/werrors v0.0.8
+github.com/walletera/payments-types/privateapi
+github.com/walletera/payments-types/publicapi
+# github.com/walletera/werrors v0.0.8 => /home/fedev/Code/walletera/werrors
 ## explicit; go 1.22.4
 github.com/walletera/werrors
 # github.com/yusufpapurcu/wmi v1.2.3

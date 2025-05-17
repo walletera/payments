@@ -3,7 +3,7 @@ package logattr
 import (
     "log/slog"
 
-    "github.com/google/uuid"
+    "github.com/walletera/werrors"
 )
 
 func ServiceName(serviceName string) slog.Attr {
@@ -26,8 +26,8 @@ func Error(err string) slog.Attr {
     return slog.String("error", err)
 }
 
-func ErrorCode(err uuid.UUID) slog.Attr {
-    return slog.String("error_code", err.String())
+func ErrorCode(code werrors.ErrorCode) slog.Attr {
+    return slog.Int("error_code", int(code))
 }
 
 func CorrelationId(correlationId string) slog.Attr {

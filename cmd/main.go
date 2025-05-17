@@ -32,9 +32,11 @@ func main() {
         app.WithRabbitmqUser(rabbitmqUser),
         app.WithRabbitmqPassword(rabbitmqPassword),
         app.WithESDBUrl(eventstoredbURL),
-        app.WithPublicAPIHttpServerPort(publicApiHttpServerPort),
         app.WithPrivateAPIHttpServerPort(privateApiHttpServerPort),
-        app.WithBase64AuthPubKey(base64AuthPubKey),
+        app.WithPublicAPIConfig(app.PublicAPIConfig{
+            PublicAPIHttpServerPort: publicApiHttpServerPort,
+            AuthServiceBase64PubKey: string(base64AuthPubKey),
+        }),
     )
     if err != nil {
         panic(err)

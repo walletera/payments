@@ -1,0 +1,3774 @@
+2025-05-23 18:06:38 5.15.0 INFO using environment variables:
+
+  [
+  	MOCKSERVER_SERVER_PORT=2090,
+  	MOCKSERVER_LOG_LEVEL=DEBUG
+  ]
+
+ and system properties:
+
+  [
+  	mockserver.propertyFile=/config/mockserver.properties
+  ]
+
+ and command line options:
+
+  [
+  	
+  ]
+ 
+2025-05-23 18:06:38 5.15.0 FINE logger level is DEBUG, change using:
+ - 'ConfigurationProperties.logLevel(String level)' in Java code,
+ - '-logLevel' command line argument,
+ - 'mockserver.logLevel' JVM system property or,
+ - 'mockserver.logLevel' property value in 'mockserver.properties' 
+2025-05-23 18:06:38 5.15.0 INFO 2090 started on port: 2090 
+2025-05-23 18:06:39 5.15.0 INFO 2090 creating expectation:
+
+  {
+    "httpRequest" : {
+      "method" : "POST",
+      "path" : "/matchevent",
+      "body" : {
+        "id" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+        "type" : "PaymentCreated",
+        "data" : {
+          "id" : "3b3315ea-38c1-40a4-b7f9-149cc9807096",
+          "amount" : 100,
+          "currency" : "ARS",
+          "customerId" : "997e76a7-c18d-4337-90ea-9a5cb0c5b54e",
+          "direction" : "inbound",
+          "status" : "confirmed",
+          "debtor" : {
+            "institutionName" : "dinopay",
+            "institutionId" : "dinopay",
+            "currency" : "ARS",
+            "accountDetails" : {
+              "accountType" : "cvu",
+              "cuit" : "23679876453",
+              "routingInfo" : {
+                "cvuRoutingInfoType" : "cvu",
+                "cvu" : "1122334455667788554433"
+              }
+            }
+          },
+          "beneficiary" : {
+            "institutionName" : "dinopay",
+            "institutionId" : "dinopay",
+            "currency" : "ARS",
+            "accountDetails" : {
+              "accountType" : "cvu",
+              "cuit" : "23679876453",
+              "routingInfo" : {
+                "cvuRoutingInfoType" : "cvu",
+                "cvu" : "1122334455667788554433"
+              }
+            }
+          },
+          "createdAt" : "${json-unit.any-string}"
+        }
+      }
+    },
+    "httpResponse" : {
+      "statusCode" : 201,
+      "headers" : {
+        "content-type" : [ "application/json" ]
+      }
+    },
+    "id" : "matchJSON-7475331119297440091",
+    "priority" : 0,
+    "timeToLive" : {
+      "unlimited" : true
+    },
+    "times" : {
+      "unlimited" : true
+    }
+  }
+
+ with id:
+
+  matchJSON-7475331119297440091
+ 
+2025-05-23 18:06:39 5.15.0 INFO 2090 received request:
+
+  {
+    "method" : "POST",
+    "path" : "/matchevent",
+    "headers" : {
+      "User-Agent" : [ "Go-http-client/1.1" ],
+      "Host" : [ "localhost:2090" ],
+      "Content-Type" : [ "application/json" ],
+      "Content-Length" : [ "795" ],
+      "Accept-Encoding" : [ "gzip" ]
+    },
+    "keepAlive" : true,
+    "secure" : false,
+    "protocol" : "HTTP_1_1",
+    "localAddress" : "172.17.0.5:2090",
+    "remoteAddress" : "172.17.0.1:55316",
+    "body" : {
+      "id" : "0196fe53-61b8-7a20-9485-cd23f36e8ebd",
+      "type" : "PaymentCreated",
+      "correlationId" : "",
+      "data" : {
+        "id" : "3b3315ea-38c1-40a4-b7f9-149cc9807096",
+        "amount" : 100,
+        "currency" : "ARS",
+        "gateway" : "bind",
+        "debtor" : {
+          "institutionName" : "dinopay",
+          "institutionId" : "dinopay",
+          "currency" : "ARS",
+          "accountDetails" : {
+            "accountType" : "cvu",
+            "cuit" : "23679876453",
+            "routingInfo" : {
+              "cvuRoutingInfoType" : "cvu",
+              "cvu" : "1122334455667788554433"
+            }
+          }
+        },
+        "beneficiary" : {
+          "institutionName" : "dinopay",
+          "institutionId" : "dinopay",
+          "currency" : "ARS",
+          "accountDetails" : {
+            "accountType" : "cvu",
+            "cuit" : "23679876453",
+            "routingInfo" : {
+              "cvuRoutingInfoType" : "cvu",
+              "cvu" : "1122334455667788554433"
+            }
+          }
+        },
+        "direction" : "inbound",
+        "customerId" : "997e76a7-c18d-4337-90ea-9a5cb0c5b54e",
+        "status" : "confirmed",
+        "createdAt" : "2025-05-23T15:06:39-03:00",
+        "updatedAt" : "0001-01-01T00:00:00Z"
+      }
+    }
+  }
+ 
+2025-05-23 18:06:39 5.15.0 INFO 2090 request:
+
+  {
+    "method" : "POST",
+    "path" : "/matchevent",
+    "headers" : {
+      "User-Agent" : [ "Go-http-client/1.1" ],
+      "Host" : [ "localhost:2090" ],
+      "Content-Type" : [ "application/json" ],
+      "Content-Length" : [ "795" ],
+      "Accept-Encoding" : [ "gzip" ]
+    },
+    "keepAlive" : true,
+    "secure" : false,
+    "protocol" : "HTTP_1_1",
+    "localAddress" : "172.17.0.5:2090",
+    "remoteAddress" : "172.17.0.1:55316",
+    "body" : {
+      "id" : "0196fe53-61b8-7a20-9485-cd23f36e8ebd",
+      "type" : "PaymentCreated",
+      "correlationId" : "",
+      "data" : {
+        "id" : "3b3315ea-38c1-40a4-b7f9-149cc9807096",
+        "amount" : 100,
+        "currency" : "ARS",
+        "gateway" : "bind",
+        "debtor" : {
+          "institutionName" : "dinopay",
+          "institutionId" : "dinopay",
+          "currency" : "ARS",
+          "accountDetails" : {
+            "accountType" : "cvu",
+            "cuit" : "23679876453",
+            "routingInfo" : {
+              "cvuRoutingInfoType" : "cvu",
+              "cvu" : "1122334455667788554433"
+            }
+          }
+        },
+        "beneficiary" : {
+          "institutionName" : "dinopay",
+          "institutionId" : "dinopay",
+          "currency" : "ARS",
+          "accountDetails" : {
+            "accountType" : "cvu",
+            "cuit" : "23679876453",
+            "routingInfo" : {
+              "cvuRoutingInfoType" : "cvu",
+              "cvu" : "1122334455667788554433"
+            }
+          }
+        },
+        "direction" : "inbound",
+        "customerId" : "997e76a7-c18d-4337-90ea-9a5cb0c5b54e",
+        "status" : "confirmed",
+        "createdAt" : "2025-05-23T15:06:39-03:00",
+        "updatedAt" : "0001-01-01T00:00:00Z"
+      }
+    }
+  }
+
+ matched expectation:
+
+  {
+    "httpRequest" : {
+      "method" : "POST",
+      "path" : "/matchevent",
+      "body" : {
+        "id" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+        "type" : "PaymentCreated",
+        "data" : {
+          "id" : "3b3315ea-38c1-40a4-b7f9-149cc9807096",
+          "amount" : 100,
+          "currency" : "ARS",
+          "customerId" : "997e76a7-c18d-4337-90ea-9a5cb0c5b54e",
+          "direction" : "inbound",
+          "status" : "confirmed",
+          "debtor" : {
+            "institutionName" : "dinopay",
+            "institutionId" : "dinopay",
+            "currency" : "ARS",
+            "accountDetails" : {
+              "accountType" : "cvu",
+              "cuit" : "23679876453",
+              "routingInfo" : {
+                "cvuRoutingInfoType" : "cvu",
+                "cvu" : "1122334455667788554433"
+              }
+            }
+          },
+          "beneficiary" : {
+            "institutionName" : "dinopay",
+            "institutionId" : "dinopay",
+            "currency" : "ARS",
+            "accountDetails" : {
+              "accountType" : "cvu",
+              "cuit" : "23679876453",
+              "routingInfo" : {
+                "cvuRoutingInfoType" : "cvu",
+                "cvu" : "1122334455667788554433"
+              }
+            }
+          },
+          "createdAt" : "${json-unit.any-string}"
+        }
+      }
+    },
+    "httpResponse" : {
+      "statusCode" : 201,
+      "headers" : {
+        "content-type" : [ "application/json" ]
+      }
+    },
+    "id" : "matchJSON-7475331119297440091",
+    "priority" : 0,
+    "timeToLive" : {
+      "unlimited" : true
+    },
+    "times" : {
+      "unlimited" : true
+    }
+  }
+ 
+2025-05-23 18:06:39 5.15.0 INFO 2090 returning response:
+
+  {
+    "statusCode" : 201,
+    "headers" : {
+      "content-type" : [ "application/json" ]
+    }
+  }
+
+ for request:
+
+  {
+    "method" : "POST",
+    "path" : "/matchevent",
+    "headers" : {
+      "User-Agent" : [ "Go-http-client/1.1" ],
+      "Host" : [ "localhost:2090" ],
+      "Content-Type" : [ "application/json" ],
+      "Content-Length" : [ "795" ],
+      "Accept-Encoding" : [ "gzip" ]
+    },
+    "keepAlive" : true,
+    "secure" : false,
+    "protocol" : "HTTP_1_1",
+    "localAddress" : "172.17.0.5:2090",
+    "remoteAddress" : "172.17.0.1:55316",
+    "body" : {
+      "id" : "0196fe53-61b8-7a20-9485-cd23f36e8ebd",
+      "type" : "PaymentCreated",
+      "correlationId" : "",
+      "data" : {
+        "id" : "3b3315ea-38c1-40a4-b7f9-149cc9807096",
+        "amount" : 100,
+        "currency" : "ARS",
+        "gateway" : "bind",
+        "debtor" : {
+          "institutionName" : "dinopay",
+          "institutionId" : "dinopay",
+          "currency" : "ARS",
+          "accountDetails" : {
+            "accountType" : "cvu",
+            "cuit" : "23679876453",
+            "routingInfo" : {
+              "cvuRoutingInfoType" : "cvu",
+              "cvu" : "1122334455667788554433"
+            }
+          }
+        },
+        "beneficiary" : {
+          "institutionName" : "dinopay",
+          "institutionId" : "dinopay",
+          "currency" : "ARS",
+          "accountDetails" : {
+            "accountType" : "cvu",
+            "cuit" : "23679876453",
+            "routingInfo" : {
+              "cvuRoutingInfoType" : "cvu",
+              "cvu" : "1122334455667788554433"
+            }
+          }
+        },
+        "direction" : "inbound",
+        "customerId" : "997e76a7-c18d-4337-90ea-9a5cb0c5b54e",
+        "status" : "confirmed",
+        "createdAt" : "2025-05-23T15:06:39-03:00",
+        "updatedAt" : "0001-01-01T00:00:00Z"
+      }
+    }
+  }
+
+ for action:
+
+  {
+    "statusCode" : 201,
+    "headers" : {
+      "content-type" : [ "application/json" ]
+    }
+  }
+
+ from expectation:
+
+  matchJSON-7475331119297440091
+ 
+2025-05-23 18:06:39 5.15.0 INFO 2090 verifying requests that match:
+
+  {
+    "expectationId" : {
+      "id" : "matchJSON-7475331119297440091"
+    },
+    "httpRequest" : {
+      "method" : "POST",
+      "path" : "/matchevent",
+      "body" : {
+        "id" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+        "type" : "PaymentCreated",
+        "data" : {
+          "id" : "3b3315ea-38c1-40a4-b7f9-149cc9807096",
+          "amount" : 100,
+          "currency" : "ARS",
+          "customerId" : "997e76a7-c18d-4337-90ea-9a5cb0c5b54e",
+          "direction" : "inbound",
+          "status" : "confirmed",
+          "debtor" : {
+            "institutionName" : "dinopay",
+            "institutionId" : "dinopay",
+            "currency" : "ARS",
+            "accountDetails" : {
+              "accountType" : "cvu",
+              "cuit" : "23679876453",
+              "routingInfo" : {
+                "cvuRoutingInfoType" : "cvu",
+                "cvu" : "1122334455667788554433"
+              }
+            }
+          },
+          "beneficiary" : {
+            "institutionName" : "dinopay",
+            "institutionId" : "dinopay",
+            "currency" : "ARS",
+            "accountDetails" : {
+              "accountType" : "cvu",
+              "cuit" : "23679876453",
+              "routingInfo" : {
+                "cvuRoutingInfoType" : "cvu",
+                "cvu" : "1122334455667788554433"
+              }
+            }
+          },
+          "createdAt" : "${json-unit.any-string}"
+        }
+      }
+    },
+    "times" : {
+      "atLeast" : 1,
+      "atMost" : 1
+    }
+  }
+ 
+2025-05-23 18:06:39 5.15.0 INFO request:
+
+  {
+    "method" : "POST",
+    "path" : "/matchevent",
+    "body" : {
+      "id" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+      "type" : "PaymentCreated",
+      "data" : {
+        "id" : "3b3315ea-38c1-40a4-b7f9-149cc9807096",
+        "amount" : 100,
+        "currency" : "ARS",
+        "customerId" : "997e76a7-c18d-4337-90ea-9a5cb0c5b54e",
+        "direction" : "inbound",
+        "status" : "confirmed",
+        "debtor" : {
+          "institutionName" : "dinopay",
+          "institutionId" : "dinopay",
+          "currency" : "ARS",
+          "accountDetails" : {
+            "accountType" : "cvu",
+            "cuit" : "23679876453",
+            "routingInfo" : {
+              "cvuRoutingInfoType" : "cvu",
+              "cvu" : "1122334455667788554433"
+            }
+          }
+        },
+        "beneficiary" : {
+          "institutionName" : "dinopay",
+          "institutionId" : "dinopay",
+          "currency" : "ARS",
+          "accountDetails" : {
+            "accountType" : "cvu",
+            "cuit" : "23679876453",
+            "routingInfo" : {
+              "cvuRoutingInfoType" : "cvu",
+              "cvu" : "1122334455667788554433"
+            }
+          }
+        },
+        "createdAt" : "${json-unit.any-string}"
+      }
+    }
+  }
+
+ found exactly once 
+2025-05-23 18:06:39 5.15.0 INFO 2090 creating expectation:
+
+  {
+    "httpRequest" : {
+      "method" : "POST",
+      "path" : "/matchevent",
+      "body" : {
+        "id" : "63c3b924-ddc6-4a28-9baf-6eb0aa4110f0",
+        "customerId" : "abbb8aa3-87f9-4b2b-889f-8962cf708cfc",
+        "amount" : 100,
+        "currency" : "ARS",
+        "gateway" : "bind",
+        "direction" : "inbound",
+        "status" : "confirmed",
+        "debtor" : {
+          "institutionName" : "dinopay",
+          "institutionId" : "dinopay",
+          "currency" : "ARS",
+          "accountDetails" : {
+            "accountType" : "cvu",
+            "cuit" : "23679876453",
+            "routingInfo" : {
+              "cvuRoutingInfoType" : "cvu",
+              "cvu" : "1122334455667788554433"
+            }
+          }
+        },
+        "beneficiary" : {
+          "institutionName" : "dinopay",
+          "institutionId" : "dinopay",
+          "currency" : "ARS",
+          "accountDetails" : {
+            "accountType" : "cvu",
+            "cuit" : "23679876453",
+            "routingInfo" : {
+              "cvuRoutingInfoType" : "cvu",
+              "cvu" : "1122334455667788554433"
+            }
+          }
+        },
+        "createdAt" : "${json-unit.any-string}"
+      }
+    },
+    "httpResponse" : {
+      "statusCode" : 201,
+      "headers" : {
+        "content-type" : [ "application/json" ]
+      }
+    },
+    "id" : "thePaymentsServiceReturnsTheFollowingResponse",
+    "priority" : 0,
+    "timeToLive" : {
+      "unlimited" : true
+    },
+    "times" : {
+      "unlimited" : true
+    }
+  }
+
+ with id:
+
+  thePaymentsServiceReturnsTheFollowingResponse
+ 
+2025-05-23 18:06:39 5.15.0 INFO 2090 received request:
+
+  {
+    "method" : "POST",
+    "path" : "/matchevent",
+    "headers" : {
+      "User-Agent" : [ "Go-http-client/1.1" ],
+      "Host" : [ "localhost:2090" ],
+      "Content-Type" : [ "application/json" ],
+      "Content-Length" : [ "699" ],
+      "Accept-Encoding" : [ "gzip" ]
+    },
+    "keepAlive" : true,
+    "secure" : false,
+    "protocol" : "HTTP_1_1",
+    "localAddress" : "172.17.0.5:2090",
+    "remoteAddress" : "172.17.0.1:55316",
+    "body" : {
+      "id" : "63c3b924-ddc6-4a28-9baf-6eb0aa4110f0",
+      "amount" : 100,
+      "currency" : "ARS",
+      "gateway" : "bind",
+      "debtor" : {
+        "institutionName" : "dinopay",
+        "institutionId" : "dinopay",
+        "currency" : "ARS",
+        "accountDetails" : {
+          "accountType" : "cvu",
+          "cuit" : "23679876453",
+          "routingInfo" : {
+            "cvuRoutingInfoType" : "cvu",
+            "cvu" : "1122334455667788554433"
+          }
+        }
+      },
+      "beneficiary" : {
+        "institutionName" : "dinopay",
+        "institutionId" : "dinopay",
+        "currency" : "ARS",
+        "accountDetails" : {
+          "accountType" : "cvu",
+          "cuit" : "23679876453",
+          "routingInfo" : {
+            "cvuRoutingInfoType" : "cvu",
+            "cvu" : "1122334455667788554433"
+          }
+        }
+      },
+      "direction" : "inbound",
+      "customerId" : "abbb8aa3-87f9-4b2b-889f-8962cf708cfc",
+      "status" : "confirmed",
+      "createdAt" : "2025-05-23T15:06:39-03:00",
+      "updatedAt" : "0001-01-01T00:00:00Z"
+    }
+  }
+ 
+2025-05-23 18:06:39 5.15.0 INFO 2090 request:
+
+  {
+    "method" : "POST",
+    "path" : "/matchevent",
+    "headers" : {
+      "User-Agent" : [ "Go-http-client/1.1" ],
+      "Host" : [ "localhost:2090" ],
+      "Content-Type" : [ "application/json" ],
+      "Content-Length" : [ "699" ],
+      "Accept-Encoding" : [ "gzip" ]
+    },
+    "keepAlive" : true,
+    "secure" : false,
+    "protocol" : "HTTP_1_1",
+    "localAddress" : "172.17.0.5:2090",
+    "remoteAddress" : "172.17.0.1:55316",
+    "body" : {
+      "id" : "63c3b924-ddc6-4a28-9baf-6eb0aa4110f0",
+      "amount" : 100,
+      "currency" : "ARS",
+      "gateway" : "bind",
+      "debtor" : {
+        "institutionName" : "dinopay",
+        "institutionId" : "dinopay",
+        "currency" : "ARS",
+        "accountDetails" : {
+          "accountType" : "cvu",
+          "cuit" : "23679876453",
+          "routingInfo" : {
+            "cvuRoutingInfoType" : "cvu",
+            "cvu" : "1122334455667788554433"
+          }
+        }
+      },
+      "beneficiary" : {
+        "institutionName" : "dinopay",
+        "institutionId" : "dinopay",
+        "currency" : "ARS",
+        "accountDetails" : {
+          "accountType" : "cvu",
+          "cuit" : "23679876453",
+          "routingInfo" : {
+            "cvuRoutingInfoType" : "cvu",
+            "cvu" : "1122334455667788554433"
+          }
+        }
+      },
+      "direction" : "inbound",
+      "customerId" : "abbb8aa3-87f9-4b2b-889f-8962cf708cfc",
+      "status" : "confirmed",
+      "createdAt" : "2025-05-23T15:06:39-03:00",
+      "updatedAt" : "0001-01-01T00:00:00Z"
+    }
+  }
+
+ didn't match expectation:
+
+  {
+    "httpRequest" : {
+      "method" : "POST",
+      "path" : "/matchevent",
+      "body" : {
+        "id" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+        "type" : "PaymentCreated",
+        "data" : {
+          "id" : "3b3315ea-38c1-40a4-b7f9-149cc9807096",
+          "amount" : 100,
+          "currency" : "ARS",
+          "customerId" : "997e76a7-c18d-4337-90ea-9a5cb0c5b54e",
+          "direction" : "inbound",
+          "status" : "confirmed",
+          "debtor" : {
+            "institutionName" : "dinopay",
+            "institutionId" : "dinopay",
+            "currency" : "ARS",
+            "accountDetails" : {
+              "accountType" : "cvu",
+              "cuit" : "23679876453",
+              "routingInfo" : {
+                "cvuRoutingInfoType" : "cvu",
+                "cvu" : "1122334455667788554433"
+              }
+            }
+          },
+          "beneficiary" : {
+            "institutionName" : "dinopay",
+            "institutionId" : "dinopay",
+            "currency" : "ARS",
+            "accountDetails" : {
+              "accountType" : "cvu",
+              "cuit" : "23679876453",
+              "routingInfo" : {
+                "cvuRoutingInfoType" : "cvu",
+                "cvu" : "1122334455667788554433"
+              }
+            }
+          },
+          "createdAt" : "${json-unit.any-string}"
+        }
+      }
+    },
+    "httpResponse" : {
+      "statusCode" : 201,
+      "headers" : {
+        "content-type" : [ "application/json" ]
+      }
+    },
+    "id" : "matchJSON-7475331119297440091",
+    "priority" : 0,
+    "timeToLive" : {
+      "unlimited" : true
+    },
+    "times" : {
+      "unlimited" : true
+    }
+  }
+
+ because:
+
+  method matched
+  path matched
+  body didn't match: 
+  
+    json match failed expected:
+  
+      {
+        "id" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+        "type" : "PaymentCreated",
+        "data" : {
+          "id" : "3b3315ea-38c1-40a4-b7f9-149cc9807096",
+          "amount" : 100,
+          "currency" : "ARS",
+          "customerId" : "997e76a7-c18d-4337-90ea-9a5cb0c5b54e",
+          "direction" : "inbound",
+          "status" : "confirmed",
+          "debtor" : {
+            "institutionName" : "dinopay",
+            "institutionId" : "dinopay",
+            "currency" : "ARS",
+            "accountDetails" : {
+              "accountType" : "cvu",
+              "cuit" : "23679876453",
+              "routingInfo" : {
+                "cvuRoutingInfoType" : "cvu",
+                "cvu" : "1122334455667788554433"
+              }
+            }
+          },
+          "beneficiary" : {
+            "institutionName" : "dinopay",
+            "institutionId" : "dinopay",
+            "currency" : "ARS",
+            "accountDetails" : {
+              "accountType" : "cvu",
+              "cuit" : "23679876453",
+              "routingInfo" : {
+                "cvuRoutingInfoType" : "cvu",
+                "cvu" : "1122334455667788554433"
+              }
+            }
+          },
+          "createdAt" : "${json-unit.any-string}"
+        }
+      }
+  
+     found:
+  
+      {"id":"63c3b924-ddc6-4a28-9baf-6eb0aa4110f0","amount":100,"currency":"ARS","gateway":"bind","debtor":{"institutionName":"dinopay","institutionId":"dinopay","currency":"ARS","accountDetails":{"accountType":"cvu","cuit":"23679876453","routingInfo":{"cvuRoutingInfoType":"cvu","cvu":"1122334455667788554433"}}},"beneficiary":{"institutionName":"dinopay","institutionId":"dinopay","currency":"ARS","accountDetails":{"accountType":"cvu","cuit":"23679876453","routingInfo":{"cvuRoutingInfoType":"cvu","cvu":"1122334455667788554433"}}},"direction":"inbound","customerId":"abbb8aa3-87f9-4b2b-889f-8962cf708cfc","status":"confirmed","createdAt":"2025-05-23T15:06:39-03:00","updatedAt":"0001-01-01T00:00:00Z"}
+  
+     failed because:
+  
+      missing element at "data",
+      missing element at "type"
+
+ 
+2025-05-23 18:06:39 5.15.0 INFO 2090 request:
+
+  {
+    "method" : "POST",
+    "path" : "/matchevent",
+    "headers" : {
+      "User-Agent" : [ "Go-http-client/1.1" ],
+      "Host" : [ "localhost:2090" ],
+      "Content-Type" : [ "application/json" ],
+      "Content-Length" : [ "699" ],
+      "Accept-Encoding" : [ "gzip" ]
+    },
+    "keepAlive" : true,
+    "secure" : false,
+    "protocol" : "HTTP_1_1",
+    "localAddress" : "172.17.0.5:2090",
+    "remoteAddress" : "172.17.0.1:55316",
+    "body" : {
+      "id" : "63c3b924-ddc6-4a28-9baf-6eb0aa4110f0",
+      "amount" : 100,
+      "currency" : "ARS",
+      "gateway" : "bind",
+      "debtor" : {
+        "institutionName" : "dinopay",
+        "institutionId" : "dinopay",
+        "currency" : "ARS",
+        "accountDetails" : {
+          "accountType" : "cvu",
+          "cuit" : "23679876453",
+          "routingInfo" : {
+            "cvuRoutingInfoType" : "cvu",
+            "cvu" : "1122334455667788554433"
+          }
+        }
+      },
+      "beneficiary" : {
+        "institutionName" : "dinopay",
+        "institutionId" : "dinopay",
+        "currency" : "ARS",
+        "accountDetails" : {
+          "accountType" : "cvu",
+          "cuit" : "23679876453",
+          "routingInfo" : {
+            "cvuRoutingInfoType" : "cvu",
+            "cvu" : "1122334455667788554433"
+          }
+        }
+      },
+      "direction" : "inbound",
+      "customerId" : "abbb8aa3-87f9-4b2b-889f-8962cf708cfc",
+      "status" : "confirmed",
+      "createdAt" : "2025-05-23T15:06:39-03:00",
+      "updatedAt" : "0001-01-01T00:00:00Z"
+    }
+  }
+
+ matched expectation:
+
+  {
+    "httpRequest" : {
+      "method" : "POST",
+      "path" : "/matchevent",
+      "body" : {
+        "id" : "63c3b924-ddc6-4a28-9baf-6eb0aa4110f0",
+        "customerId" : "abbb8aa3-87f9-4b2b-889f-8962cf708cfc",
+        "amount" : 100,
+        "currency" : "ARS",
+        "gateway" : "bind",
+        "direction" : "inbound",
+        "status" : "confirmed",
+        "debtor" : {
+          "institutionName" : "dinopay",
+          "institutionId" : "dinopay",
+          "currency" : "ARS",
+          "accountDetails" : {
+            "accountType" : "cvu",
+            "cuit" : "23679876453",
+            "routingInfo" : {
+              "cvuRoutingInfoType" : "cvu",
+              "cvu" : "1122334455667788554433"
+            }
+          }
+        },
+        "beneficiary" : {
+          "institutionName" : "dinopay",
+          "institutionId" : "dinopay",
+          "currency" : "ARS",
+          "accountDetails" : {
+            "accountType" : "cvu",
+            "cuit" : "23679876453",
+            "routingInfo" : {
+              "cvuRoutingInfoType" : "cvu",
+              "cvu" : "1122334455667788554433"
+            }
+          }
+        },
+        "createdAt" : "${json-unit.any-string}"
+      }
+    },
+    "httpResponse" : {
+      "statusCode" : 201,
+      "headers" : {
+        "content-type" : [ "application/json" ]
+      }
+    },
+    "id" : "thePaymentsServiceReturnsTheFollowingResponse",
+    "priority" : 0,
+    "timeToLive" : {
+      "unlimited" : true
+    },
+    "times" : {
+      "unlimited" : true
+    }
+  }
+ 
+2025-05-23 18:06:39 5.15.0 INFO 2090 returning response:
+
+  {
+    "statusCode" : 201,
+    "headers" : {
+      "content-type" : [ "application/json" ]
+    }
+  }
+
+ for request:
+
+  {
+    "method" : "POST",
+    "path" : "/matchevent",
+    "headers" : {
+      "User-Agent" : [ "Go-http-client/1.1" ],
+      "Host" : [ "localhost:2090" ],
+      "Content-Type" : [ "application/json" ],
+      "Content-Length" : [ "699" ],
+      "Accept-Encoding" : [ "gzip" ]
+    },
+    "keepAlive" : true,
+    "secure" : false,
+    "protocol" : "HTTP_1_1",
+    "localAddress" : "172.17.0.5:2090",
+    "remoteAddress" : "172.17.0.1:55316",
+    "body" : {
+      "id" : "63c3b924-ddc6-4a28-9baf-6eb0aa4110f0",
+      "amount" : 100,
+      "currency" : "ARS",
+      "gateway" : "bind",
+      "debtor" : {
+        "institutionName" : "dinopay",
+        "institutionId" : "dinopay",
+        "currency" : "ARS",
+        "accountDetails" : {
+          "accountType" : "cvu",
+          "cuit" : "23679876453",
+          "routingInfo" : {
+            "cvuRoutingInfoType" : "cvu",
+            "cvu" : "1122334455667788554433"
+          }
+        }
+      },
+      "beneficiary" : {
+        "institutionName" : "dinopay",
+        "institutionId" : "dinopay",
+        "currency" : "ARS",
+        "accountDetails" : {
+          "accountType" : "cvu",
+          "cuit" : "23679876453",
+          "routingInfo" : {
+            "cvuRoutingInfoType" : "cvu",
+            "cvu" : "1122334455667788554433"
+          }
+        }
+      },
+      "direction" : "inbound",
+      "customerId" : "abbb8aa3-87f9-4b2b-889f-8962cf708cfc",
+      "status" : "confirmed",
+      "createdAt" : "2025-05-23T15:06:39-03:00",
+      "updatedAt" : "0001-01-01T00:00:00Z"
+    }
+  }
+
+ for action:
+
+  {
+    "statusCode" : 201,
+    "headers" : {
+      "content-type" : [ "application/json" ]
+    }
+  }
+
+ from expectation:
+
+  thePaymentsServiceReturnsTheFollowingResponse
+ 
+2025-05-23 18:06:39 5.15.0 INFO 2090 verifying requests that match:
+
+  {
+    "expectationId" : {
+      "id" : "thePaymentsServiceReturnsTheFollowingResponse"
+    },
+    "httpRequest" : {
+      "method" : "POST",
+      "path" : "/matchevent",
+      "body" : {
+        "id" : "63c3b924-ddc6-4a28-9baf-6eb0aa4110f0",
+        "customerId" : "abbb8aa3-87f9-4b2b-889f-8962cf708cfc",
+        "amount" : 100,
+        "currency" : "ARS",
+        "gateway" : "bind",
+        "direction" : "inbound",
+        "status" : "confirmed",
+        "debtor" : {
+          "institutionName" : "dinopay",
+          "institutionId" : "dinopay",
+          "currency" : "ARS",
+          "accountDetails" : {
+            "accountType" : "cvu",
+            "cuit" : "23679876453",
+            "routingInfo" : {
+              "cvuRoutingInfoType" : "cvu",
+              "cvu" : "1122334455667788554433"
+            }
+          }
+        },
+        "beneficiary" : {
+          "institutionName" : "dinopay",
+          "institutionId" : "dinopay",
+          "currency" : "ARS",
+          "accountDetails" : {
+            "accountType" : "cvu",
+            "cuit" : "23679876453",
+            "routingInfo" : {
+              "cvuRoutingInfoType" : "cvu",
+              "cvu" : "1122334455667788554433"
+            }
+          }
+        },
+        "createdAt" : "${json-unit.any-string}"
+      }
+    },
+    "times" : {
+      "atLeast" : 1,
+      "atMost" : 1
+    }
+  }
+ 
+2025-05-23 18:06:39 5.15.0 INFO request:
+
+  {
+    "method" : "POST",
+    "path" : "/matchevent",
+    "body" : {
+      "id" : "63c3b924-ddc6-4a28-9baf-6eb0aa4110f0",
+      "customerId" : "abbb8aa3-87f9-4b2b-889f-8962cf708cfc",
+      "amount" : 100,
+      "currency" : "ARS",
+      "gateway" : "bind",
+      "direction" : "inbound",
+      "status" : "confirmed",
+      "debtor" : {
+        "institutionName" : "dinopay",
+        "institutionId" : "dinopay",
+        "currency" : "ARS",
+        "accountDetails" : {
+          "accountType" : "cvu",
+          "cuit" : "23679876453",
+          "routingInfo" : {
+            "cvuRoutingInfoType" : "cvu",
+            "cvu" : "1122334455667788554433"
+          }
+        }
+      },
+      "beneficiary" : {
+        "institutionName" : "dinopay",
+        "institutionId" : "dinopay",
+        "currency" : "ARS",
+        "accountDetails" : {
+          "accountType" : "cvu",
+          "cuit" : "23679876453",
+          "routingInfo" : {
+            "cvuRoutingInfoType" : "cvu",
+            "cvu" : "1122334455667788554433"
+          }
+        }
+      },
+      "createdAt" : "${json-unit.any-string}"
+    }
+  }
+
+ found exactly once 
+2025-05-23 18:06:40 5.15.0 INFO 2090 creating expectation:
+
+  {
+    "httpRequest" : {
+      "method" : "POST",
+      "path" : "/matchevent",
+      "body" : {
+        "id" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+        "type" : "PaymentUpdated",
+        "data" : {
+          "paymentId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+          "externalId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+          "status" : "confirmed"
+        }
+      }
+    },
+    "httpResponse" : {
+      "statusCode" : 201,
+      "headers" : {
+        "content-type" : [ "application/json" ]
+      }
+    },
+    "id" : "matchJSON-7038493524309811053",
+    "priority" : 0,
+    "timeToLive" : {
+      "unlimited" : true
+    },
+    "times" : {
+      "unlimited" : true
+    }
+  }
+
+ with id:
+
+  matchJSON-7038493524309811053
+ 
+2025-05-23 18:06:40 5.15.0 INFO 2090 received request:
+
+  {
+    "method" : "POST",
+    "path" : "/matchevent",
+    "headers" : {
+      "User-Agent" : [ "Go-http-client/1.1" ],
+      "Host" : [ "localhost:2090" ],
+      "Content-Type" : [ "application/json" ],
+      "Content-Length" : [ "793" ],
+      "Accept-Encoding" : [ "gzip" ]
+    },
+    "keepAlive" : true,
+    "secure" : false,
+    "protocol" : "HTTP_1_1",
+    "localAddress" : "172.17.0.5:2090",
+    "remoteAddress" : "172.17.0.1:55316",
+    "body" : {
+      "id" : "0196fe53-64cf-7130-b3ba-2e406d2631fc",
+      "type" : "PaymentCreated",
+      "correlationId" : "",
+      "data" : {
+        "id" : "0196fe53-6495-777b-bf55-4e6d3f77105f",
+        "amount" : 100,
+        "currency" : "ARS",
+        "gateway" : "bind",
+        "debtor" : {
+          "institutionName" : "dinopay",
+          "institutionId" : "dinopay",
+          "currency" : "ARS",
+          "accountDetails" : {
+            "accountType" : "cvu",
+            "cuit" : "23679876453",
+            "routingInfo" : {
+              "cvuRoutingInfoType" : "cvu",
+              "cvu" : "1122334455667788554433"
+            }
+          }
+        },
+        "beneficiary" : {
+          "institutionName" : "dinopay",
+          "institutionId" : "dinopay",
+          "currency" : "ARS",
+          "accountDetails" : {
+            "accountType" : "cvu",
+            "cuit" : "23679876453",
+            "routingInfo" : {
+              "cvuRoutingInfoType" : "cvu",
+              "cvu" : "1122334455667788554433"
+            }
+          }
+        },
+        "direction" : "inbound",
+        "customerId" : "0196fe53-6495-7781-937e-bee77aa87dcf",
+        "status" : "pending",
+        "createdAt" : "2025-05-23T15:06:40-03:00",
+        "updatedAt" : "0001-01-01T00:00:00Z"
+      }
+    }
+  }
+ 
+2025-05-23 18:06:40 5.15.0 INFO 2090 request:
+
+  {
+    "method" : "POST",
+    "path" : "/matchevent",
+    "headers" : {
+      "User-Agent" : [ "Go-http-client/1.1" ],
+      "Host" : [ "localhost:2090" ],
+      "Content-Type" : [ "application/json" ],
+      "Content-Length" : [ "793" ],
+      "Accept-Encoding" : [ "gzip" ]
+    },
+    "keepAlive" : true,
+    "secure" : false,
+    "protocol" : "HTTP_1_1",
+    "localAddress" : "172.17.0.5:2090",
+    "remoteAddress" : "172.17.0.1:55316",
+    "body" : {
+      "id" : "0196fe53-64cf-7130-b3ba-2e406d2631fc",
+      "type" : "PaymentCreated",
+      "correlationId" : "",
+      "data" : {
+        "id" : "0196fe53-6495-777b-bf55-4e6d3f77105f",
+        "amount" : 100,
+        "currency" : "ARS",
+        "gateway" : "bind",
+        "debtor" : {
+          "institutionName" : "dinopay",
+          "institutionId" : "dinopay",
+          "currency" : "ARS",
+          "accountDetails" : {
+            "accountType" : "cvu",
+            "cuit" : "23679876453",
+            "routingInfo" : {
+              "cvuRoutingInfoType" : "cvu",
+              "cvu" : "1122334455667788554433"
+            }
+          }
+        },
+        "beneficiary" : {
+          "institutionName" : "dinopay",
+          "institutionId" : "dinopay",
+          "currency" : "ARS",
+          "accountDetails" : {
+            "accountType" : "cvu",
+            "cuit" : "23679876453",
+            "routingInfo" : {
+              "cvuRoutingInfoType" : "cvu",
+              "cvu" : "1122334455667788554433"
+            }
+          }
+        },
+        "direction" : "inbound",
+        "customerId" : "0196fe53-6495-7781-937e-bee77aa87dcf",
+        "status" : "pending",
+        "createdAt" : "2025-05-23T15:06:40-03:00",
+        "updatedAt" : "0001-01-01T00:00:00Z"
+      }
+    }
+  }
+
+ didn't match expectation:
+
+  {
+    "httpRequest" : {
+      "method" : "POST",
+      "path" : "/matchevent",
+      "body" : {
+        "id" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+        "type" : "PaymentCreated",
+        "data" : {
+          "id" : "3b3315ea-38c1-40a4-b7f9-149cc9807096",
+          "amount" : 100,
+          "currency" : "ARS",
+          "customerId" : "997e76a7-c18d-4337-90ea-9a5cb0c5b54e",
+          "direction" : "inbound",
+          "status" : "confirmed",
+          "debtor" : {
+            "institutionName" : "dinopay",
+            "institutionId" : "dinopay",
+            "currency" : "ARS",
+            "accountDetails" : {
+              "accountType" : "cvu",
+              "cuit" : "23679876453",
+              "routingInfo" : {
+                "cvuRoutingInfoType" : "cvu",
+                "cvu" : "1122334455667788554433"
+              }
+            }
+          },
+          "beneficiary" : {
+            "institutionName" : "dinopay",
+            "institutionId" : "dinopay",
+            "currency" : "ARS",
+            "accountDetails" : {
+              "accountType" : "cvu",
+              "cuit" : "23679876453",
+              "routingInfo" : {
+                "cvuRoutingInfoType" : "cvu",
+                "cvu" : "1122334455667788554433"
+              }
+            }
+          },
+          "createdAt" : "${json-unit.any-string}"
+        }
+      }
+    },
+    "httpResponse" : {
+      "statusCode" : 201,
+      "headers" : {
+        "content-type" : [ "application/json" ]
+      }
+    },
+    "id" : "matchJSON-7475331119297440091",
+    "priority" : 0,
+    "timeToLive" : {
+      "unlimited" : true
+    },
+    "times" : {
+      "unlimited" : true
+    }
+  }
+
+ because:
+
+  method matched
+  path matched
+  body didn't match: 
+  
+    json match failed expected:
+  
+      {
+        "id" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+        "type" : "PaymentCreated",
+        "data" : {
+          "id" : "3b3315ea-38c1-40a4-b7f9-149cc9807096",
+          "amount" : 100,
+          "currency" : "ARS",
+          "customerId" : "997e76a7-c18d-4337-90ea-9a5cb0c5b54e",
+          "direction" : "inbound",
+          "status" : "confirmed",
+          "debtor" : {
+            "institutionName" : "dinopay",
+            "institutionId" : "dinopay",
+            "currency" : "ARS",
+            "accountDetails" : {
+              "accountType" : "cvu",
+              "cuit" : "23679876453",
+              "routingInfo" : {
+                "cvuRoutingInfoType" : "cvu",
+                "cvu" : "1122334455667788554433"
+              }
+            }
+          },
+          "beneficiary" : {
+            "institutionName" : "dinopay",
+            "institutionId" : "dinopay",
+            "currency" : "ARS",
+            "accountDetails" : {
+              "accountType" : "cvu",
+              "cuit" : "23679876453",
+              "routingInfo" : {
+                "cvuRoutingInfoType" : "cvu",
+                "cvu" : "1122334455667788554433"
+              }
+            }
+          },
+          "createdAt" : "${json-unit.any-string}"
+        }
+      }
+  
+     found:
+  
+      {"id":"0196fe53-64cf-7130-b3ba-2e406d2631fc","type":"PaymentCreated","correlationId":"","data":{"id":"0196fe53-6495-777b-bf55-4e6d3f77105f","amount":100,"currency":"ARS","gateway":"bind","debtor":{"institutionName":"dinopay","institutionId":"dinopay","currency":"ARS","accountDetails":{"accountType":"cvu","cuit":"23679876453","routingInfo":{"cvuRoutingInfoType":"cvu","cvu":"1122334455667788554433"}}},"beneficiary":{"institutionName":"dinopay","institutionId":"dinopay","currency":"ARS","accountDetails":{"accountType":"cvu","cuit":"23679876453","routingInfo":{"cvuRoutingInfoType":"cvu","cvu":"1122334455667788554433"}}},"direction":"inbound","customerId":"0196fe53-6495-7781-937e-bee77aa87dcf","status":"pending","createdAt":"2025-05-23T15:06:40-03:00","updatedAt":"0001-01-01T00:00:00Z"}}
+  
+     failed because:
+  
+      wrong value at "data.customerId", expected: "997e76a7-c18d-4337-90ea-9a5cb0c5b54e" but was: "0196fe53-6495-7781-937e-bee77aa87dcf",
+      wrong value at "data.id", expected: "3b3315ea-38c1-40a4-b7f9-149cc9807096" but was: "0196fe53-6495-777b-bf55-4e6d3f77105f",
+      wrong value at "data.status", expected: "confirmed" but was: "pending"
+
+ 
+2025-05-23 18:06:40 5.15.0 INFO 2090 request:
+
+  {
+    "method" : "POST",
+    "path" : "/matchevent",
+    "headers" : {
+      "User-Agent" : [ "Go-http-client/1.1" ],
+      "Host" : [ "localhost:2090" ],
+      "Content-Type" : [ "application/json" ],
+      "Content-Length" : [ "793" ],
+      "Accept-Encoding" : [ "gzip" ]
+    },
+    "keepAlive" : true,
+    "secure" : false,
+    "protocol" : "HTTP_1_1",
+    "localAddress" : "172.17.0.5:2090",
+    "remoteAddress" : "172.17.0.1:55316",
+    "body" : {
+      "id" : "0196fe53-64cf-7130-b3ba-2e406d2631fc",
+      "type" : "PaymentCreated",
+      "correlationId" : "",
+      "data" : {
+        "id" : "0196fe53-6495-777b-bf55-4e6d3f77105f",
+        "amount" : 100,
+        "currency" : "ARS",
+        "gateway" : "bind",
+        "debtor" : {
+          "institutionName" : "dinopay",
+          "institutionId" : "dinopay",
+          "currency" : "ARS",
+          "accountDetails" : {
+            "accountType" : "cvu",
+            "cuit" : "23679876453",
+            "routingInfo" : {
+              "cvuRoutingInfoType" : "cvu",
+              "cvu" : "1122334455667788554433"
+            }
+          }
+        },
+        "beneficiary" : {
+          "institutionName" : "dinopay",
+          "institutionId" : "dinopay",
+          "currency" : "ARS",
+          "accountDetails" : {
+            "accountType" : "cvu",
+            "cuit" : "23679876453",
+            "routingInfo" : {
+              "cvuRoutingInfoType" : "cvu",
+              "cvu" : "1122334455667788554433"
+            }
+          }
+        },
+        "direction" : "inbound",
+        "customerId" : "0196fe53-6495-7781-937e-bee77aa87dcf",
+        "status" : "pending",
+        "createdAt" : "2025-05-23T15:06:40-03:00",
+        "updatedAt" : "0001-01-01T00:00:00Z"
+      }
+    }
+  }
+
+ didn't match expectation:
+
+  {
+    "httpRequest" : {
+      "method" : "POST",
+      "path" : "/matchevent",
+      "body" : {
+        "id" : "63c3b924-ddc6-4a28-9baf-6eb0aa4110f0",
+        "customerId" : "abbb8aa3-87f9-4b2b-889f-8962cf708cfc",
+        "amount" : 100,
+        "currency" : "ARS",
+        "gateway" : "bind",
+        "direction" : "inbound",
+        "status" : "confirmed",
+        "debtor" : {
+          "institutionName" : "dinopay",
+          "institutionId" : "dinopay",
+          "currency" : "ARS",
+          "accountDetails" : {
+            "accountType" : "cvu",
+            "cuit" : "23679876453",
+            "routingInfo" : {
+              "cvuRoutingInfoType" : "cvu",
+              "cvu" : "1122334455667788554433"
+            }
+          }
+        },
+        "beneficiary" : {
+          "institutionName" : "dinopay",
+          "institutionId" : "dinopay",
+          "currency" : "ARS",
+          "accountDetails" : {
+            "accountType" : "cvu",
+            "cuit" : "23679876453",
+            "routingInfo" : {
+              "cvuRoutingInfoType" : "cvu",
+              "cvu" : "1122334455667788554433"
+            }
+          }
+        },
+        "createdAt" : "${json-unit.any-string}"
+      }
+    },
+    "httpResponse" : {
+      "statusCode" : 201,
+      "headers" : {
+        "content-type" : [ "application/json" ]
+      }
+    },
+    "id" : "thePaymentsServiceReturnsTheFollowingResponse",
+    "priority" : 0,
+    "timeToLive" : {
+      "unlimited" : true
+    },
+    "times" : {
+      "unlimited" : true
+    }
+  }
+
+ because:
+
+  method matched
+  path matched
+  body didn't match: 
+  
+    json match failed expected:
+  
+      {
+        "id" : "63c3b924-ddc6-4a28-9baf-6eb0aa4110f0",
+        "customerId" : "abbb8aa3-87f9-4b2b-889f-8962cf708cfc",
+        "amount" : 100,
+        "currency" : "ARS",
+        "gateway" : "bind",
+        "direction" : "inbound",
+        "status" : "confirmed",
+        "debtor" : {
+          "institutionName" : "dinopay",
+          "institutionId" : "dinopay",
+          "currency" : "ARS",
+          "accountDetails" : {
+            "accountType" : "cvu",
+            "cuit" : "23679876453",
+            "routingInfo" : {
+              "cvuRoutingInfoType" : "cvu",
+              "cvu" : "1122334455667788554433"
+            }
+          }
+        },
+        "beneficiary" : {
+          "institutionName" : "dinopay",
+          "institutionId" : "dinopay",
+          "currency" : "ARS",
+          "accountDetails" : {
+            "accountType" : "cvu",
+            "cuit" : "23679876453",
+            "routingInfo" : {
+              "cvuRoutingInfoType" : "cvu",
+              "cvu" : "1122334455667788554433"
+            }
+          }
+        },
+        "createdAt" : "${json-unit.any-string}"
+      }
+  
+     found:
+  
+      {"id":"0196fe53-64cf-7130-b3ba-2e406d2631fc","type":"PaymentCreated","correlationId":"","data":{"id":"0196fe53-6495-777b-bf55-4e6d3f77105f","amount":100,"currency":"ARS","gateway":"bind","debtor":{"institutionName":"dinopay","institutionId":"dinopay","currency":"ARS","accountDetails":{"accountType":"cvu","cuit":"23679876453","routingInfo":{"cvuRoutingInfoType":"cvu","cvu":"1122334455667788554433"}}},"beneficiary":{"institutionName":"dinopay","institutionId":"dinopay","currency":"ARS","accountDetails":{"accountType":"cvu","cuit":"23679876453","routingInfo":{"cvuRoutingInfoType":"cvu","cvu":"1122334455667788554433"}}},"direction":"inbound","customerId":"0196fe53-6495-7781-937e-bee77aa87dcf","status":"pending","createdAt":"2025-05-23T15:06:40-03:00","updatedAt":"0001-01-01T00:00:00Z"}}
+  
+     failed because:
+  
+      missing element at "amount",
+      missing element at "beneficiary",
+      missing element at "createdAt",
+      missing element at "currency",
+      missing element at "customerId",
+      missing element at "debtor",
+      missing element at "direction",
+      missing element at "gateway",
+      missing element at "status",
+      wrong value at "id", expected: "63c3b924-ddc6-4a28-9baf-6eb0aa4110f0" but was: "0196fe53-64cf-7130-b3ba-2e406d2631fc"
+
+ 
+2025-05-23 18:06:40 5.15.0 INFO 2090 request:
+
+  {
+    "method" : "POST",
+    "path" : "/matchevent",
+    "headers" : {
+      "User-Agent" : [ "Go-http-client/1.1" ],
+      "Host" : [ "localhost:2090" ],
+      "Content-Type" : [ "application/json" ],
+      "Content-Length" : [ "793" ],
+      "Accept-Encoding" : [ "gzip" ]
+    },
+    "keepAlive" : true,
+    "secure" : false,
+    "protocol" : "HTTP_1_1",
+    "localAddress" : "172.17.0.5:2090",
+    "remoteAddress" : "172.17.0.1:55316",
+    "body" : {
+      "id" : "0196fe53-64cf-7130-b3ba-2e406d2631fc",
+      "type" : "PaymentCreated",
+      "correlationId" : "",
+      "data" : {
+        "id" : "0196fe53-6495-777b-bf55-4e6d3f77105f",
+        "amount" : 100,
+        "currency" : "ARS",
+        "gateway" : "bind",
+        "debtor" : {
+          "institutionName" : "dinopay",
+          "institutionId" : "dinopay",
+          "currency" : "ARS",
+          "accountDetails" : {
+            "accountType" : "cvu",
+            "cuit" : "23679876453",
+            "routingInfo" : {
+              "cvuRoutingInfoType" : "cvu",
+              "cvu" : "1122334455667788554433"
+            }
+          }
+        },
+        "beneficiary" : {
+          "institutionName" : "dinopay",
+          "institutionId" : "dinopay",
+          "currency" : "ARS",
+          "accountDetails" : {
+            "accountType" : "cvu",
+            "cuit" : "23679876453",
+            "routingInfo" : {
+              "cvuRoutingInfoType" : "cvu",
+              "cvu" : "1122334455667788554433"
+            }
+          }
+        },
+        "direction" : "inbound",
+        "customerId" : "0196fe53-6495-7781-937e-bee77aa87dcf",
+        "status" : "pending",
+        "createdAt" : "2025-05-23T15:06:40-03:00",
+        "updatedAt" : "0001-01-01T00:00:00Z"
+      }
+    }
+  }
+
+ didn't match expectation:
+
+  {
+    "httpRequest" : {
+      "method" : "POST",
+      "path" : "/matchevent",
+      "body" : {
+        "id" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+        "type" : "PaymentUpdated",
+        "data" : {
+          "paymentId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+          "externalId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+          "status" : "confirmed"
+        }
+      }
+    },
+    "httpResponse" : {
+      "statusCode" : 201,
+      "headers" : {
+        "content-type" : [ "application/json" ]
+      }
+    },
+    "id" : "matchJSON-7038493524309811053",
+    "priority" : 0,
+    "timeToLive" : {
+      "unlimited" : true
+    },
+    "times" : {
+      "unlimited" : true
+    }
+  }
+
+ because:
+
+  method matched
+  path matched
+  body didn't match: 
+  
+    json match failed expected:
+  
+      {
+        "id" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+        "type" : "PaymentUpdated",
+        "data" : {
+          "paymentId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+          "externalId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+          "status" : "confirmed"
+        }
+      }
+  
+     found:
+  
+      {"id":"0196fe53-64cf-7130-b3ba-2e406d2631fc","type":"PaymentCreated","correlationId":"","data":{"id":"0196fe53-6495-777b-bf55-4e6d3f77105f","amount":100,"currency":"ARS","gateway":"bind","debtor":{"institutionName":"dinopay","institutionId":"dinopay","currency":"ARS","accountDetails":{"accountType":"cvu","cuit":"23679876453","routingInfo":{"cvuRoutingInfoType":"cvu","cvu":"1122334455667788554433"}}},"beneficiary":{"institutionName":"dinopay","institutionId":"dinopay","currency":"ARS","accountDetails":{"accountType":"cvu","cuit":"23679876453","routingInfo":{"cvuRoutingInfoType":"cvu","cvu":"1122334455667788554433"}}},"direction":"inbound","customerId":"0196fe53-6495-7781-937e-bee77aa87dcf","status":"pending","createdAt":"2025-05-23T15:06:40-03:00","updatedAt":"0001-01-01T00:00:00Z"}}
+  
+     failed because:
+  
+      missing element at "data.externalId",
+      missing element at "data.paymentId",
+      wrong value at "data.status", expected: "confirmed" but was: "pending",
+      wrong value at "type", expected: "PaymentUpdated" but was: "PaymentCreated"
+
+ 
+2025-05-23 18:06:40 5.15.0 INFO 2090 no expectation for:
+
+  {
+    "method" : "POST",
+    "path" : "/matchevent",
+    "headers" : {
+      "User-Agent" : [ "Go-http-client/1.1" ],
+      "Host" : [ "localhost:2090" ],
+      "Content-Type" : [ "application/json" ],
+      "Content-Length" : [ "793" ],
+      "Accept-Encoding" : [ "gzip" ]
+    },
+    "keepAlive" : true,
+    "secure" : false,
+    "protocol" : "HTTP_1_1",
+    "localAddress" : "172.17.0.5:2090",
+    "remoteAddress" : "172.17.0.1:55316",
+    "body" : {
+      "id" : "0196fe53-64cf-7130-b3ba-2e406d2631fc",
+      "type" : "PaymentCreated",
+      "correlationId" : "",
+      "data" : {
+        "id" : "0196fe53-6495-777b-bf55-4e6d3f77105f",
+        "amount" : 100,
+        "currency" : "ARS",
+        "gateway" : "bind",
+        "debtor" : {
+          "institutionName" : "dinopay",
+          "institutionId" : "dinopay",
+          "currency" : "ARS",
+          "accountDetails" : {
+            "accountType" : "cvu",
+            "cuit" : "23679876453",
+            "routingInfo" : {
+              "cvuRoutingInfoType" : "cvu",
+              "cvu" : "1122334455667788554433"
+            }
+          }
+        },
+        "beneficiary" : {
+          "institutionName" : "dinopay",
+          "institutionId" : "dinopay",
+          "currency" : "ARS",
+          "accountDetails" : {
+            "accountType" : "cvu",
+            "cuit" : "23679876453",
+            "routingInfo" : {
+              "cvuRoutingInfoType" : "cvu",
+              "cvu" : "1122334455667788554433"
+            }
+          }
+        },
+        "direction" : "inbound",
+        "customerId" : "0196fe53-6495-7781-937e-bee77aa87dcf",
+        "status" : "pending",
+        "createdAt" : "2025-05-23T15:06:40-03:00",
+        "updatedAt" : "0001-01-01T00:00:00Z"
+      }
+    }
+  }
+
+ returning response:
+
+  {
+    "statusCode" : 404,
+    "reasonPhrase" : "Not Found"
+  }
+ 
+2025-05-23 18:06:40 5.15.0 INFO 2090 verifying requests that match:
+
+  {
+    "expectationId" : {
+      "id" : "matchJSON-7038493524309811053"
+    },
+    "httpRequest" : {
+      "method" : "POST",
+      "path" : "/matchevent",
+      "body" : {
+        "id" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+        "type" : "PaymentUpdated",
+        "data" : {
+          "paymentId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+          "externalId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+          "status" : "confirmed"
+        }
+      }
+    },
+    "times" : {
+      "atLeast" : 1,
+      "atMost" : 1
+    }
+  }
+ 
+2025-05-23 18:06:40 5.15.0 INFO request not found exactly once, expected:
+
+  {
+    "method" : "POST",
+    "path" : "/matchevent",
+    "body" : {
+      "id" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+      "type" : "PaymentUpdated",
+      "data" : {
+        "paymentId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+        "externalId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+        "status" : "confirmed"
+      }
+    }
+  }
+
+ but was:
+
+  [{
+    "method" : "POST",
+    "path" : "/matchevent",
+    "headers" : {
+      "User-Agent" : [ "Go-http-client/1.1" ],
+      "Host" : [ "localhost:2090" ],
+      "Content-Type" : [ "application/json" ],
+      "Content-Length" : [ "795" ],
+      "Accept-Encoding" : [ "gzip" ]
+    },
+    "keepAlive" : true,
+    "secure" : false,
+    "protocol" : "HTTP_1_1",
+    "localAddress" : "172.17.0.5:2090",
+    "remoteAddress" : "172.17.0.1:55316",
+    "body" : {
+      "contentType" : "application/json",
+      "type" : "JSON",
+      "json" : {
+        "id" : "0196fe53-61b8-7a20-9485-cd23f36e8ebd",
+        "type" : "PaymentCreated",
+        "correlationId" : "",
+        "data" : {
+          "id" : "3b3315ea-38c1-40a4-b7f9-149cc9807096",
+          "amount" : 100,
+          "currency" : "ARS",
+          "gateway" : "bind",
+          "debtor" : {
+            "institutionName" : "dinopay",
+            "institutionId" : "dinopay",
+            "currency" : "ARS",
+            "accountDetails" : {
+              "accountType" : "cvu",
+              "cuit" : "23679876453",
+              "routingInfo" : {
+                "cvuRoutingInfoType" : "cvu",
+                "cvu" : "1122334455667788554433"
+              }
+            }
+          },
+          "beneficiary" : {
+            "institutionName" : "dinopay",
+            "institutionId" : "dinopay",
+            "currency" : "ARS",
+            "accountDetails" : {
+              "accountType" : "cvu",
+              "cuit" : "23679876453",
+              "routingInfo" : {
+                "cvuRoutingInfoType" : "cvu",
+                "cvu" : "1122334455667788554433"
+              }
+            }
+          },
+          "direction" : "inbound",
+          "customerId" : "997e76a7-c18d-4337-90ea-9a5cb0c5b54e",
+          "status" : "confirmed",
+          "createdAt" : "2025-05-23T15:06:39-03:00",
+          "updatedAt" : "0001-01-01T00:00:00Z"
+        }
+      }
+    }
+  }, {
+    "method" : "POST",
+    "path" : "/matchevent",
+    "headers" : {
+      "User-Agent" : [ "Go-http-client/1.1" ],
+      "Host" : [ "localhost:2090" ],
+      "Content-Type" : [ "application/json" ],
+      "Content-Length" : [ "699" ],
+      "Accept-Encoding" : [ "gzip" ]
+    },
+    "keepAlive" : true,
+    "secure" : false,
+    "protocol" : "HTTP_1_1",
+    "localAddress" : "172.17.0.5:2090",
+    "remoteAddress" : "172.17.0.1:55316",
+    "body" : {
+      "contentType" : "application/json",
+      "type" : "JSON",
+      "json" : {
+        "id" : "63c3b924-ddc6-4a28-9baf-6eb0aa4110f0",
+        "amount" : 100,
+        "currency" : "ARS",
+        "gateway" : "bind",
+        "debtor" : {
+          "institutionName" : "dinopay",
+          "institutionId" : "dinopay",
+          "currency" : "ARS",
+          "accountDetails" : {
+            "accountType" : "cvu",
+            "cuit" : "23679876453",
+            "routingInfo" : {
+              "cvuRoutingInfoType" : "cvu",
+              "cvu" : "1122334455667788554433"
+            }
+          }
+        },
+        "beneficiary" : {
+          "institutionName" : "dinopay",
+          "institutionId" : "dinopay",
+          "currency" : "ARS",
+          "accountDetails" : {
+            "accountType" : "cvu",
+            "cuit" : "23679876453",
+            "routingInfo" : {
+              "cvuRoutingInfoType" : "cvu",
+              "cvu" : "1122334455667788554433"
+            }
+          }
+        },
+        "direction" : "inbound",
+        "customerId" : "abbb8aa3-87f9-4b2b-889f-8962cf708cfc",
+        "status" : "confirmed",
+        "createdAt" : "2025-05-23T15:06:39-03:00",
+        "updatedAt" : "0001-01-01T00:00:00Z"
+      }
+    }
+  }]
+ 
+2025-05-23 18:06:40 5.15.0 INFO 2090 verifying requests that match:
+
+  {
+    "expectationId" : {
+      "id" : "matchJSON-7038493524309811053"
+    },
+    "httpRequest" : {
+      "method" : "POST",
+      "path" : "/matchevent",
+      "body" : {
+        "id" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+        "type" : "PaymentUpdated",
+        "data" : {
+          "paymentId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+          "externalId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+          "status" : "confirmed"
+        }
+      }
+    },
+    "times" : {
+      "atLeast" : 1,
+      "atMost" : 1
+    }
+  }
+ 
+2025-05-23 18:06:40 5.15.0 INFO request not found exactly once, expected:
+
+  {
+    "method" : "POST",
+    "path" : "/matchevent",
+    "body" : {
+      "id" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+      "type" : "PaymentUpdated",
+      "data" : {
+        "paymentId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+        "externalId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+        "status" : "confirmed"
+      }
+    }
+  }
+
+ but was:
+
+  [{
+    "method" : "POST",
+    "path" : "/matchevent",
+    "headers" : {
+      "User-Agent" : [ "Go-http-client/1.1" ],
+      "Host" : [ "localhost:2090" ],
+      "Content-Type" : [ "application/json" ],
+      "Content-Length" : [ "795" ],
+      "Accept-Encoding" : [ "gzip" ]
+    },
+    "keepAlive" : true,
+    "secure" : false,
+    "protocol" : "HTTP_1_1",
+    "localAddress" : "172.17.0.5:2090",
+    "remoteAddress" : "172.17.0.1:55316",
+    "body" : {
+      "contentType" : "application/json",
+      "type" : "JSON",
+      "json" : {
+        "id" : "0196fe53-61b8-7a20-9485-cd23f36e8ebd",
+        "type" : "PaymentCreated",
+        "correlationId" : "",
+        "data" : {
+          "id" : "3b3315ea-38c1-40a4-b7f9-149cc9807096",
+          "amount" : 100,
+          "currency" : "ARS",
+          "gateway" : "bind",
+          "debtor" : {
+            "institutionName" : "dinopay",
+            "institutionId" : "dinopay",
+            "currency" : "ARS",
+            "accountDetails" : {
+              "accountType" : "cvu",
+              "cuit" : "23679876453",
+              "routingInfo" : {
+                "cvuRoutingInfoType" : "cvu",
+                "cvu" : "1122334455667788554433"
+              }
+            }
+          },
+          "beneficiary" : {
+            "institutionName" : "dinopay",
+            "institutionId" : "dinopay",
+            "currency" : "ARS",
+            "accountDetails" : {
+              "accountType" : "cvu",
+              "cuit" : "23679876453",
+              "routingInfo" : {
+                "cvuRoutingInfoType" : "cvu",
+                "cvu" : "1122334455667788554433"
+              }
+            }
+          },
+          "direction" : "inbound",
+          "customerId" : "997e76a7-c18d-4337-90ea-9a5cb0c5b54e",
+          "status" : "confirmed",
+          "createdAt" : "2025-05-23T15:06:39-03:00",
+          "updatedAt" : "0001-01-01T00:00:00Z"
+        }
+      }
+    }
+  }, {
+    "method" : "POST",
+    "path" : "/matchevent",
+    "headers" : {
+      "User-Agent" : [ "Go-http-client/1.1" ],
+      "Host" : [ "localhost:2090" ],
+      "Content-Type" : [ "application/json" ],
+      "Content-Length" : [ "699" ],
+      "Accept-Encoding" : [ "gzip" ]
+    },
+    "keepAlive" : true,
+    "secure" : false,
+    "protocol" : "HTTP_1_1",
+    "localAddress" : "172.17.0.5:2090",
+    "remoteAddress" : "172.17.0.1:55316",
+    "body" : {
+      "contentType" : "application/json",
+      "type" : "JSON",
+      "json" : {
+        "id" : "63c3b924-ddc6-4a28-9baf-6eb0aa4110f0",
+        "amount" : 100,
+        "currency" : "ARS",
+        "gateway" : "bind",
+        "debtor" : {
+          "institutionName" : "dinopay",
+          "institutionId" : "dinopay",
+          "currency" : "ARS",
+          "accountDetails" : {
+            "accountType" : "cvu",
+            "cuit" : "23679876453",
+            "routingInfo" : {
+              "cvuRoutingInfoType" : "cvu",
+              "cvu" : "1122334455667788554433"
+            }
+          }
+        },
+        "beneficiary" : {
+          "institutionName" : "dinopay",
+          "institutionId" : "dinopay",
+          "currency" : "ARS",
+          "accountDetails" : {
+            "accountType" : "cvu",
+            "cuit" : "23679876453",
+            "routingInfo" : {
+              "cvuRoutingInfoType" : "cvu",
+              "cvu" : "1122334455667788554433"
+            }
+          }
+        },
+        "direction" : "inbound",
+        "customerId" : "abbb8aa3-87f9-4b2b-889f-8962cf708cfc",
+        "status" : "confirmed",
+        "createdAt" : "2025-05-23T15:06:39-03:00",
+        "updatedAt" : "0001-01-01T00:00:00Z"
+      }
+    }
+  }]
+ 
+2025-05-23 18:06:40 5.15.0 INFO 2090 verifying requests that match:
+
+  {
+    "expectationId" : {
+      "id" : "matchJSON-7038493524309811053"
+    },
+    "httpRequest" : {
+      "method" : "POST",
+      "path" : "/matchevent",
+      "body" : {
+        "id" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+        "type" : "PaymentUpdated",
+        "data" : {
+          "paymentId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+          "externalId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+          "status" : "confirmed"
+        }
+      }
+    },
+    "times" : {
+      "atLeast" : 1,
+      "atMost" : 1
+    }
+  }
+ 
+2025-05-23 18:06:40 5.15.0 INFO request not found exactly once, expected:
+
+  {
+    "method" : "POST",
+    "path" : "/matchevent",
+    "body" : {
+      "id" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+      "type" : "PaymentUpdated",
+      "data" : {
+        "paymentId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+        "externalId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+        "status" : "confirmed"
+      }
+    }
+  }
+
+ but was:
+
+  [{
+    "method" : "POST",
+    "path" : "/matchevent",
+    "headers" : {
+      "User-Agent" : [ "Go-http-client/1.1" ],
+      "Host" : [ "localhost:2090" ],
+      "Content-Type" : [ "application/json" ],
+      "Content-Length" : [ "795" ],
+      "Accept-Encoding" : [ "gzip" ]
+    },
+    "keepAlive" : true,
+    "secure" : false,
+    "protocol" : "HTTP_1_1",
+    "localAddress" : "172.17.0.5:2090",
+    "remoteAddress" : "172.17.0.1:55316",
+    "body" : {
+      "contentType" : "application/json",
+      "type" : "JSON",
+      "json" : {
+        "id" : "0196fe53-61b8-7a20-9485-cd23f36e8ebd",
+        "type" : "PaymentCreated",
+        "correlationId" : "",
+        "data" : {
+          "id" : "3b3315ea-38c1-40a4-b7f9-149cc9807096",
+          "amount" : 100,
+          "currency" : "ARS",
+          "gateway" : "bind",
+          "debtor" : {
+            "institutionName" : "dinopay",
+            "institutionId" : "dinopay",
+            "currency" : "ARS",
+            "accountDetails" : {
+              "accountType" : "cvu",
+              "cuit" : "23679876453",
+              "routingInfo" : {
+                "cvuRoutingInfoType" : "cvu",
+                "cvu" : "1122334455667788554433"
+              }
+            }
+          },
+          "beneficiary" : {
+            "institutionName" : "dinopay",
+            "institutionId" : "dinopay",
+            "currency" : "ARS",
+            "accountDetails" : {
+              "accountType" : "cvu",
+              "cuit" : "23679876453",
+              "routingInfo" : {
+                "cvuRoutingInfoType" : "cvu",
+                "cvu" : "1122334455667788554433"
+              }
+            }
+          },
+          "direction" : "inbound",
+          "customerId" : "997e76a7-c18d-4337-90ea-9a5cb0c5b54e",
+          "status" : "confirmed",
+          "createdAt" : "2025-05-23T15:06:39-03:00",
+          "updatedAt" : "0001-01-01T00:00:00Z"
+        }
+      }
+    }
+  }, {
+    "method" : "POST",
+    "path" : "/matchevent",
+    "headers" : {
+      "User-Agent" : [ "Go-http-client/1.1" ],
+      "Host" : [ "localhost:2090" ],
+      "Content-Type" : [ "application/json" ],
+      "Content-Length" : [ "699" ],
+      "Accept-Encoding" : [ "gzip" ]
+    },
+    "keepAlive" : true,
+    "secure" : false,
+    "protocol" : "HTTP_1_1",
+    "localAddress" : "172.17.0.5:2090",
+    "remoteAddress" : "172.17.0.1:55316",
+    "body" : {
+      "contentType" : "application/json",
+      "type" : "JSON",
+      "json" : {
+        "id" : "63c3b924-ddc6-4a28-9baf-6eb0aa4110f0",
+        "amount" : 100,
+        "currency" : "ARS",
+        "gateway" : "bind",
+        "debtor" : {
+          "institutionName" : "dinopay",
+          "institutionId" : "dinopay",
+          "currency" : "ARS",
+          "accountDetails" : {
+            "accountType" : "cvu",
+            "cuit" : "23679876453",
+            "routingInfo" : {
+              "cvuRoutingInfoType" : "cvu",
+              "cvu" : "1122334455667788554433"
+            }
+          }
+        },
+        "beneficiary" : {
+          "institutionName" : "dinopay",
+          "institutionId" : "dinopay",
+          "currency" : "ARS",
+          "accountDetails" : {
+            "accountType" : "cvu",
+            "cuit" : "23679876453",
+            "routingInfo" : {
+              "cvuRoutingInfoType" : "cvu",
+              "cvu" : "1122334455667788554433"
+            }
+          }
+        },
+        "direction" : "inbound",
+        "customerId" : "abbb8aa3-87f9-4b2b-889f-8962cf708cfc",
+        "status" : "confirmed",
+        "createdAt" : "2025-05-23T15:06:39-03:00",
+        "updatedAt" : "0001-01-01T00:00:00Z"
+      }
+    }
+  }]
+ 
+2025-05-23 18:06:40 5.15.0 INFO 2090 verifying requests that match:
+
+  {
+    "expectationId" : {
+      "id" : "matchJSON-7038493524309811053"
+    },
+    "httpRequest" : {
+      "method" : "POST",
+      "path" : "/matchevent",
+      "body" : {
+        "id" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+        "type" : "PaymentUpdated",
+        "data" : {
+          "paymentId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+          "externalId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+          "status" : "confirmed"
+        }
+      }
+    },
+    "times" : {
+      "atLeast" : 1,
+      "atMost" : 1
+    }
+  }
+ 
+2025-05-23 18:06:40 5.15.0 INFO request not found exactly once, expected:
+
+  {
+    "method" : "POST",
+    "path" : "/matchevent",
+    "body" : {
+      "id" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+      "type" : "PaymentUpdated",
+      "data" : {
+        "paymentId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+        "externalId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+        "status" : "confirmed"
+      }
+    }
+  }
+
+ but was:
+
+  [{
+    "method" : "POST",
+    "path" : "/matchevent",
+    "headers" : {
+      "User-Agent" : [ "Go-http-client/1.1" ],
+      "Host" : [ "localhost:2090" ],
+      "Content-Type" : [ "application/json" ],
+      "Content-Length" : [ "795" ],
+      "Accept-Encoding" : [ "gzip" ]
+    },
+    "keepAlive" : true,
+    "secure" : false,
+    "protocol" : "HTTP_1_1",
+    "localAddress" : "172.17.0.5:2090",
+    "remoteAddress" : "172.17.0.1:55316",
+    "body" : {
+      "contentType" : "application/json",
+      "type" : "JSON",
+      "json" : {
+        "id" : "0196fe53-61b8-7a20-9485-cd23f36e8ebd",
+        "type" : "PaymentCreated",
+        "correlationId" : "",
+        "data" : {
+          "id" : "3b3315ea-38c1-40a4-b7f9-149cc9807096",
+          "amount" : 100,
+          "currency" : "ARS",
+          "gateway" : "bind",
+          "debtor" : {
+            "institutionName" : "dinopay",
+            "institutionId" : "dinopay",
+            "currency" : "ARS",
+            "accountDetails" : {
+              "accountType" : "cvu",
+              "cuit" : "23679876453",
+              "routingInfo" : {
+                "cvuRoutingInfoType" : "cvu",
+                "cvu" : "1122334455667788554433"
+              }
+            }
+          },
+          "beneficiary" : {
+            "institutionName" : "dinopay",
+            "institutionId" : "dinopay",
+            "currency" : "ARS",
+            "accountDetails" : {
+              "accountType" : "cvu",
+              "cuit" : "23679876453",
+              "routingInfo" : {
+                "cvuRoutingInfoType" : "cvu",
+                "cvu" : "1122334455667788554433"
+              }
+            }
+          },
+          "direction" : "inbound",
+          "customerId" : "997e76a7-c18d-4337-90ea-9a5cb0c5b54e",
+          "status" : "confirmed",
+          "createdAt" : "2025-05-23T15:06:39-03:00",
+          "updatedAt" : "0001-01-01T00:00:00Z"
+        }
+      }
+    }
+  }, {
+    "method" : "POST",
+    "path" : "/matchevent",
+    "headers" : {
+      "User-Agent" : [ "Go-http-client/1.1" ],
+      "Host" : [ "localhost:2090" ],
+      "Content-Type" : [ "application/json" ],
+      "Content-Length" : [ "699" ],
+      "Accept-Encoding" : [ "gzip" ]
+    },
+    "keepAlive" : true,
+    "secure" : false,
+    "protocol" : "HTTP_1_1",
+    "localAddress" : "172.17.0.5:2090",
+    "remoteAddress" : "172.17.0.1:55316",
+    "body" : {
+      "contentType" : "application/json",
+      "type" : "JSON",
+      "json" : {
+        "id" : "63c3b924-ddc6-4a28-9baf-6eb0aa4110f0",
+        "amount" : 100,
+        "currency" : "ARS",
+        "gateway" : "bind",
+        "debtor" : {
+          "institutionName" : "dinopay",
+          "institutionId" : "dinopay",
+          "currency" : "ARS",
+          "accountDetails" : {
+            "accountType" : "cvu",
+            "cuit" : "23679876453",
+            "routingInfo" : {
+              "cvuRoutingInfoType" : "cvu",
+              "cvu" : "1122334455667788554433"
+            }
+          }
+        },
+        "beneficiary" : {
+          "institutionName" : "dinopay",
+          "institutionId" : "dinopay",
+          "currency" : "ARS",
+          "accountDetails" : {
+            "accountType" : "cvu",
+            "cuit" : "23679876453",
+            "routingInfo" : {
+              "cvuRoutingInfoType" : "cvu",
+              "cvu" : "1122334455667788554433"
+            }
+          }
+        },
+        "direction" : "inbound",
+        "customerId" : "abbb8aa3-87f9-4b2b-889f-8962cf708cfc",
+        "status" : "confirmed",
+        "createdAt" : "2025-05-23T15:06:39-03:00",
+        "updatedAt" : "0001-01-01T00:00:00Z"
+      }
+    }
+  }]
+ 
+2025-05-23 18:06:40 5.15.0 INFO 2090 verifying requests that match:
+
+  {
+    "expectationId" : {
+      "id" : "matchJSON-7038493524309811053"
+    },
+    "httpRequest" : {
+      "method" : "POST",
+      "path" : "/matchevent",
+      "body" : {
+        "id" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+        "type" : "PaymentUpdated",
+        "data" : {
+          "paymentId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+          "externalId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+          "status" : "confirmed"
+        }
+      }
+    },
+    "times" : {
+      "atLeast" : 1,
+      "atMost" : 1
+    }
+  }
+ 
+2025-05-23 18:06:40 5.15.0 INFO request not found exactly once, expected:
+
+  {
+    "method" : "POST",
+    "path" : "/matchevent",
+    "body" : {
+      "id" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+      "type" : "PaymentUpdated",
+      "data" : {
+        "paymentId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+        "externalId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+        "status" : "confirmed"
+      }
+    }
+  }
+
+ but was:
+
+  [{
+    "method" : "POST",
+    "path" : "/matchevent",
+    "headers" : {
+      "User-Agent" : [ "Go-http-client/1.1" ],
+      "Host" : [ "localhost:2090" ],
+      "Content-Type" : [ "application/json" ],
+      "Content-Length" : [ "795" ],
+      "Accept-Encoding" : [ "gzip" ]
+    },
+    "keepAlive" : true,
+    "secure" : false,
+    "protocol" : "HTTP_1_1",
+    "localAddress" : "172.17.0.5:2090",
+    "remoteAddress" : "172.17.0.1:55316",
+    "body" : {
+      "contentType" : "application/json",
+      "type" : "JSON",
+      "json" : {
+        "id" : "0196fe53-61b8-7a20-9485-cd23f36e8ebd",
+        "type" : "PaymentCreated",
+        "correlationId" : "",
+        "data" : {
+          "id" : "3b3315ea-38c1-40a4-b7f9-149cc9807096",
+          "amount" : 100,
+          "currency" : "ARS",
+          "gateway" : "bind",
+          "debtor" : {
+            "institutionName" : "dinopay",
+            "institutionId" : "dinopay",
+            "currency" : "ARS",
+            "accountDetails" : {
+              "accountType" : "cvu",
+              "cuit" : "23679876453",
+              "routingInfo" : {
+                "cvuRoutingInfoType" : "cvu",
+                "cvu" : "1122334455667788554433"
+              }
+            }
+          },
+          "beneficiary" : {
+            "institutionName" : "dinopay",
+            "institutionId" : "dinopay",
+            "currency" : "ARS",
+            "accountDetails" : {
+              "accountType" : "cvu",
+              "cuit" : "23679876453",
+              "routingInfo" : {
+                "cvuRoutingInfoType" : "cvu",
+                "cvu" : "1122334455667788554433"
+              }
+            }
+          },
+          "direction" : "inbound",
+          "customerId" : "997e76a7-c18d-4337-90ea-9a5cb0c5b54e",
+          "status" : "confirmed",
+          "createdAt" : "2025-05-23T15:06:39-03:00",
+          "updatedAt" : "0001-01-01T00:00:00Z"
+        }
+      }
+    }
+  }, {
+    "method" : "POST",
+    "path" : "/matchevent",
+    "headers" : {
+      "User-Agent" : [ "Go-http-client/1.1" ],
+      "Host" : [ "localhost:2090" ],
+      "Content-Type" : [ "application/json" ],
+      "Content-Length" : [ "699" ],
+      "Accept-Encoding" : [ "gzip" ]
+    },
+    "keepAlive" : true,
+    "secure" : false,
+    "protocol" : "HTTP_1_1",
+    "localAddress" : "172.17.0.5:2090",
+    "remoteAddress" : "172.17.0.1:55316",
+    "body" : {
+      "contentType" : "application/json",
+      "type" : "JSON",
+      "json" : {
+        "id" : "63c3b924-ddc6-4a28-9baf-6eb0aa4110f0",
+        "amount" : 100,
+        "currency" : "ARS",
+        "gateway" : "bind",
+        "debtor" : {
+          "institutionName" : "dinopay",
+          "institutionId" : "dinopay",
+          "currency" : "ARS",
+          "accountDetails" : {
+            "accountType" : "cvu",
+            "cuit" : "23679876453",
+            "routingInfo" : {
+              "cvuRoutingInfoType" : "cvu",
+              "cvu" : "1122334455667788554433"
+            }
+          }
+        },
+        "beneficiary" : {
+          "institutionName" : "dinopay",
+          "institutionId" : "dinopay",
+          "currency" : "ARS",
+          "accountDetails" : {
+            "accountType" : "cvu",
+            "cuit" : "23679876453",
+            "routingInfo" : {
+              "cvuRoutingInfoType" : "cvu",
+              "cvu" : "1122334455667788554433"
+            }
+          }
+        },
+        "direction" : "inbound",
+        "customerId" : "abbb8aa3-87f9-4b2b-889f-8962cf708cfc",
+        "status" : "confirmed",
+        "createdAt" : "2025-05-23T15:06:39-03:00",
+        "updatedAt" : "0001-01-01T00:00:00Z"
+      }
+    }
+  }]
+ 
+2025-05-23 18:06:40 5.15.0 INFO 2090 verifying requests that match:
+
+  {
+    "expectationId" : {
+      "id" : "matchJSON-7038493524309811053"
+    },
+    "httpRequest" : {
+      "method" : "POST",
+      "path" : "/matchevent",
+      "body" : {
+        "id" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+        "type" : "PaymentUpdated",
+        "data" : {
+          "paymentId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+          "externalId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+          "status" : "confirmed"
+        }
+      }
+    },
+    "times" : {
+      "atLeast" : 1,
+      "atMost" : 1
+    }
+  }
+ 
+2025-05-23 18:06:40 5.15.0 INFO request not found exactly once, expected:
+
+  {
+    "method" : "POST",
+    "path" : "/matchevent",
+    "body" : {
+      "id" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+      "type" : "PaymentUpdated",
+      "data" : {
+        "paymentId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+        "externalId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+        "status" : "confirmed"
+      }
+    }
+  }
+
+ but was:
+
+  [{
+    "method" : "POST",
+    "path" : "/matchevent",
+    "headers" : {
+      "User-Agent" : [ "Go-http-client/1.1" ],
+      "Host" : [ "localhost:2090" ],
+      "Content-Type" : [ "application/json" ],
+      "Content-Length" : [ "795" ],
+      "Accept-Encoding" : [ "gzip" ]
+    },
+    "keepAlive" : true,
+    "secure" : false,
+    "protocol" : "HTTP_1_1",
+    "localAddress" : "172.17.0.5:2090",
+    "remoteAddress" : "172.17.0.1:55316",
+    "body" : {
+      "contentType" : "application/json",
+      "type" : "JSON",
+      "json" : {
+        "id" : "0196fe53-61b8-7a20-9485-cd23f36e8ebd",
+        "type" : "PaymentCreated",
+        "correlationId" : "",
+        "data" : {
+          "id" : "3b3315ea-38c1-40a4-b7f9-149cc9807096",
+          "amount" : 100,
+          "currency" : "ARS",
+          "gateway" : "bind",
+          "debtor" : {
+            "institutionName" : "dinopay",
+            "institutionId" : "dinopay",
+            "currency" : "ARS",
+            "accountDetails" : {
+              "accountType" : "cvu",
+              "cuit" : "23679876453",
+              "routingInfo" : {
+                "cvuRoutingInfoType" : "cvu",
+                "cvu" : "1122334455667788554433"
+              }
+            }
+          },
+          "beneficiary" : {
+            "institutionName" : "dinopay",
+            "institutionId" : "dinopay",
+            "currency" : "ARS",
+            "accountDetails" : {
+              "accountType" : "cvu",
+              "cuit" : "23679876453",
+              "routingInfo" : {
+                "cvuRoutingInfoType" : "cvu",
+                "cvu" : "1122334455667788554433"
+              }
+            }
+          },
+          "direction" : "inbound",
+          "customerId" : "997e76a7-c18d-4337-90ea-9a5cb0c5b54e",
+          "status" : "confirmed",
+          "createdAt" : "2025-05-23T15:06:39-03:00",
+          "updatedAt" : "0001-01-01T00:00:00Z"
+        }
+      }
+    }
+  }, {
+    "method" : "POST",
+    "path" : "/matchevent",
+    "headers" : {
+      "User-Agent" : [ "Go-http-client/1.1" ],
+      "Host" : [ "localhost:2090" ],
+      "Content-Type" : [ "application/json" ],
+      "Content-Length" : [ "699" ],
+      "Accept-Encoding" : [ "gzip" ]
+    },
+    "keepAlive" : true,
+    "secure" : false,
+    "protocol" : "HTTP_1_1",
+    "localAddress" : "172.17.0.5:2090",
+    "remoteAddress" : "172.17.0.1:55316",
+    "body" : {
+      "contentType" : "application/json",
+      "type" : "JSON",
+      "json" : {
+        "id" : "63c3b924-ddc6-4a28-9baf-6eb0aa4110f0",
+        "amount" : 100,
+        "currency" : "ARS",
+        "gateway" : "bind",
+        "debtor" : {
+          "institutionName" : "dinopay",
+          "institutionId" : "dinopay",
+          "currency" : "ARS",
+          "accountDetails" : {
+            "accountType" : "cvu",
+            "cuit" : "23679876453",
+            "routingInfo" : {
+              "cvuRoutingInfoType" : "cvu",
+              "cvu" : "1122334455667788554433"
+            }
+          }
+        },
+        "beneficiary" : {
+          "institutionName" : "dinopay",
+          "institutionId" : "dinopay",
+          "currency" : "ARS",
+          "accountDetails" : {
+            "accountType" : "cvu",
+            "cuit" : "23679876453",
+            "routingInfo" : {
+              "cvuRoutingInfoType" : "cvu",
+              "cvu" : "1122334455667788554433"
+            }
+          }
+        },
+        "direction" : "inbound",
+        "customerId" : "abbb8aa3-87f9-4b2b-889f-8962cf708cfc",
+        "status" : "confirmed",
+        "createdAt" : "2025-05-23T15:06:39-03:00",
+        "updatedAt" : "0001-01-01T00:00:00Z"
+      }
+    }
+  }]
+ 
+2025-05-23 18:06:40 5.15.0 INFO 2090 received request:
+
+  {
+    "method" : "POST",
+    "path" : "/matchevent",
+    "headers" : {
+      "User-Agent" : [ "Go-http-client/1.1" ],
+      "Host" : [ "localhost:2090" ],
+      "Content-Type" : [ "application/json" ],
+      "Content-Length" : [ "221" ],
+      "Accept-Encoding" : [ "gzip" ]
+    },
+    "keepAlive" : true,
+    "secure" : false,
+    "protocol" : "HTTP_1_1",
+    "localAddress" : "172.17.0.5:2090",
+    "remoteAddress" : "172.17.0.1:55316",
+    "body" : {
+      "id" : "0196fe53-64d4-7ad4-8208-e59f2befc4cf",
+      "type" : "PaymentUpdated",
+      "correlationId" : "",
+      "data" : {
+        "paymentId" : "0196fe53-6495-777b-bf55-4e6d3f77105f",
+        "externalId" : "0196fe53-64c8-7d31-b536-f18e1d928328",
+        "status" : "confirmed"
+      }
+    }
+  }
+ 
+2025-05-23 18:06:40 5.15.0 INFO 2090 request:
+
+  {
+    "method" : "POST",
+    "path" : "/matchevent",
+    "headers" : {
+      "User-Agent" : [ "Go-http-client/1.1" ],
+      "Host" : [ "localhost:2090" ],
+      "Content-Type" : [ "application/json" ],
+      "Content-Length" : [ "221" ],
+      "Accept-Encoding" : [ "gzip" ]
+    },
+    "keepAlive" : true,
+    "secure" : false,
+    "protocol" : "HTTP_1_1",
+    "localAddress" : "172.17.0.5:2090",
+    "remoteAddress" : "172.17.0.1:55316",
+    "body" : {
+      "id" : "0196fe53-64d4-7ad4-8208-e59f2befc4cf",
+      "type" : "PaymentUpdated",
+      "correlationId" : "",
+      "data" : {
+        "paymentId" : "0196fe53-6495-777b-bf55-4e6d3f77105f",
+        "externalId" : "0196fe53-64c8-7d31-b536-f18e1d928328",
+        "status" : "confirmed"
+      }
+    }
+  }
+
+ didn't match expectation:
+
+  {
+    "httpRequest" : {
+      "method" : "POST",
+      "path" : "/matchevent",
+      "body" : {
+        "id" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+        "type" : "PaymentCreated",
+        "data" : {
+          "id" : "3b3315ea-38c1-40a4-b7f9-149cc9807096",
+          "amount" : 100,
+          "currency" : "ARS",
+          "customerId" : "997e76a7-c18d-4337-90ea-9a5cb0c5b54e",
+          "direction" : "inbound",
+          "status" : "confirmed",
+          "debtor" : {
+            "institutionName" : "dinopay",
+            "institutionId" : "dinopay",
+            "currency" : "ARS",
+            "accountDetails" : {
+              "accountType" : "cvu",
+              "cuit" : "23679876453",
+              "routingInfo" : {
+                "cvuRoutingInfoType" : "cvu",
+                "cvu" : "1122334455667788554433"
+              }
+            }
+          },
+          "beneficiary" : {
+            "institutionName" : "dinopay",
+            "institutionId" : "dinopay",
+            "currency" : "ARS",
+            "accountDetails" : {
+              "accountType" : "cvu",
+              "cuit" : "23679876453",
+              "routingInfo" : {
+                "cvuRoutingInfoType" : "cvu",
+                "cvu" : "1122334455667788554433"
+              }
+            }
+          },
+          "createdAt" : "${json-unit.any-string}"
+        }
+      }
+    },
+    "httpResponse" : {
+      "statusCode" : 201,
+      "headers" : {
+        "content-type" : [ "application/json" ]
+      }
+    },
+    "id" : "matchJSON-7475331119297440091",
+    "priority" : 0,
+    "timeToLive" : {
+      "unlimited" : true
+    },
+    "times" : {
+      "unlimited" : true
+    }
+  }
+
+ because:
+
+  method matched
+  path matched
+  body didn't match: 
+  
+    json match failed expected:
+  
+      {
+        "id" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+        "type" : "PaymentCreated",
+        "data" : {
+          "id" : "3b3315ea-38c1-40a4-b7f9-149cc9807096",
+          "amount" : 100,
+          "currency" : "ARS",
+          "customerId" : "997e76a7-c18d-4337-90ea-9a5cb0c5b54e",
+          "direction" : "inbound",
+          "status" : "confirmed",
+          "debtor" : {
+            "institutionName" : "dinopay",
+            "institutionId" : "dinopay",
+            "currency" : "ARS",
+            "accountDetails" : {
+              "accountType" : "cvu",
+              "cuit" : "23679876453",
+              "routingInfo" : {
+                "cvuRoutingInfoType" : "cvu",
+                "cvu" : "1122334455667788554433"
+              }
+            }
+          },
+          "beneficiary" : {
+            "institutionName" : "dinopay",
+            "institutionId" : "dinopay",
+            "currency" : "ARS",
+            "accountDetails" : {
+              "accountType" : "cvu",
+              "cuit" : "23679876453",
+              "routingInfo" : {
+                "cvuRoutingInfoType" : "cvu",
+                "cvu" : "1122334455667788554433"
+              }
+            }
+          },
+          "createdAt" : "${json-unit.any-string}"
+        }
+      }
+  
+     found:
+  
+      {"id":"0196fe53-64d4-7ad4-8208-e59f2befc4cf","type":"PaymentUpdated","correlationId":"","data":{"paymentId":"0196fe53-6495-777b-bf55-4e6d3f77105f","externalId":"0196fe53-64c8-7d31-b536-f18e1d928328","status":"confirmed"}}
+  
+     failed because:
+  
+      missing element at "data.amount",
+      missing element at "data.beneficiary",
+      missing element at "data.createdAt",
+      missing element at "data.currency",
+      missing element at "data.customerId",
+      missing element at "data.debtor",
+      missing element at "data.direction",
+      missing element at "data.id",
+      wrong value at "type", expected: "PaymentCreated" but was: "PaymentUpdated"
+
+ 
+2025-05-23 18:06:40 5.15.0 INFO 2090 request:
+
+  {
+    "method" : "POST",
+    "path" : "/matchevent",
+    "headers" : {
+      "User-Agent" : [ "Go-http-client/1.1" ],
+      "Host" : [ "localhost:2090" ],
+      "Content-Type" : [ "application/json" ],
+      "Content-Length" : [ "221" ],
+      "Accept-Encoding" : [ "gzip" ]
+    },
+    "keepAlive" : true,
+    "secure" : false,
+    "protocol" : "HTTP_1_1",
+    "localAddress" : "172.17.0.5:2090",
+    "remoteAddress" : "172.17.0.1:55316",
+    "body" : {
+      "id" : "0196fe53-64d4-7ad4-8208-e59f2befc4cf",
+      "type" : "PaymentUpdated",
+      "correlationId" : "",
+      "data" : {
+        "paymentId" : "0196fe53-6495-777b-bf55-4e6d3f77105f",
+        "externalId" : "0196fe53-64c8-7d31-b536-f18e1d928328",
+        "status" : "confirmed"
+      }
+    }
+  }
+
+ didn't match expectation:
+
+  {
+    "httpRequest" : {
+      "method" : "POST",
+      "path" : "/matchevent",
+      "body" : {
+        "id" : "63c3b924-ddc6-4a28-9baf-6eb0aa4110f0",
+        "customerId" : "abbb8aa3-87f9-4b2b-889f-8962cf708cfc",
+        "amount" : 100,
+        "currency" : "ARS",
+        "gateway" : "bind",
+        "direction" : "inbound",
+        "status" : "confirmed",
+        "debtor" : {
+          "institutionName" : "dinopay",
+          "institutionId" : "dinopay",
+          "currency" : "ARS",
+          "accountDetails" : {
+            "accountType" : "cvu",
+            "cuit" : "23679876453",
+            "routingInfo" : {
+              "cvuRoutingInfoType" : "cvu",
+              "cvu" : "1122334455667788554433"
+            }
+          }
+        },
+        "beneficiary" : {
+          "institutionName" : "dinopay",
+          "institutionId" : "dinopay",
+          "currency" : "ARS",
+          "accountDetails" : {
+            "accountType" : "cvu",
+            "cuit" : "23679876453",
+            "routingInfo" : {
+              "cvuRoutingInfoType" : "cvu",
+              "cvu" : "1122334455667788554433"
+            }
+          }
+        },
+        "createdAt" : "${json-unit.any-string}"
+      }
+    },
+    "httpResponse" : {
+      "statusCode" : 201,
+      "headers" : {
+        "content-type" : [ "application/json" ]
+      }
+    },
+    "id" : "thePaymentsServiceReturnsTheFollowingResponse",
+    "priority" : 0,
+    "timeToLive" : {
+      "unlimited" : true
+    },
+    "times" : {
+      "unlimited" : true
+    }
+  }
+
+ because:
+
+  method matched
+  path matched
+  body didn't match: 
+  
+    json match failed expected:
+  
+      {
+        "id" : "63c3b924-ddc6-4a28-9baf-6eb0aa4110f0",
+        "customerId" : "abbb8aa3-87f9-4b2b-889f-8962cf708cfc",
+        "amount" : 100,
+        "currency" : "ARS",
+        "gateway" : "bind",
+        "direction" : "inbound",
+        "status" : "confirmed",
+        "debtor" : {
+          "institutionName" : "dinopay",
+          "institutionId" : "dinopay",
+          "currency" : "ARS",
+          "accountDetails" : {
+            "accountType" : "cvu",
+            "cuit" : "23679876453",
+            "routingInfo" : {
+              "cvuRoutingInfoType" : "cvu",
+              "cvu" : "1122334455667788554433"
+            }
+          }
+        },
+        "beneficiary" : {
+          "institutionName" : "dinopay",
+          "institutionId" : "dinopay",
+          "currency" : "ARS",
+          "accountDetails" : {
+            "accountType" : "cvu",
+            "cuit" : "23679876453",
+            "routingInfo" : {
+              "cvuRoutingInfoType" : "cvu",
+              "cvu" : "1122334455667788554433"
+            }
+          }
+        },
+        "createdAt" : "${json-unit.any-string}"
+      }
+  
+     found:
+  
+      {"id":"0196fe53-64d4-7ad4-8208-e59f2befc4cf","type":"PaymentUpdated","correlationId":"","data":{"paymentId":"0196fe53-6495-777b-bf55-4e6d3f77105f","externalId":"0196fe53-64c8-7d31-b536-f18e1d928328","status":"confirmed"}}
+  
+     failed because:
+  
+      missing element at "amount",
+      missing element at "beneficiary",
+      missing element at "createdAt",
+      missing element at "currency",
+      missing element at "customerId",
+      missing element at "debtor",
+      missing element at "direction",
+      missing element at "gateway",
+      missing element at "status",
+      wrong value at "id", expected: "63c3b924-ddc6-4a28-9baf-6eb0aa4110f0" but was: "0196fe53-64d4-7ad4-8208-e59f2befc4cf"
+
+ 
+2025-05-23 18:06:40 5.15.0 INFO 2090 request:
+
+  {
+    "method" : "POST",
+    "path" : "/matchevent",
+    "headers" : {
+      "User-Agent" : [ "Go-http-client/1.1" ],
+      "Host" : [ "localhost:2090" ],
+      "Content-Type" : [ "application/json" ],
+      "Content-Length" : [ "221" ],
+      "Accept-Encoding" : [ "gzip" ]
+    },
+    "keepAlive" : true,
+    "secure" : false,
+    "protocol" : "HTTP_1_1",
+    "localAddress" : "172.17.0.5:2090",
+    "remoteAddress" : "172.17.0.1:55316",
+    "body" : {
+      "id" : "0196fe53-64d4-7ad4-8208-e59f2befc4cf",
+      "type" : "PaymentUpdated",
+      "correlationId" : "",
+      "data" : {
+        "paymentId" : "0196fe53-6495-777b-bf55-4e6d3f77105f",
+        "externalId" : "0196fe53-64c8-7d31-b536-f18e1d928328",
+        "status" : "confirmed"
+      }
+    }
+  }
+
+ matched expectation:
+
+  {
+    "httpRequest" : {
+      "method" : "POST",
+      "path" : "/matchevent",
+      "body" : {
+        "id" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+        "type" : "PaymentUpdated",
+        "data" : {
+          "paymentId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+          "externalId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+          "status" : "confirmed"
+        }
+      }
+    },
+    "httpResponse" : {
+      "statusCode" : 201,
+      "headers" : {
+        "content-type" : [ "application/json" ]
+      }
+    },
+    "id" : "matchJSON-7038493524309811053",
+    "priority" : 0,
+    "timeToLive" : {
+      "unlimited" : true
+    },
+    "times" : {
+      "unlimited" : true
+    }
+  }
+ 
+2025-05-23 18:06:40 5.15.0 INFO 2090 returning response:
+
+  {
+    "statusCode" : 201,
+    "headers" : {
+      "content-type" : [ "application/json" ]
+    }
+  }
+
+ for request:
+
+  {
+    "method" : "POST",
+    "path" : "/matchevent",
+    "headers" : {
+      "User-Agent" : [ "Go-http-client/1.1" ],
+      "Host" : [ "localhost:2090" ],
+      "Content-Type" : [ "application/json" ],
+      "Content-Length" : [ "221" ],
+      "Accept-Encoding" : [ "gzip" ]
+    },
+    "keepAlive" : true,
+    "secure" : false,
+    "protocol" : "HTTP_1_1",
+    "localAddress" : "172.17.0.5:2090",
+    "remoteAddress" : "172.17.0.1:55316",
+    "body" : {
+      "id" : "0196fe53-64d4-7ad4-8208-e59f2befc4cf",
+      "type" : "PaymentUpdated",
+      "correlationId" : "",
+      "data" : {
+        "paymentId" : "0196fe53-6495-777b-bf55-4e6d3f77105f",
+        "externalId" : "0196fe53-64c8-7d31-b536-f18e1d928328",
+        "status" : "confirmed"
+      }
+    }
+  }
+
+ for action:
+
+  {
+    "statusCode" : 201,
+    "headers" : {
+      "content-type" : [ "application/json" ]
+    }
+  }
+
+ from expectation:
+
+  matchJSON-7038493524309811053
+ 
+2025-05-23 18:06:40 5.15.0 INFO 2090 verifying requests that match:
+
+  {
+    "expectationId" : {
+      "id" : "matchJSON-7038493524309811053"
+    },
+    "httpRequest" : {
+      "method" : "POST",
+      "path" : "/matchevent",
+      "body" : {
+        "id" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+        "type" : "PaymentUpdated",
+        "data" : {
+          "paymentId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+          "externalId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+          "status" : "confirmed"
+        }
+      }
+    },
+    "times" : {
+      "atLeast" : 1,
+      "atMost" : 1
+    }
+  }
+ 
+2025-05-23 18:06:40 5.15.0 INFO request:
+
+  {
+    "method" : "POST",
+    "path" : "/matchevent",
+    "body" : {
+      "id" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+      "type" : "PaymentUpdated",
+      "data" : {
+        "paymentId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+        "externalId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+        "status" : "confirmed"
+      }
+    }
+  }
+
+ found exactly once 
+2025-05-23 18:06:40 5.15.0 INFO 2090 creating expectation:
+
+  {
+    "httpRequest" : {
+      "method" : "POST",
+      "path" : "/matchevent",
+      "body" : {
+        "id" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+        "type" : "PaymentUpdated",
+        "data" : {
+          "paymentId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+          "externalId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+          "status" : "failed"
+        }
+      }
+    },
+    "httpResponse" : {
+      "statusCode" : 201,
+      "headers" : {
+        "content-type" : [ "application/json" ]
+      }
+    },
+    "id" : "matchJSON-3568874556823714073",
+    "priority" : 0,
+    "timeToLive" : {
+      "unlimited" : true
+    },
+    "times" : {
+      "unlimited" : true
+    }
+  }
+
+ with id:
+
+  matchJSON-3568874556823714073
+ 
+2025-05-23 18:06:40 5.15.0 INFO 2090 received request:
+
+  {
+    "method" : "POST",
+    "path" : "/matchevent",
+    "headers" : {
+      "User-Agent" : [ "Go-http-client/1.1" ],
+      "Host" : [ "localhost:2090" ],
+      "Content-Type" : [ "application/json" ],
+      "Content-Length" : [ "218" ],
+      "Accept-Encoding" : [ "gzip" ]
+    },
+    "keepAlive" : true,
+    "secure" : false,
+    "protocol" : "HTTP_1_1",
+    "localAddress" : "172.17.0.5:2090",
+    "remoteAddress" : "172.17.0.1:55316",
+    "body" : {
+      "id" : "0196fe53-6619-7565-a97d-b0a9e7eb53d6",
+      "type" : "PaymentUpdated",
+      "correlationId" : "",
+      "data" : {
+        "paymentId" : "0196fe53-65d4-74f0-8995-ab5e9fc66744",
+        "externalId" : "0196fe53-660a-795f-b76e-151d99d84f2b",
+        "status" : "failed"
+      }
+    }
+  }
+ 
+2025-05-23 18:06:40 5.15.0 INFO 2090 request:
+
+  {
+    "method" : "POST",
+    "path" : "/matchevent",
+    "headers" : {
+      "User-Agent" : [ "Go-http-client/1.1" ],
+      "Host" : [ "localhost:2090" ],
+      "Content-Type" : [ "application/json" ],
+      "Content-Length" : [ "218" ],
+      "Accept-Encoding" : [ "gzip" ]
+    },
+    "keepAlive" : true,
+    "secure" : false,
+    "protocol" : "HTTP_1_1",
+    "localAddress" : "172.17.0.5:2090",
+    "remoteAddress" : "172.17.0.1:55316",
+    "body" : {
+      "id" : "0196fe53-6619-7565-a97d-b0a9e7eb53d6",
+      "type" : "PaymentUpdated",
+      "correlationId" : "",
+      "data" : {
+        "paymentId" : "0196fe53-65d4-74f0-8995-ab5e9fc66744",
+        "externalId" : "0196fe53-660a-795f-b76e-151d99d84f2b",
+        "status" : "failed"
+      }
+    }
+  }
+
+ didn't match expectation:
+
+  {
+    "httpRequest" : {
+      "method" : "POST",
+      "path" : "/matchevent",
+      "body" : {
+        "id" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+        "type" : "PaymentCreated",
+        "data" : {
+          "id" : "3b3315ea-38c1-40a4-b7f9-149cc9807096",
+          "amount" : 100,
+          "currency" : "ARS",
+          "customerId" : "997e76a7-c18d-4337-90ea-9a5cb0c5b54e",
+          "direction" : "inbound",
+          "status" : "confirmed",
+          "debtor" : {
+            "institutionName" : "dinopay",
+            "institutionId" : "dinopay",
+            "currency" : "ARS",
+            "accountDetails" : {
+              "accountType" : "cvu",
+              "cuit" : "23679876453",
+              "routingInfo" : {
+                "cvuRoutingInfoType" : "cvu",
+                "cvu" : "1122334455667788554433"
+              }
+            }
+          },
+          "beneficiary" : {
+            "institutionName" : "dinopay",
+            "institutionId" : "dinopay",
+            "currency" : "ARS",
+            "accountDetails" : {
+              "accountType" : "cvu",
+              "cuit" : "23679876453",
+              "routingInfo" : {
+                "cvuRoutingInfoType" : "cvu",
+                "cvu" : "1122334455667788554433"
+              }
+            }
+          },
+          "createdAt" : "${json-unit.any-string}"
+        }
+      }
+    },
+    "httpResponse" : {
+      "statusCode" : 201,
+      "headers" : {
+        "content-type" : [ "application/json" ]
+      }
+    },
+    "id" : "matchJSON-7475331119297440091",
+    "priority" : 0,
+    "timeToLive" : {
+      "unlimited" : true
+    },
+    "times" : {
+      "unlimited" : true
+    }
+  }
+
+ because:
+
+  method matched
+  path matched
+  body didn't match: 
+  
+    json match failed expected:
+  
+      {
+        "id" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+        "type" : "PaymentCreated",
+        "data" : {
+          "id" : "3b3315ea-38c1-40a4-b7f9-149cc9807096",
+          "amount" : 100,
+          "currency" : "ARS",
+          "customerId" : "997e76a7-c18d-4337-90ea-9a5cb0c5b54e",
+          "direction" : "inbound",
+          "status" : "confirmed",
+          "debtor" : {
+            "institutionName" : "dinopay",
+            "institutionId" : "dinopay",
+            "currency" : "ARS",
+            "accountDetails" : {
+              "accountType" : "cvu",
+              "cuit" : "23679876453",
+              "routingInfo" : {
+                "cvuRoutingInfoType" : "cvu",
+                "cvu" : "1122334455667788554433"
+              }
+            }
+          },
+          "beneficiary" : {
+            "institutionName" : "dinopay",
+            "institutionId" : "dinopay",
+            "currency" : "ARS",
+            "accountDetails" : {
+              "accountType" : "cvu",
+              "cuit" : "23679876453",
+              "routingInfo" : {
+                "cvuRoutingInfoType" : "cvu",
+                "cvu" : "1122334455667788554433"
+              }
+            }
+          },
+          "createdAt" : "${json-unit.any-string}"
+        }
+      }
+  
+     found:
+  
+      {"id":"0196fe53-6619-7565-a97d-b0a9e7eb53d6","type":"PaymentUpdated","correlationId":"","data":{"paymentId":"0196fe53-65d4-74f0-8995-ab5e9fc66744","externalId":"0196fe53-660a-795f-b76e-151d99d84f2b","status":"failed"}}
+  
+     failed because:
+  
+      missing element at "data.amount",
+      missing element at "data.beneficiary",
+      missing element at "data.createdAt",
+      missing element at "data.currency",
+      missing element at "data.customerId",
+      missing element at "data.debtor",
+      missing element at "data.direction",
+      missing element at "data.id",
+      wrong value at "data.status", expected: "confirmed" but was: "failed",
+      wrong value at "type", expected: "PaymentCreated" but was: "PaymentUpdated"
+
+ 
+2025-05-23 18:06:40 5.15.0 INFO 2090 request:
+
+  {
+    "method" : "POST",
+    "path" : "/matchevent",
+    "headers" : {
+      "User-Agent" : [ "Go-http-client/1.1" ],
+      "Host" : [ "localhost:2090" ],
+      "Content-Type" : [ "application/json" ],
+      "Content-Length" : [ "218" ],
+      "Accept-Encoding" : [ "gzip" ]
+    },
+    "keepAlive" : true,
+    "secure" : false,
+    "protocol" : "HTTP_1_1",
+    "localAddress" : "172.17.0.5:2090",
+    "remoteAddress" : "172.17.0.1:55316",
+    "body" : {
+      "id" : "0196fe53-6619-7565-a97d-b0a9e7eb53d6",
+      "type" : "PaymentUpdated",
+      "correlationId" : "",
+      "data" : {
+        "paymentId" : "0196fe53-65d4-74f0-8995-ab5e9fc66744",
+        "externalId" : "0196fe53-660a-795f-b76e-151d99d84f2b",
+        "status" : "failed"
+      }
+    }
+  }
+
+ didn't match expectation:
+
+  {
+    "httpRequest" : {
+      "method" : "POST",
+      "path" : "/matchevent",
+      "body" : {
+        "id" : "63c3b924-ddc6-4a28-9baf-6eb0aa4110f0",
+        "customerId" : "abbb8aa3-87f9-4b2b-889f-8962cf708cfc",
+        "amount" : 100,
+        "currency" : "ARS",
+        "gateway" : "bind",
+        "direction" : "inbound",
+        "status" : "confirmed",
+        "debtor" : {
+          "institutionName" : "dinopay",
+          "institutionId" : "dinopay",
+          "currency" : "ARS",
+          "accountDetails" : {
+            "accountType" : "cvu",
+            "cuit" : "23679876453",
+            "routingInfo" : {
+              "cvuRoutingInfoType" : "cvu",
+              "cvu" : "1122334455667788554433"
+            }
+          }
+        },
+        "beneficiary" : {
+          "institutionName" : "dinopay",
+          "institutionId" : "dinopay",
+          "currency" : "ARS",
+          "accountDetails" : {
+            "accountType" : "cvu",
+            "cuit" : "23679876453",
+            "routingInfo" : {
+              "cvuRoutingInfoType" : "cvu",
+              "cvu" : "1122334455667788554433"
+            }
+          }
+        },
+        "createdAt" : "${json-unit.any-string}"
+      }
+    },
+    "httpResponse" : {
+      "statusCode" : 201,
+      "headers" : {
+        "content-type" : [ "application/json" ]
+      }
+    },
+    "id" : "thePaymentsServiceReturnsTheFollowingResponse",
+    "priority" : 0,
+    "timeToLive" : {
+      "unlimited" : true
+    },
+    "times" : {
+      "unlimited" : true
+    }
+  }
+
+ because:
+
+  method matched
+  path matched
+  body didn't match: 
+  
+    json match failed expected:
+  
+      {
+        "id" : "63c3b924-ddc6-4a28-9baf-6eb0aa4110f0",
+        "customerId" : "abbb8aa3-87f9-4b2b-889f-8962cf708cfc",
+        "amount" : 100,
+        "currency" : "ARS",
+        "gateway" : "bind",
+        "direction" : "inbound",
+        "status" : "confirmed",
+        "debtor" : {
+          "institutionName" : "dinopay",
+          "institutionId" : "dinopay",
+          "currency" : "ARS",
+          "accountDetails" : {
+            "accountType" : "cvu",
+            "cuit" : "23679876453",
+            "routingInfo" : {
+              "cvuRoutingInfoType" : "cvu",
+              "cvu" : "1122334455667788554433"
+            }
+          }
+        },
+        "beneficiary" : {
+          "institutionName" : "dinopay",
+          "institutionId" : "dinopay",
+          "currency" : "ARS",
+          "accountDetails" : {
+            "accountType" : "cvu",
+            "cuit" : "23679876453",
+            "routingInfo" : {
+              "cvuRoutingInfoType" : "cvu",
+              "cvu" : "1122334455667788554433"
+            }
+          }
+        },
+        "createdAt" : "${json-unit.any-string}"
+      }
+  
+     found:
+  
+      {"id":"0196fe53-6619-7565-a97d-b0a9e7eb53d6","type":"PaymentUpdated","correlationId":"","data":{"paymentId":"0196fe53-65d4-74f0-8995-ab5e9fc66744","externalId":"0196fe53-660a-795f-b76e-151d99d84f2b","status":"failed"}}
+  
+     failed because:
+  
+      missing element at "amount",
+      missing element at "beneficiary",
+      missing element at "createdAt",
+      missing element at "currency",
+      missing element at "customerId",
+      missing element at "debtor",
+      missing element at "direction",
+      missing element at "gateway",
+      missing element at "status",
+      wrong value at "id", expected: "63c3b924-ddc6-4a28-9baf-6eb0aa4110f0" but was: "0196fe53-6619-7565-a97d-b0a9e7eb53d6"
+
+ 
+2025-05-23 18:06:40 5.15.0 INFO 2090 request:
+
+  {
+    "method" : "POST",
+    "path" : "/matchevent",
+    "headers" : {
+      "User-Agent" : [ "Go-http-client/1.1" ],
+      "Host" : [ "localhost:2090" ],
+      "Content-Type" : [ "application/json" ],
+      "Content-Length" : [ "218" ],
+      "Accept-Encoding" : [ "gzip" ]
+    },
+    "keepAlive" : true,
+    "secure" : false,
+    "protocol" : "HTTP_1_1",
+    "localAddress" : "172.17.0.5:2090",
+    "remoteAddress" : "172.17.0.1:55316",
+    "body" : {
+      "id" : "0196fe53-6619-7565-a97d-b0a9e7eb53d6",
+      "type" : "PaymentUpdated",
+      "correlationId" : "",
+      "data" : {
+        "paymentId" : "0196fe53-65d4-74f0-8995-ab5e9fc66744",
+        "externalId" : "0196fe53-660a-795f-b76e-151d99d84f2b",
+        "status" : "failed"
+      }
+    }
+  }
+
+ didn't match expectation:
+
+  {
+    "httpRequest" : {
+      "method" : "POST",
+      "path" : "/matchevent",
+      "body" : {
+        "id" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+        "type" : "PaymentUpdated",
+        "data" : {
+          "paymentId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+          "externalId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+          "status" : "confirmed"
+        }
+      }
+    },
+    "httpResponse" : {
+      "statusCode" : 201,
+      "headers" : {
+        "content-type" : [ "application/json" ]
+      }
+    },
+    "id" : "matchJSON-7038493524309811053",
+    "priority" : 0,
+    "timeToLive" : {
+      "unlimited" : true
+    },
+    "times" : {
+      "unlimited" : true
+    }
+  }
+
+ because:
+
+  method matched
+  path matched
+  body didn't match: 
+  
+    json match failed expected:
+  
+      {
+        "id" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+        "type" : "PaymentUpdated",
+        "data" : {
+          "paymentId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+          "externalId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+          "status" : "confirmed"
+        }
+      }
+  
+     found:
+  
+      {"id":"0196fe53-6619-7565-a97d-b0a9e7eb53d6","type":"PaymentUpdated","correlationId":"","data":{"paymentId":"0196fe53-65d4-74f0-8995-ab5e9fc66744","externalId":"0196fe53-660a-795f-b76e-151d99d84f2b","status":"failed"}}
+  
+     failed because:
+  
+      wrong value at "data.status", expected: "confirmed" but was: "failed"
+
+ 
+2025-05-23 18:06:40 5.15.0 INFO 2090 request:
+
+  {
+    "method" : "POST",
+    "path" : "/matchevent",
+    "headers" : {
+      "User-Agent" : [ "Go-http-client/1.1" ],
+      "Host" : [ "localhost:2090" ],
+      "Content-Type" : [ "application/json" ],
+      "Content-Length" : [ "218" ],
+      "Accept-Encoding" : [ "gzip" ]
+    },
+    "keepAlive" : true,
+    "secure" : false,
+    "protocol" : "HTTP_1_1",
+    "localAddress" : "172.17.0.5:2090",
+    "remoteAddress" : "172.17.0.1:55316",
+    "body" : {
+      "id" : "0196fe53-6619-7565-a97d-b0a9e7eb53d6",
+      "type" : "PaymentUpdated",
+      "correlationId" : "",
+      "data" : {
+        "paymentId" : "0196fe53-65d4-74f0-8995-ab5e9fc66744",
+        "externalId" : "0196fe53-660a-795f-b76e-151d99d84f2b",
+        "status" : "failed"
+      }
+    }
+  }
+
+ matched expectation:
+
+  {
+    "httpRequest" : {
+      "method" : "POST",
+      "path" : "/matchevent",
+      "body" : {
+        "id" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+        "type" : "PaymentUpdated",
+        "data" : {
+          "paymentId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+          "externalId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+          "status" : "failed"
+        }
+      }
+    },
+    "httpResponse" : {
+      "statusCode" : 201,
+      "headers" : {
+        "content-type" : [ "application/json" ]
+      }
+    },
+    "id" : "matchJSON-3568874556823714073",
+    "priority" : 0,
+    "timeToLive" : {
+      "unlimited" : true
+    },
+    "times" : {
+      "unlimited" : true
+    }
+  }
+ 
+2025-05-23 18:06:40 5.15.0 INFO 2090 returning response:
+
+  {
+    "statusCode" : 201,
+    "headers" : {
+      "content-type" : [ "application/json" ]
+    }
+  }
+
+ for request:
+
+  {
+    "method" : "POST",
+    "path" : "/matchevent",
+    "headers" : {
+      "User-Agent" : [ "Go-http-client/1.1" ],
+      "Host" : [ "localhost:2090" ],
+      "Content-Type" : [ "application/json" ],
+      "Content-Length" : [ "218" ],
+      "Accept-Encoding" : [ "gzip" ]
+    },
+    "keepAlive" : true,
+    "secure" : false,
+    "protocol" : "HTTP_1_1",
+    "localAddress" : "172.17.0.5:2090",
+    "remoteAddress" : "172.17.0.1:55316",
+    "body" : {
+      "id" : "0196fe53-6619-7565-a97d-b0a9e7eb53d6",
+      "type" : "PaymentUpdated",
+      "correlationId" : "",
+      "data" : {
+        "paymentId" : "0196fe53-65d4-74f0-8995-ab5e9fc66744",
+        "externalId" : "0196fe53-660a-795f-b76e-151d99d84f2b",
+        "status" : "failed"
+      }
+    }
+  }
+
+ for action:
+
+  {
+    "statusCode" : 201,
+    "headers" : {
+      "content-type" : [ "application/json" ]
+    }
+  }
+
+ from expectation:
+
+  matchJSON-3568874556823714073
+ 
+2025-05-23 18:06:40 5.15.0 INFO 2090 verifying requests that match:
+
+  {
+    "expectationId" : {
+      "id" : "matchJSON-3568874556823714073"
+    },
+    "httpRequest" : {
+      "method" : "POST",
+      "path" : "/matchevent",
+      "body" : {
+        "id" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+        "type" : "PaymentUpdated",
+        "data" : {
+          "paymentId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+          "externalId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+          "status" : "failed"
+        }
+      }
+    },
+    "times" : {
+      "atLeast" : 1,
+      "atMost" : 1
+    }
+  }
+ 
+2025-05-23 18:06:40 5.15.0 INFO request:
+
+  {
+    "method" : "POST",
+    "path" : "/matchevent",
+    "body" : {
+      "id" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+      "type" : "PaymentUpdated",
+      "data" : {
+        "paymentId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+        "externalId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+        "status" : "failed"
+      }
+    }
+  }
+
+ found exactly once 

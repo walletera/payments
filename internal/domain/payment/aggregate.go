@@ -2,13 +2,11 @@ package payment
 
 import (
     "context"
-    "time"
 
-    "github.com/google/uuid"
     "github.com/walletera/eventskit/events"
     "github.com/walletera/eventskit/eventsourcing"
-    "github.com/walletera/payments-types/api"
     eventtypes "github.com/walletera/payments-types/events"
+    privapi "github.com/walletera/payments-types/privateapi"
     "github.com/walletera/werrors"
 )
 
@@ -16,40 +14,17 @@ const (
     AggregateNamePrefix = "payments.service.payment"
 )
 
-var validStatusTransitions = map[api.PaymentStatus][]api.PaymentStatus{
-    api.PaymentStatusPending: {
-        api.PaymentStatusDelivered,
-        api.PaymentStatusConfirmed,
-        api.PaymentStatusFailed,
+var validStatusTransitions = map[privapi.PaymentStatus][]privapi.PaymentStatus{
+    privapi.PaymentStatusPending: {
+        privapi.PaymentStatusDelivered,
+        privapi.PaymentStatusConfirmed,
+        privapi.PaymentStatusFailed,
     },
 }
 
-type UpdateCommand struct {
-    externalId api.OptString
-    status     api.PaymentStatus
-}
-
 type Aggregate struct {
-    payment api.Payment
+    payment privapi.Payment
     version uint64
-}
-
-func CreatePayment(correlationId string, customerId uuid.UUID, payment api.Payment) (eventtypes.PaymentCreated, werrors.WError) {
-    newPayment := payment
-    newPayment.CustomerId = api.OptUUID{
-        Value: customerId,
-        Set:   true,
-    }
-    newPayment.Status = api.OptPaymentStatus{
-        Value: api.PaymentStatusPending,
-        Set:   true,
-    }
-    newPayment.Direction = api.NewOptPaymentDirection(api.PaymentDirectionOutbound)
-    newPayment.CreatedAt = api.OptDateTime{
-        Value: time.Now(),
-        Set:   true,
-    }
-    return eventtypes.NewPaymentCreated(correlationId, newPayment), nil
 }
 
 func NewFromEvents(deserializer events.Deserializer[eventtypes.Handler], retrievedEvents []eventsourcing.RetrievedEvent) (*Aggregate, werrors.WError) {
@@ -62,58 +37,48 @@ func NewFromEvents(deserializer events.Deserializer[eventtypes.Handler], retriev
         if event == nil {
             return nil, werrors.NewNonRetryableInternalError("failed deserializing event from raw event %s", retrievedEvent.RawEvent)
         }
-        event.Accept(context.Background(), aggregate)
+        acceptErr := event.Accept(context.Background(), aggregate)
+        if acceptErr != nil {
+            return nil, werrors.NewNonRetryableInternalError("failed accepting event: %s", acceptErr.Error())
+        }
         aggregate.version = retrievedEvent.AggregateVersion
     }
     return aggregate, nil
 }
 
-func (p *Aggregate) UpdatePayment(correlationId string, command UpdateCommand) (eventtypes.PaymentUpdated, werrors.WError) {
-    paymentUpdate := api.PaymentUpdate{
-        PaymentId: p.payment.ID,
-    }
-    if !p.canTransition(command.status) {
-        currentStatus, _ := p.payment.Status.Get()
+func (a *Aggregate) UpdatePayment(correlationId string, paymentUpdate privapi.PaymentUpdate) (eventtypes.PaymentUpdated, werrors.WError) {
+    if !a.canTransition(paymentUpdate.Status) {
+        currentStatus := a.payment.Status
         return eventtypes.PaymentUpdated{}, werrors.NewValidationError(
             "invalid payment status transition from %s to %s",
             currentStatus,
-            command.status,
+            paymentUpdate.Status,
         )
     }
-    paymentUpdate.Status = command.status
-    paymentUpdate.ExternalId = command.externalId
     return eventtypes.NewPaymentUpdated(correlationId, paymentUpdate), nil
 }
 
-func (p *Aggregate) HandlePaymentCreated(ctx context.Context, paymentCreatedEvent eventtypes.PaymentCreated) werrors.WError {
-    p.payment = paymentCreatedEvent.Data
+func (a *Aggregate) HandlePaymentCreated(ctx context.Context, paymentCreatedEvent eventtypes.PaymentCreated) werrors.WError {
+    a.payment = paymentCreatedEvent.Data
     return nil
 }
 
-func (p *Aggregate) HandlePaymentUpdated(ctx context.Context, paymentUpdated eventtypes.PaymentUpdated) werrors.WError {
-    p.payment.ExternalId = paymentUpdated.Data.ExternalId
-    p.payment.Status = api.OptPaymentStatus{
-        Value: paymentUpdated.Data.Status,
-        Set:   true,
-    }
+func (a *Aggregate) HandlePaymentUpdated(ctx context.Context, paymentUpdated eventtypes.PaymentUpdated) werrors.WError {
+    a.payment.ExternalId = paymentUpdated.Data.ExternalId
+    a.payment.Status = paymentUpdated.Data.Status
     return nil
 }
 
-func (p *Aggregate) Payment() *api.Payment {
-    return &p.payment
+func (a *Aggregate) Payment() privapi.Payment {
+    return a.payment
 }
 
 func (a *Aggregate) Version() uint64 {
     return a.version
 }
 
-func (p *Aggregate) canTransition(status api.PaymentStatus) bool {
-    currentStatus, ok := p.payment.Status.Get()
-    if !ok {
-        // this should not happen
-        // TODO log a warning
-        return false
-    }
+func (a *Aggregate) canTransition(status privapi.PaymentStatus) bool {
+    currentStatus := a.payment.Status
     validTransitions, ok := validStatusTransitions[currentStatus]
     if !ok {
         return false

@@ -4,9 +4,9 @@ import "log/slog"
 
 type Option func(app *App)
 
-func WithBase64AuthPubKey(key string) func(a *App) {
+func WithPublicAPIConfig(config PublicAPIConfig) func(a *App) {
     return func(a *App) {
-        a.authServiceBase64PubKey = key
+        a.publicAPIConfig = NewOptional[PublicAPIConfig](config)
     }
 }
 
@@ -32,10 +32,6 @@ func WithRabbitmqPassword(password string) func(a *App) {
     return func(a *App) {
         a.rabbitmqPassword = password
     }
-}
-
-func WithPublicAPIHttpServerPort(port int) func(app *App) {
-    return func(app *App) { app.publicAPIHttpServerPort = port }
 }
 
 func WithPrivateAPIHttpServerPort(port int) func(app *App) {
