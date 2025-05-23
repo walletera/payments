@@ -14,8 +14,8 @@ require (
 	github.com/walletera/eventskit v0.0.5
 	github.com/walletera/logs-watcher v0.0.4
 	github.com/walletera/mockserver-go-client v0.0.1
-	github.com/walletera/payments-types v0.0.14
-	github.com/walletera/werrors v0.0.8
+	github.com/walletera/payments-types v0.0.15
+	github.com/walletera/werrors v0.0.9
 	go.uber.org/zap v1.27.0
 	go.uber.org/zap/exp v0.3.0
 	golang.org/x/sync v0.13.0
@@ -96,7 +96,3 @@ require (
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
-
-replace github.com/walletera/werrors v0.0.8 => /home/fedev/Code/walletera/werrors
-
-replace github.com/walletera/payments-types v0.0.14 => /home/fedev/Code/walletera/payments-types
