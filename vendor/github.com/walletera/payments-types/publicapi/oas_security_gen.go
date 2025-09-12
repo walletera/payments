@@ -33,6 +33,12 @@ func findAuthorization(h http.Header, prefix string) (string, bool) {
 	return "", false
 }
 
+var operationRolesBearerAuth = map[string][]string{
+	GetPaymentOperation:   []string{},
+	ListPaymentsOperation: []string{},
+	PostPaymentOperation:  []string{},
+}
+
 func (s *Server) securityBearerAuth(ctx context.Context, operationName OperationName, req *http.Request) (context.Context, bool, error) {
 	var t BearerAuth
 	token, ok := findAuthorization(req.Header, "Bearer")
@@ -40,6 +46,7 @@ func (s *Server) securityBearerAuth(ctx context.Context, operationName Operation
 		return ctx, false, nil
 	}
 	t.Token = token
+	t.Roles = operationRolesBearerAuth[operationName]
 	rctx, err := s.sec.HandleBearerAuth(ctx, operationName, t)
 	if errors.Is(err, ogenerrors.ErrSkipServerSecurity) {
 		return nil, false, nil

@@ -5,6 +5,10 @@ type GetPaymentRes interface {
 	getPaymentRes()
 }
 
+type ListPaymentsRes interface {
+	listPaymentsRes()
+}
+
 type PostPaymentRes interface {
 	postPaymentRes()
 }

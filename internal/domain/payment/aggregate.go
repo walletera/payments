@@ -2,10 +2,12 @@ package payment
 
 import (
     "context"
+    "time"
 
+    "github.com/google/uuid"
     "github.com/walletera/eventskit/events"
     "github.com/walletera/eventskit/eventsourcing"
-    eventtypes "github.com/walletera/payments-types/events"
+    paymentevents "github.com/walletera/payments-types/events"
     privapi "github.com/walletera/payments-types/privateapi"
     "github.com/walletera/werrors"
 )
@@ -27,7 +29,7 @@ type Aggregate struct {
     version uint64
 }
 
-func NewFromEvents(deserializer events.Deserializer[eventtypes.Handler], retrievedEvents []eventsourcing.RetrievedEvent) (*Aggregate, werrors.WError) {
+func NewFromEvents(deserializer events.Deserializer[paymentevents.Handler], retrievedEvents []eventsourcing.RetrievedEvent) (*Aggregate, werrors.WError) {
     aggregate := &Aggregate{}
     for _, retrievedEvent := range retrievedEvents {
         event, err := deserializer.Deserialize(retrievedEvent.RawEvent)
@@ -46,24 +48,30 @@ func NewFromEvents(deserializer events.Deserializer[eventtypes.Handler], retriev
     return aggregate, nil
 }
 
-func (a *Aggregate) UpdatePayment(correlationId string, paymentUpdate privapi.PaymentUpdate) (eventtypes.PaymentUpdated, werrors.WError) {
+func (a *Aggregate) UpdatePayment(correlationId string, paymentUpdate privapi.PaymentUpdate) (paymentevents.PaymentUpdated, werrors.WError) {
     if !a.canTransition(paymentUpdate.Status) {
         currentStatus := a.payment.Status
-        return eventtypes.PaymentUpdated{}, werrors.NewValidationError(
+        return paymentevents.PaymentUpdated{}, werrors.NewValidationError(
             "invalid payment status transition from %s to %s",
             currentStatus,
             paymentUpdate.Status,
         )
     }
-    return eventtypes.NewPaymentUpdated(correlationId, paymentUpdate), nil
+    return paymentevents.NewPaymentUpdated(events.EventEnvelope{
+        Id:               uuid.UUID{},
+        Type:             paymentevents.PaymentUpdatedType,
+        AggregateVersion: 0,
+        CorrelationId:    correlationId,
+        CreatedAt:        time.Now(),
+    }, paymentUpdate), nil
 }
 
-func (a *Aggregate) HandlePaymentCreated(ctx context.Context, paymentCreatedEvent eventtypes.PaymentCreated) werrors.WError {
+func (a *Aggregate) HandlePaymentCreated(ctx context.Context, paymentCreatedEvent paymentevents.PaymentCreated) werrors.WError {
     a.payment = paymentCreatedEvent.Data
     return nil
 }
 
-func (a *Aggregate) HandlePaymentUpdated(ctx context.Context, paymentUpdated eventtypes.PaymentUpdated) werrors.WError {
+func (a *Aggregate) HandlePaymentUpdated(ctx context.Context, paymentUpdated paymentevents.PaymentUpdated) werrors.WError {
     a.payment.ExternalId = paymentUpdated.Data.ExternalId
     a.payment.Status = paymentUpdated.Data.Status
     return nil

@@ -1,11 +1,11 @@
-[    1, 1,18:20:33.818,INF] 
+[    1, 1,12:20:33.261,INF] 
 "ES VERSION:"             "21.10.7.0" ("tags/oss-v21.10.7"/"1605ec0a1", "Fri, 29 Jul 2022 14:49:58 +0200")
-[    1, 1,18:20:33.822,INF] "OS ARCHITECTURE:"        X64 
-[    1, 1,18:20:33.828,INF] "OS:"                     Linux ("Unix 5.4.0.216")
-[    1, 1,18:20:33.829,INF] "RUNTIME:"                ".NET 5.0.17/6a9841436" (64-bit)
-[    1, 1,18:20:33.829,INF] "GC:"                     "3 GENERATIONS" "IsServerGC: False" "Latency Mode: Interactive"
-[    1, 1,18:20:33.829,INF] "LOGS:"                   "/var/log/eventstore"
-[    1, 1,18:20:33.856,INF] MODIFIED OPTIONS:
+[    1, 1,12:20:33.264,INF] "OS ARCHITECTURE:"        X64 
+[    1, 1,12:20:33.270,INF] "OS:"                     Linux ("Unix 5.4.0.216")
+[    1, 1,12:20:33.271,INF] "RUNTIME:"                ".NET 5.0.17/6a9841436" (64-bit)
+[    1, 1,12:20:33.271,INF] "GC:"                     "3 GENERATIONS" "IsServerGC: False" "Latency Mode: Interactive"
+[    1, 1,12:20:33.271,INF] "LOGS:"                   "/var/log/eventstore"
+[    1, 1,12:20:33.301,INF] MODIFIED OPTIONS:
 
      INSECURE:                                true (Command Line)
      INT IP:                                  0.0.0.0 (Yaml)
@@ -137,165 +137,165 @@ DEFAULT OPTIONS:
      PROJECTION COMPILATION TIMEOUT:          500 (<DEFAULT>)
      PROJECTION EXECUTION TIMEOUT:            250 (<DEFAULT>)
 
-[    1, 1,18:20:33.859,WRN] 
+[    1, 1,12:20:33.304,WRN] 
 ==============================================================================================================
 INSECURE MODE IS ON. THIS MODE IS *NOT* RECOMMENDED FOR PRODUCTION USE.
 INSECURE MODE WILL DISABLE ALL AUTHENTICATION, AUTHORIZATION AND TRANSPORT SECURITY FOR ALL CLIENTS AND NODES.
 ==============================================================================================================
 
-[    1, 1,18:20:34.022,DBG] MessageHierarchy initialization took 00:00:00.1546268.
-[    1, 1,18:20:34.034,INF] Cannot find plugins path: "/usr/share/eventstore/plugins"
-[    1, 1,18:20:34.087,INF] Quorum size set to 1.
-[    1, 1,18:20:34.088,DBG] Using File Checkpoints
-[    1, 1,18:20:34.120,INF] ReaderThreadsCount set to 16. Calculated based on processor count of 8 and configured value of 0
-[    1, 1,18:20:34.120,INF] WorkerThreads set to 10. Calculated based on a reader thread count of 16 and a configured value of 0
-[    1, 1,18:20:34.120,INF] StreamInfoCacheCapacity set to 7,465,806. Calculated based on 9,154,408,448 bytes of free memory and configured value of 0
-[    1, 1,18:20:34.121,INF] "INSTANCE ID:"            916e059d-e894-4e0b-9a06-5a447a47521f
-[    1, 1,18:20:34.121,INF] "DATABASE:"               "/var/lib/eventstore"
-[    1, 1,18:20:34.121,INF] "WRITER CHECKPOINT:"      0 (0x0)
-[    1, 1,18:20:34.121,INF] "CHASER CHECKPOINT:"      0 (0x0)
-[    1, 1,18:20:34.121,INF] "EPOCH CHECKPOINT:"       -1 (0xFFFFFFFFFFFFFFFF)
-[    1, 1,18:20:34.121,INF] "TRUNCATE CHECKPOINT:"    -1 (0xFFFFFFFFFFFFFFFF)
-[    1, 1,18:20:34.122,INF] "STREAM EXISTENCE FILTER CHECKPOINT:" -1 (0xFFFFFFFFFFFFFFFF)
-[    1, 1,18:20:34.167,INF] Ensuring no excessive chunks...
-[    1, 1,18:20:34.168,INF] Done ensuring no excessive chunks.
-[    1, 1,18:20:34.168,INF] Removing old chunk versions...
-[    1, 1,18:20:34.168,INF] Done removing old chunk versions.
-[    1, 1,18:20:34.168,INF] Cleaning up temp files...
-[    1, 1,18:20:34.170,INF] Done cleaning up temp files.
-[    1, 1,18:20:34.172,DBG] CACHED TFChunk "#0-0 (chunk-000000.000000)" in 00:00:00.0011882.
-[    1, 1,18:20:34.176,INF] "streamExistenceFilter": "Creating" "/var/lib/eventstore/index/stream-existence/streamExistenceFilter.dat"
-[    1, 1,18:20:34.181,DBG] Zeroing bloom filter...
-[    1, 1,18:20:34.294,DBG] Done zeroing bloom filter
-[    1, 1,18:20:34.295,INF] Writing header and expanding file...
-[    1, 1,18:20:34.304,INF] Wrote header and expanded file
-[    1, 1,18:20:34.305,INF] "streamExistenceFilter" has successfully loaded.
-[    1, 1,18:20:34.305,DBG] Optimal number of items for a "streamExistenceFilter" with a configured size of 256 MB is approximately equal to: 251,240,490 with false positive probability: 0.02
-[    1, 1,18:20:34.318,INF] No epoch checkpoint. Scanning log backwards for most recent epoch...
-[    1, 1,18:20:34.320,INF] Done scanning log backwards for most recent epoch.
-[    1, 1,18:20:34.326,INF] Using "InaugurationManager"
-[    1, 1,18:20:34.387,INF] Starting MiniWeb for "/web/es/js/projections" ==> "/opt/eventstore/projections"
-[    1, 1,18:20:34.387,INF] Starting MiniWeb for "/web/es/js/projections/v8/Prelude" ==> "/opt/eventstore/Prelude"
-[    1, 1,18:20:34.397,INF] Starting MiniWeb for "/web" ==> "/opt/eventstore/clusternode-web"
-[    1,12,18:20:34.445,INF] ========== ["0.0.0.0:2113"] SYSTEM INIT...
-[    1,12,18:20:34.451,INF] ========== ["0.0.0.0:2113"] Service '"StorageReader"' initialized.
-[    1,12,18:20:34.451,INF] ========== ["0.0.0.0:2113"] Service '"StorageWriter"' initialized.
-[    1,17,18:20:34.453,INF] TableIndex initialization...
-[    1,12,18:20:34.456,INF] CLUSTER HAS CHANGED ""
+[    1, 1,12:20:33.481,DBG] MessageHierarchy initialization took 00:00:00.1705257.
+[    1, 1,12:20:33.494,INF] Cannot find plugins path: "/usr/share/eventstore/plugins"
+[    1, 1,12:20:33.545,INF] Quorum size set to 1.
+[    1, 1,12:20:33.546,DBG] Using File Checkpoints
+[    1, 1,12:20:33.566,INF] ReaderThreadsCount set to 16. Calculated based on processor count of 8 and configured value of 0
+[    1, 1,12:20:33.566,INF] WorkerThreads set to 10. Calculated based on a reader thread count of 16 and a configured value of 0
+[    1, 1,12:20:33.567,INF] StreamInfoCacheCapacity set to 7,873,740. Calculated based on 9,698,320,384 bytes of free memory and configured value of 0
+[    1, 1,12:20:33.568,INF] "INSTANCE ID:"            53de3310-0ac3-4cb1-8c0d-7540aae1a8f8
+[    1, 1,12:20:33.568,INF] "DATABASE:"               "/var/lib/eventstore"
+[    1, 1,12:20:33.568,INF] "WRITER CHECKPOINT:"      0 (0x0)
+[    1, 1,12:20:33.568,INF] "CHASER CHECKPOINT:"      0 (0x0)
+[    1, 1,12:20:33.568,INF] "EPOCH CHECKPOINT:"       -1 (0xFFFFFFFFFFFFFFFF)
+[    1, 1,12:20:33.568,INF] "TRUNCATE CHECKPOINT:"    -1 (0xFFFFFFFFFFFFFFFF)
+[    1, 1,12:20:33.568,INF] "STREAM EXISTENCE FILTER CHECKPOINT:" -1 (0xFFFFFFFFFFFFFFFF)
+[    1, 1,12:20:33.610,INF] Ensuring no excessive chunks...
+[    1, 1,12:20:33.611,INF] Done ensuring no excessive chunks.
+[    1, 1,12:20:33.611,INF] Removing old chunk versions...
+[    1, 1,12:20:33.612,INF] Done removing old chunk versions.
+[    1, 1,12:20:33.612,INF] Cleaning up temp files...
+[    1, 1,12:20:33.614,INF] Done cleaning up temp files.
+[    1, 1,12:20:33.616,DBG] CACHED TFChunk "#0-0 (chunk-000000.000000)" in 00:00:00.0009313.
+[    1, 1,12:20:33.619,INF] "streamExistenceFilter": "Creating" "/var/lib/eventstore/index/stream-existence/streamExistenceFilter.dat"
+[    1, 1,12:20:33.625,DBG] Zeroing bloom filter...
+[    1, 1,12:20:33.735,DBG] Done zeroing bloom filter
+[    1, 1,12:20:33.736,INF] Writing header and expanding file...
+[    1, 1,12:20:33.743,INF] Wrote header and expanded file
+[    1, 1,12:20:33.744,INF] "streamExistenceFilter" has successfully loaded.
+[    1, 1,12:20:33.744,DBG] Optimal number of items for a "streamExistenceFilter" with a configured size of 256 MB is approximately equal to: 251,240,490 with false positive probability: 0.02
+[    1, 1,12:20:33.759,INF] No epoch checkpoint. Scanning log backwards for most recent epoch...
+[    1, 1,12:20:33.760,INF] Done scanning log backwards for most recent epoch.
+[    1, 1,12:20:33.768,INF] Using "InaugurationManager"
+[    1, 1,12:20:33.832,INF] Starting MiniWeb for "/web/es/js/projections" ==> "/opt/eventstore/projections"
+[    1, 1,12:20:33.832,INF] Starting MiniWeb for "/web/es/js/projections/v8/Prelude" ==> "/opt/eventstore/Prelude"
+[    1, 1,12:20:33.841,INF] Starting MiniWeb for "/web" ==> "/opt/eventstore/clusternode-web"
+[    1,12,12:20:33.891,INF] ========== ["0.0.0.0:2113"] SYSTEM INIT...
+[    1,12,12:20:33.897,INF] ========== ["0.0.0.0:2113"] Service '"StorageReader"' initialized.
+[    1,12,12:20:33.897,INF] ========== ["0.0.0.0:2113"] Service '"StorageWriter"' initialized.
+[    1,17,12:20:33.898,INF] TableIndex initialization...
+[    1,17,12:20:33.902,INF] ReadIndex building...
+[    1,12,12:20:33.902,INF] CLUSTER HAS CHANGED ""
 Old:
-["Priority: 0 VND {916e059d-e894-4e0b-9a06-5a447a47521f} <LIVE> [Unknown, Unspecified/127.0.0.1:1112, n/a, Unspecified/127.0.0.1:1113, n/a, Unspecified/127.0.0.1:2113, (ADVERTISED: HTTP::0, TCP::0)] -1/0/0/E-1@-1:{00000000-0000-0000-0000-000000000000} | 2025-05-23 18:20:34.449"]
+["Priority: 0 VND {53de3310-0ac3-4cb1-8c0d-7540aae1a8f8} <LIVE> [Unknown, Unspecified/127.0.0.1:1112, n/a, Unspecified/127.0.0.1:1113, n/a, Unspecified/127.0.0.1:2113, (ADVERTISED: HTTP::0, TCP::0)] -1/0/0/E-1@-1:{00000000-0000-0000-0000-000000000000} | 2025-09-12 12:20:33.894"]
 New:
-["Priority: 0 VND {916e059d-e894-4e0b-9a06-5a447a47521f} <LIVE> [Unknown, Unspecified/127.0.0.1:1112, n/a, Unspecified/127.0.0.1:1113, n/a, Unspecified/127.0.0.1:2113, (ADVERTISED: HTTP::0, TCP::0)] -1/0/0/E-1@-1:{00000000-0000-0000-0000-000000000000} | 2025-05-23 18:20:34.449"]
-[    1,17,18:20:34.457,INF] ReadIndex building...
-[    1,17,18:20:34.458,DBG] ReadIndex rebuilding done: total processed 0 records, time elapsed: 00:00:00.0008416.
-[    1,17,18:20:34.458,DBG] Initializing the StreamExistenceFilter. The filter can be disabled by setting the configuration option "StreamExistenceFilterSize" to 0
-[    1,17,18:20:34.459,DBG] "streamExistenceFilter" rebuilding started from checkpoint: -1 (0xFFFFFFFFFFFFFFFF).
-[    1,17,18:20:34.460,INF] Initializing from index
-[    1,17,18:20:34.463,INF] Found table 6a166344-b03f-4e2e-bfe2-2810b1184e39. Type: "EventStore.Core.Index.HashListMemTable". Count: 0. Version: 4
-[    1,17,18:20:34.468,INF] Initializing from log starting at 0
-[    1,17,18:20:34.468,DBG] "streamExistenceFilter" rebuilding done: total processed 0 records, time elapsed: 00:00:00.0089707.
-[    1,17,18:20:34.468,DBG] StreamExistenceFilter initialized. Time elapsed: 00:00:00.0096766.
-[    1,12,18:20:34.481,INF] ========== ["0.0.0.0:2113"] Service '"StorageChaser"' initialized.
-[    1,12,18:20:34.481,INF] ========== ["0.0.0.0:2113"] SYSTEM START...
-[    1,12,18:20:34.482,INF] ========== ["0.0.0.0:2113"] IS UNKNOWN...
-[    1, 4,18:20:34.484,DBG] Persistent subscriptions received state change to Unknown. Stopping listening
-[    1, 4,18:20:34.485,DBG] Persistent Subscriptions have been stopped.
-[    1,12,18:20:34.488,INF] ELECTIONS: STARTING ELECTIONS.
-[    1,12,18:20:34.489,INF] ELECTIONS: (V=0) SHIFT TO LEADER ELECTION.
-[    1,12,18:20:34.489,INF] ELECTIONS: (V=0) VIEWCHANGE FROM ["Unspecified/127.0.0.1:2113", {916e059d-e894-4e0b-9a06-5a447a47521f}].
-[    1,12,18:20:34.491,INF] ELECTIONS: (V=0) MAJORITY OF VIEWCHANGE.
-[    1,12,18:20:34.491,INF] ELECTIONS: (V=0) SHIFT TO PREPARE PHASE.
-[    1,12,18:20:34.492,INF] ELECTIONS: (V=0) PREPARE_OK FROM "[Unspecified/127.0.0.1:2113,{916e059d-e894-4e0b-9a06-5a447a47521f}](L=-1,W=0,C=0,E-1@-1:{00000000-0000-0000-0000-000000000000} (L={00000000-0000-0000-0000-000000000000}),Priority=0)".
-[    1,12,18:20:34.493,INF] ELECTIONS: (V=0) SHIFT TO REG_LEADER.
-[    1,12,18:20:34.499,DBG] ELECTIONS: (V=0) Proposing node: {916e059d-e894-4e0b-9a06-5a447a47521f} as best leader candidate
-[    1,12,18:20:34.505,INF] ELECTIONS: (V=0) SENDING PROPOSAL CANDIDATE: "[Unspecified/127.0.0.1:2113,{916e059d-e894-4e0b-9a06-5a447a47521f}](L=-1,W=0,C=0,E-1@-1:{00000000-0000-0000-0000-000000000000} (L={00000000-0000-0000-0000-000000000000}),Priority=0)", PROPOSAL NUMBER 0, ME: "[Unspecified/127.0.0.1:2113,{916e059d-e894-4e0b-9a06-5a447a47521f}](L=-1,W=0,C=0,E-1@-1:{00000000-0000-0000-0000-000000000000} (L={00000000-0000-0000-0000-000000000000}),Priority=0)".
-[    1,12,18:20:34.506,INF] ELECTIONS: (V=0) ACCEPT FROM ["Unspecified/127.0.0.1:2113",{916e059d-e894-4e0b-9a06-5a447a47521f}] M=["Unspecified/127.0.0.1:2113",{916e059d-e894-4e0b-9a06-5a447a47521f}]).
-[    1,12,18:20:34.506,INF] ELECTIONS: (V=0) DONE. ELECTED LEADER = "[Unspecified/127.0.0.1:2113,{916e059d-e894-4e0b-9a06-5a447a47521f}](L=-1,W=0,C=0,E-1@-1:{00000000-0000-0000-0000-000000000000} (L={00000000-0000-0000-0000-000000000000}),Priority=0)". ME="[Unspecified/127.0.0.1:2113,{916e059d-e894-4e0b-9a06-5a447a47521f}](L=-1,W=0,C=0,E-1@-1:{00000000-0000-0000-0000-000000000000} (L={00000000-0000-0000-0000-000000000000}),Priority=0)".
-[    1,12,18:20:34.508,INF] "InaugurationManager" in state (Unknown, Initial): RECEIVED "ElectionsDone". currentEpochNumber 0.
-[    1,12,18:20:34.509,INF] CLUSTER HAS CHANGED "Elections Done"
+["Priority: 0 VND {53de3310-0ac3-4cb1-8c0d-7540aae1a8f8} <LIVE> [Unknown, Unspecified/127.0.0.1:1112, n/a, Unspecified/127.0.0.1:1113, n/a, Unspecified/127.0.0.1:2113, (ADVERTISED: HTTP::0, TCP::0)] -1/0/0/E-1@-1:{00000000-0000-0000-0000-000000000000} | 2025-09-12 12:20:33.894"]
+[    1,17,12:20:33.903,DBG] ReadIndex rebuilding done: total processed 0 records, time elapsed: 00:00:00.0010129.
+[    1,17,12:20:33.903,DBG] Initializing the StreamExistenceFilter. The filter can be disabled by setting the configuration option "StreamExistenceFilterSize" to 0
+[    1,17,12:20:33.904,DBG] "streamExistenceFilter" rebuilding started from checkpoint: -1 (0xFFFFFFFFFFFFFFFF).
+[    1,17,12:20:33.905,INF] Initializing from index
+[    1,17,12:20:33.908,INF] Found table 1f379a62-f917-400c-80ce-d2d608711a6c. Type: "EventStore.Core.Index.HashListMemTable". Count: 0. Version: 4
+[    1,17,12:20:33.912,INF] Initializing from log starting at 0
+[    1,17,12:20:33.913,DBG] "streamExistenceFilter" rebuilding done: total processed 0 records, time elapsed: 00:00:00.0086496.
+[    1,17,12:20:33.913,DBG] StreamExistenceFilter initialized. Time elapsed: 00:00:00.0095231.
+[    1,12,12:20:33.925,INF] ========== ["0.0.0.0:2113"] Service '"StorageChaser"' initialized.
+[    1,12,12:20:33.926,INF] ========== ["0.0.0.0:2113"] SYSTEM START...
+[    1,12,12:20:33.926,INF] ========== ["0.0.0.0:2113"] IS UNKNOWN...
+[    1, 9,12:20:33.929,DBG] Persistent subscriptions received state change to Unknown. Stopping listening
+[    1, 9,12:20:33.929,DBG] Persistent Subscriptions have been stopped.
+[    1,12,12:20:33.933,INF] ELECTIONS: STARTING ELECTIONS.
+[    1,12,12:20:33.933,INF] ELECTIONS: (V=0) SHIFT TO LEADER ELECTION.
+[    1,12,12:20:33.934,INF] ELECTIONS: (V=0) VIEWCHANGE FROM ["Unspecified/127.0.0.1:2113", {53de3310-0ac3-4cb1-8c0d-7540aae1a8f8}].
+[    1,12,12:20:33.936,INF] ELECTIONS: (V=0) MAJORITY OF VIEWCHANGE.
+[    1,12,12:20:33.936,INF] ELECTIONS: (V=0) SHIFT TO PREPARE PHASE.
+[    1,12,12:20:33.937,INF] ELECTIONS: (V=0) PREPARE_OK FROM "[Unspecified/127.0.0.1:2113,{53de3310-0ac3-4cb1-8c0d-7540aae1a8f8}](L=-1,W=0,C=0,E-1@-1:{00000000-0000-0000-0000-000000000000} (L={00000000-0000-0000-0000-000000000000}),Priority=0)".
+[    1,12,12:20:33.938,INF] ELECTIONS: (V=0) SHIFT TO REG_LEADER.
+[    1,12,12:20:33.944,DBG] ELECTIONS: (V=0) Proposing node: {53de3310-0ac3-4cb1-8c0d-7540aae1a8f8} as best leader candidate
+[    1,12,12:20:33.950,INF] ELECTIONS: (V=0) SENDING PROPOSAL CANDIDATE: "[Unspecified/127.0.0.1:2113,{53de3310-0ac3-4cb1-8c0d-7540aae1a8f8}](L=-1,W=0,C=0,E-1@-1:{00000000-0000-0000-0000-000000000000} (L={00000000-0000-0000-0000-000000000000}),Priority=0)", PROPOSAL NUMBER 0, ME: "[Unspecified/127.0.0.1:2113,{53de3310-0ac3-4cb1-8c0d-7540aae1a8f8}](L=-1,W=0,C=0,E-1@-1:{00000000-0000-0000-0000-000000000000} (L={00000000-0000-0000-0000-000000000000}),Priority=0)".
+[    1,12,12:20:33.951,INF] ELECTIONS: (V=0) ACCEPT FROM ["Unspecified/127.0.0.1:2113",{53de3310-0ac3-4cb1-8c0d-7540aae1a8f8}] M=["Unspecified/127.0.0.1:2113",{53de3310-0ac3-4cb1-8c0d-7540aae1a8f8}]).
+[    1,12,12:20:33.951,INF] ELECTIONS: (V=0) DONE. ELECTED LEADER = "[Unspecified/127.0.0.1:2113,{53de3310-0ac3-4cb1-8c0d-7540aae1a8f8}](L=-1,W=0,C=0,E-1@-1:{00000000-0000-0000-0000-000000000000} (L={00000000-0000-0000-0000-000000000000}),Priority=0)". ME="[Unspecified/127.0.0.1:2113,{53de3310-0ac3-4cb1-8c0d-7540aae1a8f8}](L=-1,W=0,C=0,E-1@-1:{00000000-0000-0000-0000-000000000000} (L={00000000-0000-0000-0000-000000000000}),Priority=0)".
+[    1,12,12:20:33.953,INF] "InaugurationManager" in state (Unknown, Initial): RECEIVED "ElectionsDone". currentEpochNumber 0.
+[    1,12,12:20:33.954,INF] CLUSTER HAS CHANGED "Elections Done"
 Old:
-["Priority: 0 VND {916e059d-e894-4e0b-9a06-5a447a47521f} <LIVE> [Unknown, Unspecified/127.0.0.1:1112, n/a, Unspecified/127.0.0.1:1113, n/a, Unspecified/127.0.0.1:2113, (ADVERTISED: HTTP::0, TCP::0)] -1/0/0/E-1@-1:{00000000-0000-0000-0000-000000000000} | 2025-05-23 18:20:34.485"]
+["Priority: 0 VND {53de3310-0ac3-4cb1-8c0d-7540aae1a8f8} <LIVE> [Unknown, Unspecified/127.0.0.1:1112, n/a, Unspecified/127.0.0.1:1113, n/a, Unspecified/127.0.0.1:2113, (ADVERTISED: HTTP::0, TCP::0)] -1/0/0/E-1@-1:{00000000-0000-0000-0000-000000000000} | 2025-09-12 12:20:33.930"]
 New:
-["Priority: 0 VND {916e059d-e894-4e0b-9a06-5a447a47521f} <LIVE> [Leader, Unspecified/127.0.0.1:1112, n/a, Unspecified/127.0.0.1:1113, n/a, Unspecified/127.0.0.1:2113, (ADVERTISED: HTTP::0, TCP::0)] -1/0/0/E-1@-1:{00000000-0000-0000-0000-000000000000} | 2025-05-23 18:20:34.508"]
-[    1,12,18:20:34.509,INF] ========== ["0.0.0.0:2113"] PRE-LEADER STATE, WAITING FOR CHASER TO CATCH UP...
-[    1,12,18:20:34.509,INF] "InaugurationManager" in state (Unknown, Initial): RECEIVED "BecomePreLeader". Starting inauguration process with correlation id 0128ce8a-40ff-4661-be8d-d9eb8d1423c3. Waiting for chaser.
-[    1, 4,18:20:34.509,DBG] Persistent subscriptions received state change to PreLeader. Stopping listening
-[    1, 4,18:20:34.509,DBG] Persistent Subscriptions have been stopped.
-[    1,20,18:20:34.510,DBG] PROJECTIONS SUBSYSTEM: Not stopping because subsystem is not in a started state. Current Subsystem state: Ready
-[    1,12,18:20:34.512,INF] "InaugurationManager" in state (PreLeader, WaitingForChaser): RECEIVED "ChaserCaughtUp". RESPONDING with "WriteEpoch". currentEpochNumber 0.
-[    1, 1,18:20:34.528,WRN] Overriding address(es) '"http://+:80"'. Binding to endpoints defined in "UseKestrel()" instead.
-[    1,10,18:20:34.595,DBG] === Writing E0@0:{bd72055b-7bc9-4b3e-bfec-ffc271469dc6} (previous epoch at -1). L={916e059d-e894-4e0b-9a06-5a447a47521f}.
-[    1,12,18:20:34.608,INF] "InaugurationManager" in state (PreLeader, WritingEpoch): RECEIVED "EpochWritten". RESPONDING with "EnablePreLeaderReplication".
-[    1,12,18:20:34.608,INF] "InaugurationManager" in state (PreLeader, WaitingForConditions): Replication "DONE": 548/1. Remaining: 0.
-[    1,12,18:20:34.608,INF] "InaugurationManager" in state (PreLeader, WaitingForConditions): Index "IN PROGRESS": -1/1. Remaining: 2.
-[    1,10,18:20:34.613,DBG] === Cached new Last Epoch E0@0:{bd72055b-7bc9-4b3e-bfec-ffc271469dc6} (previous epoch at -1) L={916e059d-e894-4e0b-9a06-5a447a47521f}.
-[    1,12,18:20:34.672,INF] "InaugurationManager" in state (PreLeader, WaitingForConditions): Replication "DONE": 548/1. Remaining: 0.
-[    1,12,18:20:34.672,INF] "InaugurationManager" in state (PreLeader, WaitingForConditions): Index "DONE": 231/1. Remaining: 0.
-[    1,12,18:20:34.672,INF] "InaugurationManager" in state (PreLeader, WaitingForConditions): RECEIVED "IndexedTo". RESPONDING with "BecomeLeader". Correlation id 0128ce8a-40ff-4661-be8d-d9eb8d1423c3
-[    1,12,18:20:34.673,INF] ========== ["0.0.0.0:2113"] IS LEADER... SPARTA!
-[    1, 9,18:20:34.673,DBG] Persistent subscriptions Became Leader so now handling subscriptions
-[    1,12,18:20:34.675,DBG] Searching for incomplete scavenges on node "0.0.0.0:2113".
-[    1,20,18:20:34.676,INF] PROJECTIONS SUBSYSTEM: Starting components for Instance: cbdb78de-14b3-4fd6-bc5a-e7aad03aeecc
-[    1,20,18:20:34.676,DBG] PROJECTIONS: Projection Core Coordinator component starting. Correlation: cbdb78de-14b3-4fd6-bc5a-e7aad03aeecc
-[    1,20,18:20:34.677,DBG] PROJECTIONS: Starting Projections Core Coordinator
-[    1,20,18:20:34.677,DBG] PROJECTIONS: Starting Projections Manager. Correlation: cbdb78de-14b3-4fd6-bc5a-e7aad03aeecc
-[    1,20,18:20:34.678,DBG] PROJECTIONS: Reading Existing Projections from "$projections-$all"
-[    1,20,18:20:34.680,DBG] PROJECTIONS SUBSYSTEM: Component '"ProjectionManager"' started for Instance: cbdb78de-14b3-4fd6-bc5a-e7aad03aeecc
-[    1,20,18:20:34.680,DBG] PROJECTIONS: SubComponent Started: "EventReaderCoreService"
-[    1,20,18:20:34.680,DBG] PROJECTIONS: SubComponent Started: "EventReaderCoreService"
-[    1,20,18:20:34.680,DBG] PROJECTIONS: SubComponent Started: "ProjectionCoreService"
-[    1,20,18:20:34.680,DBG] PROJECTIONS: SubComponent Started: "EventReaderCoreService"
-[    1,20,18:20:34.680,DBG] PROJECTIONS: SubComponent Started: "ProjectionCoreService"
-[    1,20,18:20:34.680,DBG] PROJECTIONS: SubComponent Started: "ProjectionCoreService"
-[    1,20,18:20:34.680,DBG] PROJECTIONS SUBSYSTEM: Component '"ProjectionCoreCoordinator"' started for Instance: cbdb78de-14b3-4fd6-bc5a-e7aad03aeecc
-[    1,20,18:20:34.681,INF] PROJECTIONS SUBSYSTEM: All components started for Instance: cbdb78de-14b3-4fd6-bc5a-e7aad03aeecc
-[    1,12,18:20:34.681,INF] ========== ["0.0.0.0:2113"] Sub System '"Projections"' initialized.
-[    1,12,18:20:34.686,DBG] No incomplete scavenges found on node "0.0.0.0:2113".
-[    1,12,18:20:34.687,DBG] Setting max age for the "$scavenges" stream to 30.00:00:00.
-[    1,12,18:20:34.687,DBG] Setting $ops read permission for the "$scavenges" stream
-[    1,20,18:20:34.688,DBG] PROJECTIONS: No projections were found in "$projections-$all", starting from empty stream
-[    1,12,18:20:34.693,DBG] Persistent Subscriptions have been started.
-[    1,20,18:20:34.835,DBG] PROJECTIONS: Found the following new projections in "$projections-$all": ["$streams", "$stream_by_category", "$by_category", "$by_event_type", "$by_correlation_id"]
-[    1,20,18:20:34.837,DBG] PROJECTIONS: Caught up with projections registration. Next expected version: 5
-[    1,20,18:20:34.840,DBG] Adding projection d971c5fa-e5d2-485f-8f6c-6980071df143@"$streams" to list
-[    1,20,18:20:34.844,DBG] Adding projection 73c931ee-1c43-4199-9bb0-4836a2156730@"$stream_by_category" to list
-[    1,20,18:20:34.844,DBG] Adding projection 7100b93a-33e7-41e3-9b80-64937d19cbc1@"$by_category" to list
-[    1,20,18:20:34.844,DBG] Adding projection 089d6bb8-a73d-4fed-b607-cbec169f7b2d@"$by_correlation_id" to list
-[    1,20,18:20:34.846,DBG] Adding projection 4697d7ae-4c5b-4a07-b6bf-507e4eb9d3ff@"$by_event_type" to list
-[    1,20,18:20:34.915,INF] '"$stream_by_category"' projection source has been written
-[    1,20,18:20:34.934,INF] '"$by_event_type"' projection source has been written
-[    1,20,18:20:34.934,INF] '"$by_category"' projection source has been written
-[    1,20,18:20:34.934,INF] '"$streams"' projection source has been written
-[    1,20,18:20:34.934,INF] '"$by_correlation_id"' projection source has been written
-[    1,12,18:20:35.613,INF] "InaugurationManager" in state (Leader, Initial): IGNORING "CheckInaugurationConditions". Not waiting for conditions.
-[    1,29,18:20:46.818,DBG] Segments count: 1, buffers count: 20, should be when full: 20
-[    1,20,18:20:46.827,INF] Enabling '"$by_category"' projection
-[    1,20,18:20:46.846,INF] '"$by_category"' projection source has been written
-[    1,20,18:20:46.884,INF] Updating '"$by_category"' projection source to '"last\n."' (Requested type is: 'null')
-[    1,20,18:20:46.894,INF] '"$by_category"' projection source has been written
-[    1,19,18:20:47.107,DBG] Creating persistent subscription "$ce-payments.service.payment::payments-service"
-[    1,19,18:20:47.112,DBG] New persistent subscription "$ce-payments.service.payment::payments-service"
-[    1,12,18:20:47.113,DBG] Subscription "$ce-payments.service.payment::payments-service": no checkpoint found
-[    1,12,18:20:47.113,DBG] Start from = -1
-[    1,19,18:20:47.113,DBG] Saving persistent subscription configuration
-[    1, 4,18:20:47.259,DBG] New connection to persistent subscription "$ce-payments.service.payment::payments-service" by 61b52d28-61b7-4ad2-9609-e0833ef40186
-[    1,20,18:20:47.631,INF] Enabling '"$by_category"' projection
-[    1,20,18:20:47.633,INF] Updating '"$by_category"' projection source to '"last\n."' (Requested type is: 'null')
-[    1,20,18:20:47.655,INF] '"$by_category"' projection source has been written
-[    1,24,18:20:47.705,DBG] Creating persistent subscription "$ce-payments.service.payment::payments-service"
-[    1,26,18:20:47.760,DBG] New connection to persistent subscription "$ce-payments.service.payment::payments-service" by c30bc6d0-2ce5-4bc2-aec9-0f6b11e0802a
-[    1,20,18:20:47.769,INF] Enabling '"$by_category"' projection
-[    1,20,18:20:47.770,INF] Updating '"$by_category"' projection source to '"last\n."' (Requested type is: 'null')
-[    1,20,18:20:47.774,INF] '"$by_category"' projection source has been written
-[    1,29,18:20:47.811,DBG] Creating persistent subscription "$ce-payments.service.payment::payments-service"
-[    1,26,18:20:47.854,DBG] New connection to persistent subscription "$ce-payments.service.payment::payments-service" by d72c1a76-e914-4b65-b3dd-4c4add7f30be
-[    1,20,18:20:47.863,INF] Enabling '"$by_category"' projection
-[    1,20,18:20:47.864,INF] Updating '"$by_category"' projection source to '"last\n."' (Requested type is: 'null')
-[    1,20,18:20:47.873,INF] '"$by_category"' projection source has been written
-[    1,40,18:20:47.912,DBG] Creating persistent subscription "$ce-payments.service.payment::payments-service"
-[    1,26,18:20:47.962,DBG] New connection to persistent subscription "$ce-payments.service.payment::payments-service" by 8ba8681e-c3a0-44f0-9b23-8d1b345499f7
-[    1,20,18:20:48.072,INF] Enabling '"$by_category"' projection
-[    1,20,18:20:48.074,INF] Updating '"$by_category"' projection source to '"last\n."' (Requested type is: 'null')
-[    1,20,18:20:48.082,INF] '"$by_category"' projection source has been written
-[    1,29,18:20:48.144,DBG] Creating persistent subscription "$ce-payments.service.payment::payments-service"
-[    1,24,18:20:48.192,DBG] New connection to persistent subscription "$ce-payments.service.payment::payments-service" by 52a3af4f-6de2-4182-ba29-44f3c5c60ece
+["Priority: 0 VND {53de3310-0ac3-4cb1-8c0d-7540aae1a8f8} <LIVE> [Leader, Unspecified/127.0.0.1:1112, n/a, Unspecified/127.0.0.1:1113, n/a, Unspecified/127.0.0.1:2113, (ADVERTISED: HTTP::0, TCP::0)] -1/0/0/E-1@-1:{00000000-0000-0000-0000-000000000000} | 2025-09-12 12:20:33.954"]
+[    1,12,12:20:33.955,INF] ========== ["0.0.0.0:2113"] PRE-LEADER STATE, WAITING FOR CHASER TO CATCH UP...
+[    1,12,12:20:33.955,INF] "InaugurationManager" in state (Unknown, Initial): RECEIVED "BecomePreLeader". Starting inauguration process with correlation id d568cca2-8994-4ed1-99ae-93b743063d56. Waiting for chaser.
+[    1, 9,12:20:33.955,DBG] Persistent subscriptions received state change to PreLeader. Stopping listening
+[    1, 9,12:20:33.955,DBG] Persistent Subscriptions have been stopped.
+[    1,20,12:20:33.955,DBG] PROJECTIONS SUBSYSTEM: Not stopping because subsystem is not in a started state. Current Subsystem state: Ready
+[    1,12,12:20:33.958,INF] "InaugurationManager" in state (PreLeader, WaitingForChaser): RECEIVED "ChaserCaughtUp". RESPONDING with "WriteEpoch". currentEpochNumber 0.
+[    1, 1,12:20:33.973,WRN] Overriding address(es) '"http://+:80"'. Binding to endpoints defined in "UseKestrel()" instead.
+[    1,10,12:20:34.044,DBG] === Writing E0@0:{a3eb615f-0f54-42ba-bab7-494571279710} (previous epoch at -1). L={53de3310-0ac3-4cb1-8c0d-7540aae1a8f8}.
+[    1,12,12:20:34.059,INF] "InaugurationManager" in state (PreLeader, WritingEpoch): RECEIVED "EpochWritten". RESPONDING with "EnablePreLeaderReplication".
+[    1,12,12:20:34.060,INF] "InaugurationManager" in state (PreLeader, WaitingForConditions): Replication "DONE": 548/1. Remaining: 0.
+[    1,12,12:20:34.060,INF] "InaugurationManager" in state (PreLeader, WaitingForConditions): Index "IN PROGRESS": -1/1. Remaining: 2.
+[    1,10,12:20:34.067,DBG] === Cached new Last Epoch E0@0:{a3eb615f-0f54-42ba-bab7-494571279710} (previous epoch at -1) L={53de3310-0ac3-4cb1-8c0d-7540aae1a8f8}.
+[    1,12,12:20:34.126,INF] "InaugurationManager" in state (PreLeader, WaitingForConditions): Replication "DONE": 548/1. Remaining: 0.
+[    1,12,12:20:34.126,INF] "InaugurationManager" in state (PreLeader, WaitingForConditions): Index "DONE": 231/1. Remaining: 0.
+[    1,12,12:20:34.126,INF] "InaugurationManager" in state (PreLeader, WaitingForConditions): RECEIVED "IndexedTo". RESPONDING with "BecomeLeader". Correlation id d568cca2-8994-4ed1-99ae-93b743063d56
+[    1,12,12:20:34.127,INF] ========== ["0.0.0.0:2113"] IS LEADER... SPARTA!
+[    1, 4,12:20:34.127,DBG] Persistent subscriptions Became Leader so now handling subscriptions
+[    1,12,12:20:34.129,DBG] Searching for incomplete scavenges on node "0.0.0.0:2113".
+[    1,20,12:20:34.130,INF] PROJECTIONS SUBSYSTEM: Starting components for Instance: b61fcb58-1204-4ed0-ac13-f469c1f74c9f
+[    1,20,12:20:34.130,DBG] PROJECTIONS: Projection Core Coordinator component starting. Correlation: b61fcb58-1204-4ed0-ac13-f469c1f74c9f
+[    1,20,12:20:34.131,DBG] PROJECTIONS: Starting Projections Core Coordinator
+[    1,20,12:20:34.131,DBG] PROJECTIONS: Starting Projections Manager. Correlation: b61fcb58-1204-4ed0-ac13-f469c1f74c9f
+[    1,20,12:20:34.133,DBG] PROJECTIONS: Reading Existing Projections from "$projections-$all"
+[    1,20,12:20:34.134,DBG] PROJECTIONS SUBSYSTEM: Component '"ProjectionManager"' started for Instance: b61fcb58-1204-4ed0-ac13-f469c1f74c9f
+[    1,20,12:20:34.134,DBG] PROJECTIONS: SubComponent Started: "EventReaderCoreService"
+[    1,20,12:20:34.134,DBG] PROJECTIONS: SubComponent Started: "EventReaderCoreService"
+[    1,20,12:20:34.134,DBG] PROJECTIONS: SubComponent Started: "EventReaderCoreService"
+[    1,20,12:20:34.134,DBG] PROJECTIONS: SubComponent Started: "ProjectionCoreService"
+[    1,20,12:20:34.134,DBG] PROJECTIONS: SubComponent Started: "ProjectionCoreService"
+[    1,20,12:20:34.134,DBG] PROJECTIONS: SubComponent Started: "ProjectionCoreService"
+[    1,20,12:20:34.134,DBG] PROJECTIONS SUBSYSTEM: Component '"ProjectionCoreCoordinator"' started for Instance: b61fcb58-1204-4ed0-ac13-f469c1f74c9f
+[    1,20,12:20:34.135,INF] PROJECTIONS SUBSYSTEM: All components started for Instance: b61fcb58-1204-4ed0-ac13-f469c1f74c9f
+[    1,12,12:20:34.135,INF] ========== ["0.0.0.0:2113"] Sub System '"Projections"' initialized.
+[    1,12,12:20:34.139,DBG] Persistent Subscriptions have been started.
+[    1,20,12:20:34.142,DBG] PROJECTIONS: No projections were found in "$projections-$all", starting from empty stream
+[    1,12,12:20:34.142,DBG] No incomplete scavenges found on node "0.0.0.0:2113".
+[    1,12,12:20:34.143,DBG] Setting max age for the "$scavenges" stream to 30.00:00:00.
+[    1,12,12:20:34.143,DBG] Setting $ops read permission for the "$scavenges" stream
+[    1,20,12:20:34.222,DBG] PROJECTIONS: Found the following new projections in "$projections-$all": ["$streams", "$stream_by_category", "$by_category", "$by_event_type", "$by_correlation_id"]
+[    1,20,12:20:34.224,DBG] PROJECTIONS: Caught up with projections registration. Next expected version: 5
+[    1,20,12:20:34.227,DBG] Adding projection a5883671-b6f9-4309-9066-a5ab01c35c1c@"$streams" to list
+[    1,20,12:20:34.233,DBG] Adding projection 5a833d6a-7ee0-4896-aa7c-cb3c39cd83d3@"$stream_by_category" to list
+[    1,20,12:20:34.233,DBG] Adding projection 5b436655-0a1b-46f4-ab9c-15588619cfce@"$by_category" to list
+[    1,20,12:20:34.233,DBG] Adding projection 387b7924-aab0-4b58-bb64-a357d7bd2723@"$by_correlation_id" to list
+[    1,20,12:20:34.233,DBG] Adding projection 77d8745d-c626-40b5-9575-c777167ab882@"$by_event_type" to list
+[    1,20,12:20:34.293,INF] '"$by_category"' projection source has been written
+[    1,20,12:20:34.294,INF] '"$stream_by_category"' projection source has been written
+[    1,20,12:20:34.294,INF] '"$by_event_type"' projection source has been written
+[    1,20,12:20:34.294,INF] '"$streams"' projection source has been written
+[    1,20,12:20:34.294,INF] '"$by_correlation_id"' projection source has been written
+[    1,12,12:20:35.068,INF] "InaugurationManager" in state (Leader, Initial): IGNORING "CheckInaugurationConditions". Not waiting for conditions.
+[    1, 9,12:20:44.728,DBG] Segments count: 1, buffers count: 20, should be when full: 20
+[    1,20,12:20:44.739,INF] Enabling '"$by_category"' projection
+[    1,20,12:20:44.750,INF] '"$by_category"' projection source has been written
+[    1,20,12:20:44.798,INF] Updating '"$by_category"' projection source to '"last\n."' (Requested type is: 'null')
+[    1,20,12:20:44.806,INF] '"$by_category"' projection source has been written
+[    1, 9,12:20:45.163,DBG] Creating persistent subscription "$ce-payments.service.payment::payments-service"
+[    1, 9,12:20:45.167,DBG] New persistent subscription "$ce-payments.service.payment::payments-service"
+[    1,12,12:20:45.168,DBG] Subscription "$ce-payments.service.payment::payments-service": no checkpoint found
+[    1,12,12:20:45.168,DBG] Start from = -1
+[    1, 9,12:20:45.168,DBG] Saving persistent subscription configuration
+[    1,28,12:20:45.391,DBG] New connection to persistent subscription "$ce-payments.service.payment::payments-service" by 7e37584d-0d2b-48a7-a9be-cc53565c9c73
+[    1,20,12:20:45.819,INF] Enabling '"$by_category"' projection
+[    1,20,12:20:45.821,INF] Updating '"$by_category"' projection source to '"last\n."' (Requested type is: 'null')
+[    1,20,12:20:45.840,INF] '"$by_category"' projection source has been written
+[    1,30,12:20:46.002,DBG] Creating persistent subscription "$ce-payments.service.payment::payments-service"
+[    1,19,12:20:46.087,DBG] New connection to persistent subscription "$ce-payments.service.payment::payments-service" by 89c929be-8d79-4f25-8bc6-96c950a40a38
+[    1,20,12:20:46.106,INF] Enabling '"$by_category"' projection
+[    1,20,12:20:46.109,INF] Updating '"$by_category"' projection source to '"last\n."' (Requested type is: 'null')
+[    1,20,12:20:46.118,INF] '"$by_category"' projection source has been written
+[    1,19,12:20:46.266,DBG] Creating persistent subscription "$ce-payments.service.payment::payments-service"
+[    1,25,12:20:46.471,DBG] New connection to persistent subscription "$ce-payments.service.payment::payments-service" by 340cbc10-2103-40d8-a2e8-5dd7acdc87c6
+[    1,20,12:20:46.485,INF] Enabling '"$by_category"' projection
+[    1,20,12:20:46.487,INF] Updating '"$by_category"' projection source to '"last\n."' (Requested type is: 'null')
+[    1,20,12:20:46.510,INF] '"$by_category"' projection source has been written
+[    1,32,12:20:46.593,DBG] Creating persistent subscription "$ce-payments.service.payment::payments-service"
+[    1,35,12:20:46.779,DBG] New connection to persistent subscription "$ce-payments.service.payment::payments-service" by 819b54da-f4c6-4658-b6ed-8ced66353488
+[    1,20,12:20:46.959,INF] Enabling '"$by_category"' projection
+[    1,20,12:20:46.961,INF] Updating '"$by_category"' projection source to '"last\n."' (Requested type is: 'null')
+[    1,20,12:20:46.969,INF] '"$by_category"' projection source has been written
+[    1,37,12:20:47.106,DBG] Creating persistent subscription "$ce-payments.service.payment::payments-service"
+[    1,35,12:20:47.276,DBG] New connection to persistent subscription "$ce-payments.service.payment::payments-service" by 38bae14b-df5b-42b0-9dee-f499f42c090a

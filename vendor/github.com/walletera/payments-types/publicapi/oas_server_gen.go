@@ -14,6 +14,12 @@ type Handler interface {
 	//
 	// GET /payments/{paymentId}
 	GetPayment(ctx context.Context, params GetPaymentParams) (GetPaymentRes, error)
+	// ListPayments implements list-payments operation.
+	//
+	// Retrieves a list of payments. Supports filtering by multiple criteria.
+	//
+	// GET /payments
+	ListPayments(ctx context.Context, params ListPaymentsParams) (ListPaymentsRes, error)
 	// PostPayment implements post-payment operation.
 	//
 	// Creates a payment.

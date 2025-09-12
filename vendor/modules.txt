@@ -267,9 +267,13 @@ github.com/sirupsen/logrus
 # github.com/spf13/pflag v1.0.5
 ## explicit; go 1.12
 github.com/spf13/pflag
+# github.com/stretchr/objx v0.5.2
+## explicit; go 1.20
+github.com/stretchr/objx
 # github.com/stretchr/testify v1.9.0
 ## explicit; go 1.17
 github.com/stretchr/testify/assert
+github.com/stretchr/testify/mock
 github.com/stretchr/testify/require
 # github.com/testcontainers/testcontainers-go v0.30.0
 ## explicit; go 1.21
@@ -285,28 +289,28 @@ github.com/tklauser/go-sysconf
 # github.com/tklauser/numcpus v0.6.1
 ## explicit; go 1.13
 github.com/tklauser/numcpus
-# github.com/walletera/eventskit v0.0.5
+# github.com/walletera/eventskit v0.0.6
 ## explicit; go 1.22.4
 github.com/walletera/eventskit/events
 github.com/walletera/eventskit/eventsourcing
 github.com/walletera/eventskit/eventstoredb
 github.com/walletera/eventskit/messages
 github.com/walletera/eventskit/rabbitmq
-# github.com/walletera/logs-watcher v0.0.4
+# github.com/walletera/logs-watcher v0.0.5
 ## explicit; go 1.20
+github.com/walletera/logs-watcher
 github.com/walletera/logs-watcher/newline
 github.com/walletera/logs-watcher/slog
 # github.com/walletera/mockserver-go-client v0.0.1
 ## explicit; go 1.20
 github.com/walletera/mockserver-go-client/pkg/client
-# github.com/walletera/payments-types v0.0.15
+# github.com/walletera/payments-types v0.0.20
 ## explicit; go 1.22.4
 github.com/walletera/payments-types/builders/publicapi
 github.com/walletera/payments-types/converters/privateapi
 github.com/walletera/payments-types/converters/publicapi
 github.com/walletera/payments-types/events
 github.com/walletera/payments-types/pkg/wogen
-github.com/walletera/payments-types/pkg/wuuid
 github.com/walletera/payments-types/privateapi
 github.com/walletera/payments-types/publicapi
 # github.com/walletera/werrors v0.0.9
@@ -510,3 +514,5 @@ gopkg.in/yaml.v2
 # gopkg.in/yaml.v3 v3.0.1
 ## explicit
 gopkg.in/yaml.v3
+# github.com/walletera/eventskit v0.0.5 => /home/fedev/Code/walletera/eventskit
+# github.com/walletera/payments-types v0.0.15 => /home/fedev/Code/walletera/payments-types

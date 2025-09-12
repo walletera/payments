@@ -6,6 +6,7 @@ package publicapi
 type OperationName = string
 
 const (
-	GetPaymentOperation  OperationName = "GetPayment"
-	PostPaymentOperation OperationName = "PostPayment"
+	GetPaymentOperation   OperationName = "GetPayment"
+	ListPaymentsOperation OperationName = "ListPayments"
+	PostPaymentOperation  OperationName = "PostPayment"
 )

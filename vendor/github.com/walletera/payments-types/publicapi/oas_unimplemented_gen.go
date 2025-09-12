@@ -22,6 +22,15 @@ func (UnimplementedHandler) GetPayment(ctx context.Context, params GetPaymentPar
 	return r, ht.ErrNotImplemented
 }
 
+// ListPayments implements list-payments operation.
+//
+// Retrieves a list of payments. Supports filtering by multiple criteria.
+//
+// GET /payments
+func (UnimplementedHandler) ListPayments(ctx context.Context, params ListPaymentsParams) (r ListPaymentsRes, _ error) {
+	return r, ht.ErrNotImplemented
+}
+
 // PostPayment implements post-payment operation.
 //
 // Creates a payment.

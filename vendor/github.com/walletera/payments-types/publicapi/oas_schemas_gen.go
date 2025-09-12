@@ -199,6 +199,7 @@ func (s *ApiError) SetErrorCode(val string) {
 
 type BearerAuth struct {
 	Token string
+	Roles []string
 }
 
 // GetToken returns the value of Token.
@@ -206,9 +207,19 @@ func (s *BearerAuth) GetToken() string {
 	return s.Token
 }
 
+// GetRoles returns the value of Roles.
+func (s *BearerAuth) GetRoles() []string {
+	return s.Roles
+}
+
 // SetToken sets the value of Token.
 func (s *BearerAuth) SetToken(val string) {
 	s.Token = val
+}
+
+// SetRoles sets the value of Roles.
+func (s *BearerAuth) SetRoles(val []string) {
+	s.Roles = val
 }
 
 // Ref: #/components/schemas/currency
@@ -565,6 +576,282 @@ type GetPaymentUnauthorized struct{}
 
 func (*GetPaymentUnauthorized) getPaymentRes() {}
 
+type ListPaymentsBadRequest ApiError
+
+func (*ListPaymentsBadRequest) listPaymentsRes() {}
+
+type ListPaymentsInternalServerError ApiError
+
+func (*ListPaymentsInternalServerError) listPaymentsRes() {}
+
+// ListPaymentsMethodNotAllowed is response for ListPayments operation.
+type ListPaymentsMethodNotAllowed struct{}
+
+func (*ListPaymentsMethodNotAllowed) listPaymentsRes() {}
+
+type ListPaymentsOK struct {
+	Items []Payment `json:"items"`
+	// Total number of matches.
+	Total OptInt `json:"total"`
+}
+
+// GetItems returns the value of Items.
+func (s *ListPaymentsOK) GetItems() []Payment {
+	return s.Items
+}
+
+// GetTotal returns the value of Total.
+func (s *ListPaymentsOK) GetTotal() OptInt {
+	return s.Total
+}
+
+// SetItems sets the value of Items.
+func (s *ListPaymentsOK) SetItems(val []Payment) {
+	s.Items = val
+}
+
+// SetTotal sets the value of Total.
+func (s *ListPaymentsOK) SetTotal(val OptInt) {
+	s.Total = val
+}
+
+func (*ListPaymentsOK) listPaymentsRes() {}
+
+// ListPaymentsUnauthorized is response for ListPayments operation.
+type ListPaymentsUnauthorized struct{}
+
+func (*ListPaymentsUnauthorized) listPaymentsRes() {}
+
+// NewOptDate returns new OptDate with value set to v.
+func NewOptDate(v time.Time) OptDate {
+	return OptDate{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptDate is optional time.Time.
+type OptDate struct {
+	Value time.Time
+	Set   bool
+}
+
+// IsSet returns true if OptDate was set.
+func (o OptDate) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptDate) Reset() {
+	var v time.Time
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptDate) SetTo(v time.Time) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptDate) Get() (v time.Time, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptDate) Or(d time.Time) time.Time {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptFloat64 returns new OptFloat64 with value set to v.
+func NewOptFloat64(v float64) OptFloat64 {
+	return OptFloat64{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptFloat64 is optional float64.
+type OptFloat64 struct {
+	Value float64
+	Set   bool
+}
+
+// IsSet returns true if OptFloat64 was set.
+func (o OptFloat64) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptFloat64) Reset() {
+	var v float64
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptFloat64) SetTo(v float64) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptFloat64) Get() (v float64, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptFloat64) Or(d float64) float64 {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptGateway returns new OptGateway with value set to v.
+func NewOptGateway(v Gateway) OptGateway {
+	return OptGateway{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptGateway is optional Gateway.
+type OptGateway struct {
+	Value Gateway
+	Set   bool
+}
+
+// IsSet returns true if OptGateway was set.
+func (o OptGateway) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptGateway) Reset() {
+	var v Gateway
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptGateway) SetTo(v Gateway) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptGateway) Get() (v Gateway, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptGateway) Or(d Gateway) Gateway {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptInt returns new OptInt with value set to v.
+func NewOptInt(v int) OptInt {
+	return OptInt{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptInt is optional int.
+type OptInt struct {
+	Value int
+	Set   bool
+}
+
+// IsSet returns true if OptInt was set.
+func (o OptInt) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptInt) Reset() {
+	var v int
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptInt) SetTo(v int) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptInt) Get() (v int, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptInt) Or(d int) int {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptPaymentStatus returns new OptPaymentStatus with value set to v.
+func NewOptPaymentStatus(v PaymentStatus) OptPaymentStatus {
+	return OptPaymentStatus{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptPaymentStatus is optional PaymentStatus.
+type OptPaymentStatus struct {
+	Value PaymentStatus
+	Set   bool
+}
+
+// IsSet returns true if OptPaymentStatus was set.
+func (o OptPaymentStatus) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptPaymentStatus) Reset() {
+	var v PaymentStatus
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptPaymentStatus) SetTo(v PaymentStatus) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptPaymentStatus) Get() (v PaymentStatus, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptPaymentStatus) Or(d PaymentStatus) PaymentStatus {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
 // NewOptString returns new OptString with value set to v.
 func NewOptString(v string) OptString {
 	return OptString{
@@ -887,6 +1174,11 @@ func (*PostPaymentConflict) postPaymentRes() {}
 type PostPaymentInternalServerError ApiError
 
 func (*PostPaymentInternalServerError) postPaymentRes() {}
+
+// PostPaymentMethodNotAllowed is response for PostPayment operation.
+type PostPaymentMethodNotAllowed struct{}
+
+func (*PostPaymentMethodNotAllowed) postPaymentRes() {}
 
 // Merged schema.
 type PostPaymentReq struct {

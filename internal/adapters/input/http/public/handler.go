@@ -22,6 +22,10 @@ type Handler struct {
     logger  *slog.Logger
 }
 
+func (h *Handler) ListPayments(ctx context.Context, params pubapi.ListPaymentsParams) (pubapi.ListPaymentsRes, error) {
+    return &pubapi.ListPaymentsMethodNotAllowed{}, nil
+}
+
 var _ pubapi.Handler = (*Handler)(nil)
 
 func NewHandler(service *payment.Service, logger *slog.Logger) *Handler {

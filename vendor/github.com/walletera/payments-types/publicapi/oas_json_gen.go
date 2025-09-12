@@ -779,16 +779,6 @@ func (s CvuAccountDetailsRoutingInfoSum) Encode(e *jx.Encoder) {
 
 func (s CvuAccountDetailsRoutingInfoSum) encodeFields(e *jx.Encoder) {
 	switch s.Type {
-	case AliasCvuRoutingInfoCvuAccountDetailsRoutingInfoSum:
-		e.FieldStart("cvuRoutingInfoType")
-		e.Str("alias")
-		{
-			s := s.AliasCvuRoutingInfo
-			{
-				e.FieldStart("alias")
-				e.Str(s.Alias)
-			}
-		}
 	case CvuCvuRoutingInfoCvuAccountDetailsRoutingInfoSum:
 		e.FieldStart("cvuRoutingInfoType")
 		e.Str("cvu")
@@ -797,6 +787,16 @@ func (s CvuAccountDetailsRoutingInfoSum) encodeFields(e *jx.Encoder) {
 			{
 				e.FieldStart("cvu")
 				e.Str(s.Cvu)
+			}
+		}
+	case AliasCvuRoutingInfoCvuAccountDetailsRoutingInfoSum:
+		e.FieldStart("cvuRoutingInfoType")
+		e.Str("alias")
+		{
+			s := s.AliasCvuRoutingInfo
+			{
+				e.FieldStart("alias")
+				e.Str(s.Alias)
 			}
 		}
 	}
@@ -825,11 +825,11 @@ func (s *CvuAccountDetailsRoutingInfoSum) Decode(d *jx.Decoder) error {
 					return err
 				}
 				switch typ {
-				case "alias":
-					s.Type = AliasCvuRoutingInfoCvuAccountDetailsRoutingInfoSum
-					found = true
 				case "cvu":
 					s.Type = CvuCvuRoutingInfoCvuAccountDetailsRoutingInfoSum
+					found = true
+				case "alias":
+					s.Type = AliasCvuRoutingInfoCvuAccountDetailsRoutingInfoSum
 					found = true
 				default:
 					return errors.Errorf("unknown type %s", typ)
@@ -1191,6 +1191,208 @@ func (s Gateway) MarshalJSON() ([]byte, error) {
 
 // UnmarshalJSON implements stdjson.Unmarshaler.
 func (s *Gateway) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes ListPaymentsBadRequest as json.
+func (s *ListPaymentsBadRequest) Encode(e *jx.Encoder) {
+	unwrapped := (*ApiError)(s)
+
+	unwrapped.Encode(e)
+}
+
+// Decode decodes ListPaymentsBadRequest from json.
+func (s *ListPaymentsBadRequest) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode ListPaymentsBadRequest to nil")
+	}
+	var unwrapped ApiError
+	if err := func() error {
+		if err := unwrapped.Decode(d); err != nil {
+			return err
+		}
+		return nil
+	}(); err != nil {
+		return errors.Wrap(err, "alias")
+	}
+	*s = ListPaymentsBadRequest(unwrapped)
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s *ListPaymentsBadRequest) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *ListPaymentsBadRequest) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes ListPaymentsInternalServerError as json.
+func (s *ListPaymentsInternalServerError) Encode(e *jx.Encoder) {
+	unwrapped := (*ApiError)(s)
+
+	unwrapped.Encode(e)
+}
+
+// Decode decodes ListPaymentsInternalServerError from json.
+func (s *ListPaymentsInternalServerError) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode ListPaymentsInternalServerError to nil")
+	}
+	var unwrapped ApiError
+	if err := func() error {
+		if err := unwrapped.Decode(d); err != nil {
+			return err
+		}
+		return nil
+	}(); err != nil {
+		return errors.Wrap(err, "alias")
+	}
+	*s = ListPaymentsInternalServerError(unwrapped)
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s *ListPaymentsInternalServerError) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *ListPaymentsInternalServerError) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode implements json.Marshaler.
+func (s *ListPaymentsOK) Encode(e *jx.Encoder) {
+	e.ObjStart()
+	s.encodeFields(e)
+	e.ObjEnd()
+}
+
+// encodeFields encodes fields.
+func (s *ListPaymentsOK) encodeFields(e *jx.Encoder) {
+	{
+		if s.Items != nil {
+			e.FieldStart("items")
+			e.ArrStart()
+			for _, elem := range s.Items {
+				elem.Encode(e)
+			}
+			e.ArrEnd()
+		}
+	}
+	{
+		if s.Total.Set {
+			e.FieldStart("total")
+			s.Total.Encode(e)
+		}
+	}
+}
+
+var jsonFieldsNameOfListPaymentsOK = [2]string{
+	0: "items",
+	1: "total",
+}
+
+// Decode decodes ListPaymentsOK from json.
+func (s *ListPaymentsOK) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode ListPaymentsOK to nil")
+	}
+
+	if err := d.ObjBytes(func(d *jx.Decoder, k []byte) error {
+		switch string(k) {
+		case "items":
+			if err := func() error {
+				s.Items = make([]Payment, 0)
+				if err := d.Arr(func(d *jx.Decoder) error {
+					var elem Payment
+					if err := elem.Decode(d); err != nil {
+						return err
+					}
+					s.Items = append(s.Items, elem)
+					return nil
+				}); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"items\"")
+			}
+		case "total":
+			if err := func() error {
+				s.Total.Reset()
+				if err := s.Total.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"total\"")
+			}
+		default:
+			return d.Skip()
+		}
+		return nil
+	}); err != nil {
+		return errors.Wrap(err, "decode ListPaymentsOK")
+	}
+
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s *ListPaymentsOK) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *ListPaymentsOK) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes int as json.
+func (o OptInt) Encode(e *jx.Encoder) {
+	if !o.Set {
+		return
+	}
+	e.Int(int(o.Value))
+}
+
+// Decode decodes int from json.
+func (o *OptInt) Decode(d *jx.Decoder) error {
+	if o == nil {
+		return errors.New("invalid: unable to decode OptInt to nil")
+	}
+	o.Set = true
+	v, err := d.Int()
+	if err != nil {
+		return err
+	}
+	o.Value = int(v)
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s OptInt) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *OptInt) UnmarshalJSON(data []byte) error {
 	d := jx.DecodeBytes(data)
 	return s.Decode(d)
 }
