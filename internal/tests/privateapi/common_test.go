@@ -165,11 +165,14 @@ func thePaymentsServicePublishTheFollowingEvent(ctx context.Context, eventMatche
         case <-timeout:
             return ctx, fmt.Errorf("timeout waiting for event to be published")
         case msg := <-ch:
-            msg.Acknowledger().Ack()
-            slog.Debug("[TEST] published message", slog.String("message", string(msg.Payload())))
+            err := msg.Acknowledger().Ack()
+            if err != nil {
+                return nil, err
+            }
+            slog.Info("[TEST] published message", slog.String("message", string(msg.Payload())))
             matched, err := matchJSON(ctx, expectationId, msg.Payload())
             if err != nil {
-                slog.Debug("[TEST] error matching published event", logattr.Error(err.Error()))
+                slog.Info("[TEST] error matching published event", logattr.Error(err.Error()))
             }
             if matched {
                 return ctx, nil
