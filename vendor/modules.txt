@@ -304,7 +304,7 @@ github.com/walletera/logs-watcher/slog
 # github.com/walletera/mockserver-go-client v0.0.1
 ## explicit; go 1.20
 github.com/walletera/mockserver-go-client/pkg/client
-# github.com/walletera/payments-types v0.0.20
+# github.com/walletera/payments-types v0.0.21
 ## explicit; go 1.22.4
 github.com/walletera/payments-types/builders/publicapi
 github.com/walletera/payments-types/converters/privateapi

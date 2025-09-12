@@ -181,8 +181,8 @@ github.com/walletera/logs-watcher v0.0.5 h1:hUCC6E2IXTLofqurRfKA7MYsnponr1sm3zng
 github.com/walletera/logs-watcher v0.0.5/go.mod h1:727nZgaxkTO3qau3bVgrcQR6dKqB8svDRkHsnKTGPho=
 github.com/walletera/mockserver-go-client v0.0.1 h1:w5KEuwWxehfvN4Ooai5AgecmtxreKUHZRETAf5/jUSQ=
 github.com/walletera/mockserver-go-client v0.0.1/go.mod h1:2IFxURJRzsHqT+1fxNO1RlUuUTqEj29d5kME8dVF2og=
-github.com/walletera/payments-types v0.0.20 h1:UZXXaDDkNkIM5rDL3WDcxr+roIbrDmdQZMcRtp60zPU=
-github.com/walletera/payments-types v0.0.20/go.mod h1:Dw8brpL1ZHJVqh/DvzVEQOgYf/AznnFABe5uEhU3bTo=
+github.com/walletera/payments-types v0.0.21 h1:b1RBBEIMIVF2CyPKobWx3dSxCtPInLElj/uWNi7suXs=
+github.com/walletera/payments-types v0.0.21/go.mod h1:Dw8brpL1ZHJVqh/DvzVEQOgYf/AznnFABe5uEhU3bTo=
 github.com/walletera/werrors v0.0.9 h1:7bm2nmh1F3Iaeg3xfKTnjyy4YcBLgCQabgP3/kAKgZM=
 github.com/walletera/werrors v0.0.9/go.mod h1:oim2QX5jK13jwfQBjUkC0eV9Y2l28oVkQr2mlb1He9s=
 github.com/yuin/goldmark v1.1.27/go.mod h1:3hX8gzYuyVAZsxl0MRgGTJEmQBFcNTphYh9decYSb74=

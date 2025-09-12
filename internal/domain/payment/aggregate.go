@@ -2,9 +2,7 @@ package payment
 
 import (
     "context"
-    "time"
 
-    "github.com/google/uuid"
     "github.com/walletera/eventskit/events"
     "github.com/walletera/eventskit/eventsourcing"
     paymentevents "github.com/walletera/payments-types/events"
@@ -57,13 +55,7 @@ func (a *Aggregate) UpdatePayment(correlationId string, paymentUpdate privapi.Pa
             paymentUpdate.Status,
         )
     }
-    return paymentevents.NewPaymentUpdated(events.EventEnvelope{
-        Id:               uuid.UUID{},
-        Type:             paymentevents.PaymentUpdatedType,
-        AggregateVersion: 0,
-        CorrelationId:    correlationId,
-        CreatedAt:        time.Now(),
-    }, paymentUpdate), nil
+    return paymentevents.NewPaymentUpdated(correlationId, paymentUpdate), nil
 }
 
 func (a *Aggregate) HandlePaymentCreated(ctx context.Context, paymentCreatedEvent paymentevents.PaymentCreated) werrors.WError {

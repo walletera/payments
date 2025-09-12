@@ -34,14 +34,14 @@ func (d *Deserializer) Deserialize(rawPayload []byte) (events.Event[Handler], er
         if err != nil {
             log.Printf("error deserializing PaymentCreated eventEnvelope data %s: %s", eventEnvelope.Data, err.Error())
         }
-        return NewPaymentCreated(eventEnvelope, payment), nil
+        return PaymentCreatedFromEnvelope(eventEnvelope, payment), nil
     case PaymentUpdatedType:
         var payment privateapi.PaymentUpdate
         err := json.Unmarshal(eventEnvelope.Data, &payment)
         if err != nil {
             log.Printf("error deserializing PaymentUpdated eventEnvelope data %s: %s", eventEnvelope.Data, err.Error())
         }
-        return NewPaymentUpdated(eventEnvelope, payment), nil
+        return PaymentUpdatedFromEnvelope(eventEnvelope, payment), nil
     default:
         d.logger.Warn("unexpected eventEnvelope type", slog.String("eventType", eventEnvelope.Type))
         return nil, nil

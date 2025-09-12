@@ -7,11 +7,9 @@ import (
     "time"
 
     "github.com/google/uuid"
-    "github.com/walletera/eventskit/events"
     "github.com/walletera/eventskit/eventsourcing"
     paymentevents "github.com/walletera/payments-types/events"
     privapi "github.com/walletera/payments-types/privateapi"
-    "github.com/walletera/payments/pkg/wuuid"
     "github.com/walletera/werrors"
 )
 
@@ -37,13 +35,7 @@ func (e *Service) CreatePayment(
     if err != nil {
         return paymentevents.PaymentCreated{}, werrors.NewValidationError(err.Error())
     }
-    paymentCreatedEvent := paymentevents.NewPaymentCreated(events.EventEnvelope{
-        Id:               wuuid.NewUUID(),
-        Type:             paymentevents.PaymentCreatedType,
-        AggregateVersion: 0,
-        CorrelationId:    correlationId,
-        CreatedAt:        time.Now(),
-    }, payment)
+    paymentCreatedEvent := paymentevents.NewPaymentCreated(correlationId, payment)
     streamName := buildStreamName(paymentCreatedEvent.Data.ID)
     _, appendErr := e.eventDB.AppendEvents(
         ctx,
