@@ -55,7 +55,7 @@ func (a *Aggregate) UpdatePayment(correlationId string, paymentUpdate privapi.Pa
             paymentUpdate.Status,
         )
     }
-    return paymentevents.NewPaymentUpdated(correlationId, paymentUpdate), nil
+    return paymentevents.NewPaymentUpdated(a.version+1, correlationId, paymentUpdate), nil
 }
 
 func (a *Aggregate) HandlePaymentCreated(ctx context.Context, paymentCreatedEvent paymentevents.PaymentCreated) werrors.WError {

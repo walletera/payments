@@ -1,0 +1,1114 @@
+2025-09-16 19:59:54 5.15.0 INFO using environment variables:
+
+  [
+  	MOCKSERVER_SERVER_PORT=2090,
+  	MOCKSERVER_LOG_LEVEL=DEBUG
+  ]
+
+ and system properties:
+
+  [
+  	mockserver.propertyFile=/config/mockserver.properties
+  ]
+
+ and command line options:
+
+  [
+  	
+  ]
+ 
+2025-09-16 19:59:54 5.15.0 FINE logger level is DEBUG, change using:
+ - 'ConfigurationProperties.logLevel(String level)' in Java code,
+ - '-logLevel' command line argument,
+ - 'mockserver.logLevel' JVM system property or,
+ - 'mockserver.logLevel' property value in 'mockserver.properties' 
+2025-09-16 19:59:54 5.15.0 INFO 2090 started on port: 2090 
+2025-09-16 19:59:56 5.15.0 INFO 2090 creating expectation:
+
+  {
+    "httpRequest" : {
+      "method" : "POST",
+      "path" : "/matchevent",
+      "body" : {
+        "id" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+        "type" : "PaymentUpdated",
+        "aggregateVersion" : 1,
+        "data" : {
+          "paymentId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+          "externalId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+          "status" : "confirmed"
+        }
+      }
+    },
+    "httpResponse" : {
+      "statusCode" : 201,
+      "headers" : {
+        "content-type" : [ "application/json" ]
+      }
+    },
+    "id" : "matchJSON-745108562196509823",
+    "priority" : 0,
+    "timeToLive" : {
+      "unlimited" : true
+    },
+    "times" : {
+      "unlimited" : true
+    }
+  }
+
+ with id:
+
+  matchJSON-745108562196509823
+ 
+2025-09-16 19:59:56 5.15.0 INFO 2090 received request:
+
+  {
+    "method" : "POST",
+    "path" : "/matchevent",
+    "headers" : {
+      "User-Agent" : [ "Go-http-client/1.1" ],
+      "Host" : [ "localhost:2090" ],
+      "Content-Type" : [ "application/json" ],
+      "Content-Length" : [ "869" ],
+      "Accept-Encoding" : [ "gzip" ]
+    },
+    "keepAlive" : true,
+    "secure" : false,
+    "protocol" : "HTTP_1_1",
+    "localAddress" : "172.17.0.5:2090",
+    "remoteAddress" : "172.17.0.1:34502",
+    "body" : {
+      "id" : "5112d16e-0e21-46de-b7fa-fdac1818bd54",
+      "type" : "PaymentCreated",
+      "aggregateVersion" : 0,
+      "eventCorrelationId" : "",
+      "createdAt" : "2025-09-16T16:59:55.848572247-03:00",
+      "data" : {
+        "id" : "0199541c-c5c8-723e-81e8-c6c42c60e597",
+        "amount" : 100,
+        "currency" : "ARS",
+        "gateway" : "bind",
+        "debtor" : {
+          "institutionName" : "dinopay",
+          "institutionId" : "dinopay",
+          "currency" : "ARS",
+          "accountDetails" : {
+            "accountType" : "cvu",
+            "cuit" : "23679876453",
+            "routingInfo" : {
+              "cvuRoutingInfoType" : "cvu",
+              "cvu" : "1122334455667788554433"
+            }
+          }
+        },
+        "beneficiary" : {
+          "institutionName" : "dinopay",
+          "institutionId" : "dinopay",
+          "currency" : "ARS",
+          "accountDetails" : {
+            "accountType" : "cvu",
+            "cuit" : "23679876453",
+            "routingInfo" : {
+              "cvuRoutingInfoType" : "cvu",
+              "cvu" : "1122334455667788554433"
+            }
+          }
+        },
+        "direction" : "inbound",
+        "customerId" : "0199541c-c5c8-7245-982d-63287470f8ed",
+        "status" : "pending",
+        "createdAt" : "2025-09-16T16:59:55-03:00",
+        "updatedAt" : "0001-01-01T00:00:00Z"
+      }
+    }
+  }
+ 
+2025-09-16 19:59:56 5.15.0 INFO 2090 request:
+
+  {
+    "method" : "POST",
+    "path" : "/matchevent",
+    "headers" : {
+      "User-Agent" : [ "Go-http-client/1.1" ],
+      "Host" : [ "localhost:2090" ],
+      "Content-Type" : [ "application/json" ],
+      "Content-Length" : [ "869" ],
+      "Accept-Encoding" : [ "gzip" ]
+    },
+    "keepAlive" : true,
+    "secure" : false,
+    "protocol" : "HTTP_1_1",
+    "localAddress" : "172.17.0.5:2090",
+    "remoteAddress" : "172.17.0.1:34502",
+    "body" : {
+      "id" : "5112d16e-0e21-46de-b7fa-fdac1818bd54",
+      "type" : "PaymentCreated",
+      "aggregateVersion" : 0,
+      "eventCorrelationId" : "",
+      "createdAt" : "2025-09-16T16:59:55.848572247-03:00",
+      "data" : {
+        "id" : "0199541c-c5c8-723e-81e8-c6c42c60e597",
+        "amount" : 100,
+        "currency" : "ARS",
+        "gateway" : "bind",
+        "debtor" : {
+          "institutionName" : "dinopay",
+          "institutionId" : "dinopay",
+          "currency" : "ARS",
+          "accountDetails" : {
+            "accountType" : "cvu",
+            "cuit" : "23679876453",
+            "routingInfo" : {
+              "cvuRoutingInfoType" : "cvu",
+              "cvu" : "1122334455667788554433"
+            }
+          }
+        },
+        "beneficiary" : {
+          "institutionName" : "dinopay",
+          "institutionId" : "dinopay",
+          "currency" : "ARS",
+          "accountDetails" : {
+            "accountType" : "cvu",
+            "cuit" : "23679876453",
+            "routingInfo" : {
+              "cvuRoutingInfoType" : "cvu",
+              "cvu" : "1122334455667788554433"
+            }
+          }
+        },
+        "direction" : "inbound",
+        "customerId" : "0199541c-c5c8-7245-982d-63287470f8ed",
+        "status" : "pending",
+        "createdAt" : "2025-09-16T16:59:55-03:00",
+        "updatedAt" : "0001-01-01T00:00:00Z"
+      }
+    }
+  }
+
+ didn't match expectation:
+
+  {
+    "httpRequest" : {
+      "method" : "POST",
+      "path" : "/matchevent",
+      "body" : {
+        "id" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+        "type" : "PaymentUpdated",
+        "aggregateVersion" : 1,
+        "data" : {
+          "paymentId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+          "externalId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+          "status" : "confirmed"
+        }
+      }
+    },
+    "httpResponse" : {
+      "statusCode" : 201,
+      "headers" : {
+        "content-type" : [ "application/json" ]
+      }
+    },
+    "id" : "matchJSON-745108562196509823",
+    "priority" : 0,
+    "timeToLive" : {
+      "unlimited" : true
+    },
+    "times" : {
+      "unlimited" : true
+    }
+  }
+
+ because:
+
+  method matched
+  path matched
+  body didn't match: 
+  
+    json match failed expected:
+  
+      {
+        "id" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+        "type" : "PaymentUpdated",
+        "aggregateVersion" : 1,
+        "data" : {
+          "paymentId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+          "externalId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+          "status" : "confirmed"
+        }
+      }
+  
+     found:
+  
+      {"id":"5112d16e-0e21-46de-b7fa-fdac1818bd54","type":"PaymentCreated","aggregateVersion":0,"eventCorrelationId":"","createdAt":"2025-09-16T16:59:55.848572247-03:00","data":{"id":"0199541c-c5c8-723e-81e8-c6c42c60e597","amount":100,"currency":"ARS","gateway":"bind","debtor":{"institutionName":"dinopay","institutionId":"dinopay","currency":"ARS","accountDetails":{"accountType":"cvu","cuit":"23679876453","routingInfo":{"cvuRoutingInfoType":"cvu","cvu":"1122334455667788554433"}}},"beneficiary":{"institutionName":"dinopay","institutionId":"dinopay","currency":"ARS","accountDetails":{"accountType":"cvu","cuit":"23679876453","routingInfo":{"cvuRoutingInfoType":"cvu","cvu":"1122334455667788554433"}}},"direction":"inbound","customerId":"0199541c-c5c8-7245-982d-63287470f8ed","status":"pending","createdAt":"2025-09-16T16:59:55-03:00","updatedAt":"0001-01-01T00:00:00Z"}}
+  
+     failed because:
+  
+      wrong value at "aggregateVersion", expected: 1 but was: 0,
+      missing element at "data.externalId",
+      missing element at "data.paymentId",
+      wrong value at "data.status", expected: "confirmed" but was: "pending",
+      wrong value at "type", expected: "PaymentUpdated" but was: "PaymentCreated"
+
+ 
+2025-09-16 19:59:56 5.15.0 INFO 2090 no expectation for:
+
+  {
+    "method" : "POST",
+    "path" : "/matchevent",
+    "headers" : {
+      "User-Agent" : [ "Go-http-client/1.1" ],
+      "Host" : [ "localhost:2090" ],
+      "Content-Type" : [ "application/json" ],
+      "Content-Length" : [ "869" ],
+      "Accept-Encoding" : [ "gzip" ]
+    },
+    "keepAlive" : true,
+    "secure" : false,
+    "protocol" : "HTTP_1_1",
+    "localAddress" : "172.17.0.5:2090",
+    "remoteAddress" : "172.17.0.1:34502",
+    "body" : {
+      "id" : "5112d16e-0e21-46de-b7fa-fdac1818bd54",
+      "type" : "PaymentCreated",
+      "aggregateVersion" : 0,
+      "eventCorrelationId" : "",
+      "createdAt" : "2025-09-16T16:59:55.848572247-03:00",
+      "data" : {
+        "id" : "0199541c-c5c8-723e-81e8-c6c42c60e597",
+        "amount" : 100,
+        "currency" : "ARS",
+        "gateway" : "bind",
+        "debtor" : {
+          "institutionName" : "dinopay",
+          "institutionId" : "dinopay",
+          "currency" : "ARS",
+          "accountDetails" : {
+            "accountType" : "cvu",
+            "cuit" : "23679876453",
+            "routingInfo" : {
+              "cvuRoutingInfoType" : "cvu",
+              "cvu" : "1122334455667788554433"
+            }
+          }
+        },
+        "beneficiary" : {
+          "institutionName" : "dinopay",
+          "institutionId" : "dinopay",
+          "currency" : "ARS",
+          "accountDetails" : {
+            "accountType" : "cvu",
+            "cuit" : "23679876453",
+            "routingInfo" : {
+              "cvuRoutingInfoType" : "cvu",
+              "cvu" : "1122334455667788554433"
+            }
+          }
+        },
+        "direction" : "inbound",
+        "customerId" : "0199541c-c5c8-7245-982d-63287470f8ed",
+        "status" : "pending",
+        "createdAt" : "2025-09-16T16:59:55-03:00",
+        "updatedAt" : "0001-01-01T00:00:00Z"
+      }
+    }
+  }
+
+ returning response:
+
+  {
+    "statusCode" : 404,
+    "reasonPhrase" : "Not Found"
+  }
+ 
+2025-09-16 19:59:56 5.15.0 INFO 2090 verifying requests that match:
+
+  {
+    "expectationId" : {
+      "id" : "matchJSON-745108562196509823"
+    },
+    "httpRequest" : {
+      "method" : "POST",
+      "path" : "/matchevent",
+      "body" : {
+        "id" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+        "type" : "PaymentUpdated",
+        "aggregateVersion" : 1,
+        "data" : {
+          "paymentId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+          "externalId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+          "status" : "confirmed"
+        }
+      }
+    },
+    "times" : {
+      "atLeast" : 1,
+      "atMost" : 1
+    }
+  }
+ 
+2025-09-16 19:59:56 5.15.0 INFO request not found exactly once, expected:
+
+  {
+    "method" : "POST",
+    "path" : "/matchevent",
+    "body" : {
+      "id" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+      "type" : "PaymentUpdated",
+      "aggregateVersion" : 1,
+      "data" : {
+        "paymentId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+        "externalId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+        "status" : "confirmed"
+      }
+    }
+  }
+
+ but was:
+
+  []
+ 
+2025-09-16 19:59:56 5.15.0 INFO 2090 verifying requests that match:
+
+  {
+    "expectationId" : {
+      "id" : "matchJSON-745108562196509823"
+    },
+    "httpRequest" : {
+      "method" : "POST",
+      "path" : "/matchevent",
+      "body" : {
+        "id" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+        "type" : "PaymentUpdated",
+        "aggregateVersion" : 1,
+        "data" : {
+          "paymentId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+          "externalId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+          "status" : "confirmed"
+        }
+      }
+    },
+    "times" : {
+      "atLeast" : 1,
+      "atMost" : 1
+    }
+  }
+ 
+2025-09-16 19:59:56 5.15.0 INFO request not found exactly once, expected:
+
+  {
+    "method" : "POST",
+    "path" : "/matchevent",
+    "body" : {
+      "id" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+      "type" : "PaymentUpdated",
+      "aggregateVersion" : 1,
+      "data" : {
+        "paymentId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+        "externalId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+        "status" : "confirmed"
+      }
+    }
+  }
+
+ but was:
+
+  []
+ 
+2025-09-16 19:59:56 5.15.0 INFO 2090 verifying requests that match:
+
+  {
+    "expectationId" : {
+      "id" : "matchJSON-745108562196509823"
+    },
+    "httpRequest" : {
+      "method" : "POST",
+      "path" : "/matchevent",
+      "body" : {
+        "id" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+        "type" : "PaymentUpdated",
+        "aggregateVersion" : 1,
+        "data" : {
+          "paymentId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+          "externalId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+          "status" : "confirmed"
+        }
+      }
+    },
+    "times" : {
+      "atLeast" : 1,
+      "atMost" : 1
+    }
+  }
+ 
+2025-09-16 19:59:56 5.15.0 INFO request not found exactly once, expected:
+
+  {
+    "method" : "POST",
+    "path" : "/matchevent",
+    "body" : {
+      "id" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+      "type" : "PaymentUpdated",
+      "aggregateVersion" : 1,
+      "data" : {
+        "paymentId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+        "externalId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+        "status" : "confirmed"
+      }
+    }
+  }
+
+ but was:
+
+  []
+ 
+2025-09-16 19:59:56 5.15.0 INFO 2090 verifying requests that match:
+
+  {
+    "expectationId" : {
+      "id" : "matchJSON-745108562196509823"
+    },
+    "httpRequest" : {
+      "method" : "POST",
+      "path" : "/matchevent",
+      "body" : {
+        "id" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+        "type" : "PaymentUpdated",
+        "aggregateVersion" : 1,
+        "data" : {
+          "paymentId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+          "externalId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+          "status" : "confirmed"
+        }
+      }
+    },
+    "times" : {
+      "atLeast" : 1,
+      "atMost" : 1
+    }
+  }
+ 
+2025-09-16 19:59:56 5.15.0 INFO request not found exactly once, expected:
+
+  {
+    "method" : "POST",
+    "path" : "/matchevent",
+    "body" : {
+      "id" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+      "type" : "PaymentUpdated",
+      "aggregateVersion" : 1,
+      "data" : {
+        "paymentId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+        "externalId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+        "status" : "confirmed"
+      }
+    }
+  }
+
+ but was:
+
+  []
+ 
+2025-09-16 19:59:56 5.15.0 INFO 2090 verifying requests that match:
+
+  {
+    "expectationId" : {
+      "id" : "matchJSON-745108562196509823"
+    },
+    "httpRequest" : {
+      "method" : "POST",
+      "path" : "/matchevent",
+      "body" : {
+        "id" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+        "type" : "PaymentUpdated",
+        "aggregateVersion" : 1,
+        "data" : {
+          "paymentId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+          "externalId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+          "status" : "confirmed"
+        }
+      }
+    },
+    "times" : {
+      "atLeast" : 1,
+      "atMost" : 1
+    }
+  }
+ 
+2025-09-16 19:59:56 5.15.0 INFO request not found exactly once, expected:
+
+  {
+    "method" : "POST",
+    "path" : "/matchevent",
+    "body" : {
+      "id" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+      "type" : "PaymentUpdated",
+      "aggregateVersion" : 1,
+      "data" : {
+        "paymentId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+        "externalId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+        "status" : "confirmed"
+      }
+    }
+  }
+
+ but was:
+
+  []
+ 
+2025-09-16 19:59:56 5.15.0 INFO 2090 verifying requests that match:
+
+  {
+    "expectationId" : {
+      "id" : "matchJSON-745108562196509823"
+    },
+    "httpRequest" : {
+      "method" : "POST",
+      "path" : "/matchevent",
+      "body" : {
+        "id" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+        "type" : "PaymentUpdated",
+        "aggregateVersion" : 1,
+        "data" : {
+          "paymentId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+          "externalId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+          "status" : "confirmed"
+        }
+      }
+    },
+    "times" : {
+      "atLeast" : 1,
+      "atMost" : 1
+    }
+  }
+ 
+2025-09-16 19:59:56 5.15.0 INFO request not found exactly once, expected:
+
+  {
+    "method" : "POST",
+    "path" : "/matchevent",
+    "body" : {
+      "id" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+      "type" : "PaymentUpdated",
+      "aggregateVersion" : 1,
+      "data" : {
+        "paymentId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+        "externalId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+        "status" : "confirmed"
+      }
+    }
+  }
+
+ but was:
+
+  []
+ 
+2025-09-16 19:59:56 5.15.0 INFO 2090 received request:
+
+  {
+    "method" : "POST",
+    "path" : "/matchevent",
+    "headers" : {
+      "User-Agent" : [ "Go-http-client/1.1" ],
+      "Host" : [ "localhost:2090" ],
+      "Content-Type" : [ "application/json" ],
+      "Content-Length" : [ "297" ],
+      "Accept-Encoding" : [ "gzip" ]
+    },
+    "keepAlive" : true,
+    "secure" : false,
+    "protocol" : "HTTP_1_1",
+    "localAddress" : "172.17.0.5:2090",
+    "remoteAddress" : "172.17.0.1:34502",
+    "body" : {
+      "id" : "36050b94-208c-49d2-94e2-9ec28016624b",
+      "type" : "PaymentUpdated",
+      "aggregateVersion" : 1,
+      "eventCorrelationId" : "",
+      "createdAt" : "2025-09-16T16:59:56.043009967-03:00",
+      "data" : {
+        "paymentId" : "0199541c-c5c8-723e-81e8-c6c42c60e597",
+        "externalId" : "0199541c-c65c-7b75-9f63-b1ac9fd8522d",
+        "status" : "confirmed"
+      }
+    }
+  }
+ 
+2025-09-16 19:59:56 5.15.0 INFO 2090 request:
+
+  {
+    "method" : "POST",
+    "path" : "/matchevent",
+    "headers" : {
+      "User-Agent" : [ "Go-http-client/1.1" ],
+      "Host" : [ "localhost:2090" ],
+      "Content-Type" : [ "application/json" ],
+      "Content-Length" : [ "297" ],
+      "Accept-Encoding" : [ "gzip" ]
+    },
+    "keepAlive" : true,
+    "secure" : false,
+    "protocol" : "HTTP_1_1",
+    "localAddress" : "172.17.0.5:2090",
+    "remoteAddress" : "172.17.0.1:34502",
+    "body" : {
+      "id" : "36050b94-208c-49d2-94e2-9ec28016624b",
+      "type" : "PaymentUpdated",
+      "aggregateVersion" : 1,
+      "eventCorrelationId" : "",
+      "createdAt" : "2025-09-16T16:59:56.043009967-03:00",
+      "data" : {
+        "paymentId" : "0199541c-c5c8-723e-81e8-c6c42c60e597",
+        "externalId" : "0199541c-c65c-7b75-9f63-b1ac9fd8522d",
+        "status" : "confirmed"
+      }
+    }
+  }
+
+ matched expectation:
+
+  {
+    "httpRequest" : {
+      "method" : "POST",
+      "path" : "/matchevent",
+      "body" : {
+        "id" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+        "type" : "PaymentUpdated",
+        "aggregateVersion" : 1,
+        "data" : {
+          "paymentId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+          "externalId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+          "status" : "confirmed"
+        }
+      }
+    },
+    "httpResponse" : {
+      "statusCode" : 201,
+      "headers" : {
+        "content-type" : [ "application/json" ]
+      }
+    },
+    "id" : "matchJSON-745108562196509823",
+    "priority" : 0,
+    "timeToLive" : {
+      "unlimited" : true
+    },
+    "times" : {
+      "unlimited" : true
+    }
+  }
+ 
+2025-09-16 19:59:56 5.15.0 INFO 2090 returning response:
+
+  {
+    "statusCode" : 201,
+    "headers" : {
+      "content-type" : [ "application/json" ]
+    }
+  }
+
+ for request:
+
+  {
+    "method" : "POST",
+    "path" : "/matchevent",
+    "headers" : {
+      "User-Agent" : [ "Go-http-client/1.1" ],
+      "Host" : [ "localhost:2090" ],
+      "Content-Type" : [ "application/json" ],
+      "Content-Length" : [ "297" ],
+      "Accept-Encoding" : [ "gzip" ]
+    },
+    "keepAlive" : true,
+    "secure" : false,
+    "protocol" : "HTTP_1_1",
+    "localAddress" : "172.17.0.5:2090",
+    "remoteAddress" : "172.17.0.1:34502",
+    "body" : {
+      "id" : "36050b94-208c-49d2-94e2-9ec28016624b",
+      "type" : "PaymentUpdated",
+      "aggregateVersion" : 1,
+      "eventCorrelationId" : "",
+      "createdAt" : "2025-09-16T16:59:56.043009967-03:00",
+      "data" : {
+        "paymentId" : "0199541c-c5c8-723e-81e8-c6c42c60e597",
+        "externalId" : "0199541c-c65c-7b75-9f63-b1ac9fd8522d",
+        "status" : "confirmed"
+      }
+    }
+  }
+
+ for action:
+
+  {
+    "statusCode" : 201,
+    "headers" : {
+      "content-type" : [ "application/json" ]
+    }
+  }
+
+ from expectation:
+
+  matchJSON-745108562196509823
+ 
+2025-09-16 19:59:56 5.15.0 INFO 2090 verifying requests that match:
+
+  {
+    "expectationId" : {
+      "id" : "matchJSON-745108562196509823"
+    },
+    "httpRequest" : {
+      "method" : "POST",
+      "path" : "/matchevent",
+      "body" : {
+        "id" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+        "type" : "PaymentUpdated",
+        "aggregateVersion" : 1,
+        "data" : {
+          "paymentId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+          "externalId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+          "status" : "confirmed"
+        }
+      }
+    },
+    "times" : {
+      "atLeast" : 1,
+      "atMost" : 1
+    }
+  }
+ 
+2025-09-16 19:59:56 5.15.0 INFO request:
+
+  {
+    "method" : "POST",
+    "path" : "/matchevent",
+    "body" : {
+      "id" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+      "type" : "PaymentUpdated",
+      "aggregateVersion" : 1,
+      "data" : {
+        "paymentId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+        "externalId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+        "status" : "confirmed"
+      }
+    }
+  }
+
+ found exactly once 
+2025-09-16 19:59:56 5.15.0 INFO 2090 creating expectation:
+
+  {
+    "httpRequest" : {
+      "method" : "POST",
+      "path" : "/matchevent",
+      "body" : {
+        "id" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+        "type" : "PaymentUpdated",
+        "data" : {
+          "paymentId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+          "externalId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+          "status" : "failed"
+        }
+      }
+    },
+    "httpResponse" : {
+      "statusCode" : 201,
+      "headers" : {
+        "content-type" : [ "application/json" ]
+      }
+    },
+    "id" : "matchJSON-3743172193113249196",
+    "priority" : 0,
+    "timeToLive" : {
+      "unlimited" : true
+    },
+    "times" : {
+      "unlimited" : true
+    }
+  }
+
+ with id:
+
+  matchJSON-3743172193113249196
+ 
+2025-09-16 19:59:56 5.15.0 INFO 2090 received request:
+
+  {
+    "method" : "POST",
+    "path" : "/matchevent",
+    "headers" : {
+      "User-Agent" : [ "Go-http-client/1.1" ],
+      "Host" : [ "localhost:2090" ],
+      "Content-Type" : [ "application/json" ],
+      "Content-Length" : [ "294" ],
+      "Accept-Encoding" : [ "gzip" ]
+    },
+    "keepAlive" : true,
+    "secure" : false,
+    "protocol" : "HTTP_1_1",
+    "localAddress" : "172.17.0.5:2090",
+    "remoteAddress" : "172.17.0.1:34502",
+    "body" : {
+      "id" : "28fee20b-fa8e-4f65-bd6c-a3467fc2e193",
+      "type" : "PaymentUpdated",
+      "aggregateVersion" : 1,
+      "eventCorrelationId" : "",
+      "createdAt" : "2025-09-16T16:59:56.573265363-03:00",
+      "data" : {
+        "paymentId" : "0199541c-c85c-7264-b67a-9bb5979b19a3",
+        "externalId" : "0199541c-c89a-7eed-a708-a7eec4b105b6",
+        "status" : "failed"
+      }
+    }
+  }
+ 
+2025-09-16 19:59:56 5.15.0 INFO 2090 request:
+
+  {
+    "method" : "POST",
+    "path" : "/matchevent",
+    "headers" : {
+      "User-Agent" : [ "Go-http-client/1.1" ],
+      "Host" : [ "localhost:2090" ],
+      "Content-Type" : [ "application/json" ],
+      "Content-Length" : [ "294" ],
+      "Accept-Encoding" : [ "gzip" ]
+    },
+    "keepAlive" : true,
+    "secure" : false,
+    "protocol" : "HTTP_1_1",
+    "localAddress" : "172.17.0.5:2090",
+    "remoteAddress" : "172.17.0.1:34502",
+    "body" : {
+      "id" : "28fee20b-fa8e-4f65-bd6c-a3467fc2e193",
+      "type" : "PaymentUpdated",
+      "aggregateVersion" : 1,
+      "eventCorrelationId" : "",
+      "createdAt" : "2025-09-16T16:59:56.573265363-03:00",
+      "data" : {
+        "paymentId" : "0199541c-c85c-7264-b67a-9bb5979b19a3",
+        "externalId" : "0199541c-c89a-7eed-a708-a7eec4b105b6",
+        "status" : "failed"
+      }
+    }
+  }
+
+ didn't match expectation:
+
+  {
+    "httpRequest" : {
+      "method" : "POST",
+      "path" : "/matchevent",
+      "body" : {
+        "id" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+        "type" : "PaymentUpdated",
+        "aggregateVersion" : 1,
+        "data" : {
+          "paymentId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+          "externalId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+          "status" : "confirmed"
+        }
+      }
+    },
+    "httpResponse" : {
+      "statusCode" : 201,
+      "headers" : {
+        "content-type" : [ "application/json" ]
+      }
+    },
+    "id" : "matchJSON-745108562196509823",
+    "priority" : 0,
+    "timeToLive" : {
+      "unlimited" : true
+    },
+    "times" : {
+      "unlimited" : true
+    }
+  }
+
+ because:
+
+  method matched
+  path matched
+  body didn't match: 
+  
+    json match failed expected:
+  
+      {
+        "id" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+        "type" : "PaymentUpdated",
+        "aggregateVersion" : 1,
+        "data" : {
+          "paymentId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+          "externalId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+          "status" : "confirmed"
+        }
+      }
+  
+     found:
+  
+      {"id":"28fee20b-fa8e-4f65-bd6c-a3467fc2e193","type":"PaymentUpdated","aggregateVersion":1,"eventCorrelationId":"","createdAt":"2025-09-16T16:59:56.573265363-03:00","data":{"paymentId":"0199541c-c85c-7264-b67a-9bb5979b19a3","externalId":"0199541c-c89a-7eed-a708-a7eec4b105b6","status":"failed"}}
+  
+     failed because:
+  
+      wrong value at "data.status", expected: "confirmed" but was: "failed"
+
+ 
+2025-09-16 19:59:56 5.15.0 INFO 2090 request:
+
+  {
+    "method" : "POST",
+    "path" : "/matchevent",
+    "headers" : {
+      "User-Agent" : [ "Go-http-client/1.1" ],
+      "Host" : [ "localhost:2090" ],
+      "Content-Type" : [ "application/json" ],
+      "Content-Length" : [ "294" ],
+      "Accept-Encoding" : [ "gzip" ]
+    },
+    "keepAlive" : true,
+    "secure" : false,
+    "protocol" : "HTTP_1_1",
+    "localAddress" : "172.17.0.5:2090",
+    "remoteAddress" : "172.17.0.1:34502",
+    "body" : {
+      "id" : "28fee20b-fa8e-4f65-bd6c-a3467fc2e193",
+      "type" : "PaymentUpdated",
+      "aggregateVersion" : 1,
+      "eventCorrelationId" : "",
+      "createdAt" : "2025-09-16T16:59:56.573265363-03:00",
+      "data" : {
+        "paymentId" : "0199541c-c85c-7264-b67a-9bb5979b19a3",
+        "externalId" : "0199541c-c89a-7eed-a708-a7eec4b105b6",
+        "status" : "failed"
+      }
+    }
+  }
+
+ matched expectation:
+
+  {
+    "httpRequest" : {
+      "method" : "POST",
+      "path" : "/matchevent",
+      "body" : {
+        "id" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+        "type" : "PaymentUpdated",
+        "data" : {
+          "paymentId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+          "externalId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+          "status" : "failed"
+        }
+      }
+    },
+    "httpResponse" : {
+      "statusCode" : 201,
+      "headers" : {
+        "content-type" : [ "application/json" ]
+      }
+    },
+    "id" : "matchJSON-3743172193113249196",
+    "priority" : 0,
+    "timeToLive" : {
+      "unlimited" : true
+    },
+    "times" : {
+      "unlimited" : true
+    }
+  }
+ 
+2025-09-16 19:59:56 5.15.0 INFO 2090 returning response:
+
+  {
+    "statusCode" : 201,
+    "headers" : {
+      "content-type" : [ "application/json" ]
+    }
+  }
+
+ for request:
+
+  {
+    "method" : "POST",
+    "path" : "/matchevent",
+    "headers" : {
+      "User-Agent" : [ "Go-http-client/1.1" ],
+      "Host" : [ "localhost:2090" ],
+      "Content-Type" : [ "application/json" ],
+      "Content-Length" : [ "294" ],
+      "Accept-Encoding" : [ "gzip" ]
+    },
+    "keepAlive" : true,
+    "secure" : false,
+    "protocol" : "HTTP_1_1",
+    "localAddress" : "172.17.0.5:2090",
+    "remoteAddress" : "172.17.0.1:34502",
+    "body" : {
+      "id" : "28fee20b-fa8e-4f65-bd6c-a3467fc2e193",
+      "type" : "PaymentUpdated",
+      "aggregateVersion" : 1,
+      "eventCorrelationId" : "",
+      "createdAt" : "2025-09-16T16:59:56.573265363-03:00",
+      "data" : {
+        "paymentId" : "0199541c-c85c-7264-b67a-9bb5979b19a3",
+        "externalId" : "0199541c-c89a-7eed-a708-a7eec4b105b6",
+        "status" : "failed"
+      }
+    }
+  }
+
+ for action:
+
+  {
+    "statusCode" : 201,
+    "headers" : {
+      "content-type" : [ "application/json" ]
+    }
+  }
+
+ from expectation:
+
+  matchJSON-3743172193113249196
+ 
+2025-09-16 19:59:56 5.15.0 INFO 2090 verifying requests that match:
+
+  {
+    "expectationId" : {
+      "id" : "matchJSON-3743172193113249196"
+    },
+    "httpRequest" : {
+      "method" : "POST",
+      "path" : "/matchevent",
+      "body" : {
+        "id" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+        "type" : "PaymentUpdated",
+        "data" : {
+          "paymentId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+          "externalId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+          "status" : "failed"
+        }
+      }
+    },
+    "times" : {
+      "atLeast" : 1,
+      "atMost" : 1
+    }
+  }
+ 
+2025-09-16 19:59:56 5.15.0 INFO request:
+
+  {
+    "method" : "POST",
+    "path" : "/matchevent",
+    "body" : {
+      "id" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+      "type" : "PaymentUpdated",
+      "data" : {
+        "paymentId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+        "externalId" : "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+        "status" : "failed"
+      }
+    }
+  }
+
+ found exactly once 

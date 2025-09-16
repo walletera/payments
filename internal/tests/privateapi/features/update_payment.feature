@@ -7,7 +7,7 @@ Feature: Update outbound payment
 
   Scenario: a pending payment is successfully updated to confirmed
     Given an authorized dinopay-gateway service
-      And a payment in pending status
+      And a payment is created in pending status
      When the payments service receive a PATCH request to update the payment to status: "confirmed"
      Then the payment is updated to status: "confirmed"
       And the payments service publish the following event:
@@ -15,6 +15,7 @@ Feature: Update outbound payment
     {
       "id": "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
       "type": "PaymentUpdated",
+      "aggregateVersion": 1,
       "data": {
         "paymentId": "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
         "externalId": "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
@@ -25,7 +26,7 @@ Feature: Update outbound payment
 
   Scenario: a pending payment is successfully updated to failed
     Given an authorized dinopay-gateway service
-      And a payment in pending status
+      And a payment is created in pending status
      When the payments service receive a PATCH request to update the payment to status: "failed"
      Then the payment is updated to status: "failed"
       And the payments service publish the following event:

@@ -30,11 +30,11 @@ type PaymentUpdated struct {
     Data             api.PaymentUpdate `json:"-"`
 }
 
-func NewPaymentUpdated(correlationId string, data api.PaymentUpdate) PaymentUpdated {
+func NewPaymentUpdated(aggregateVersion uint64, correlationId string, data api.PaymentUpdate) PaymentUpdated {
     return PaymentUpdated{
         Id:                    uuid.New(),
         EventType:             PaymentUpdatedType,
-        EventAggregateVersion: 0,
+        EventAggregateVersion: aggregateVersion,
         EventCorrelationId:    correlationId,
         EventCreatedAt:        time.Now(),
         SerializableData:      wogen.NewSerializationWrapper(&data),

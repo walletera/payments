@@ -1,0 +1,286 @@
+[    1, 1,19:59:43.257,INF] 
+"ES VERSION:"             "21.10.7.0" ("tags/oss-v21.10.7"/"1605ec0a1", "Fri, 29 Jul 2022 14:49:58 +0200")
+[    1, 1,19:59:43.260,INF] "OS ARCHITECTURE:"        X64 
+[    1, 1,19:59:43.266,INF] "OS:"                     Linux ("Unix 5.4.0.216")
+[    1, 1,19:59:43.267,INF] "RUNTIME:"                ".NET 5.0.17/6a9841436" (64-bit)
+[    1, 1,19:59:43.267,INF] "GC:"                     "3 GENERATIONS" "IsServerGC: False" "Latency Mode: Interactive"
+[    1, 1,19:59:43.267,INF] "LOGS:"                   "/var/log/eventstore"
+[    1, 1,19:59:43.295,INF] MODIFIED OPTIONS:
+
+     INSECURE:                                true (Command Line)
+     INT IP:                                  0.0.0.0 (Yaml)
+     EXT IP:                                  0.0.0.0 (Yaml)
+     RUN PROJECTIONS:                         All (Command Line)
+
+DEFAULT OPTIONS:
+
+     HELP:                                    False (<DEFAULT>)
+     VERSION:                                 False (<DEFAULT>)
+     CONFIG:                                  /etc/eventstore/eventstore.conf (<DEFAULT>)
+     WHAT IF:                                 False (<DEFAULT>)
+     START STANDARD PROJECTIONS:              False (<DEFAULT>)
+     DISABLE HTTP CACHING:                    False (<DEFAULT>)
+     STATS PERIOD SEC:                        30 (<DEFAULT>)
+     WORKER THREADS:                          0 (<DEFAULT>)
+     ENABLE HISTOGRAMS:                       False (<DEFAULT>)
+     LOG HTTP REQUESTS:                       False (<DEFAULT>)
+     LOG FAILED AUTHENTICATION ATTEMPTS:      False (<DEFAULT>)
+     SKIP INDEX SCAN ON READS:                False (<DEFAULT>)
+     MAX APPEND SIZE:                         1048576 (<DEFAULT>)
+     LOG:                                     /var/log/eventstore (<DEFAULT>)
+     LOG CONFIG:                              logconfig.json (<DEFAULT>)
+     LOG LEVEL:                               Default (<DEFAULT>)
+     LOG CONSOLE FORMAT:                      Plain (<DEFAULT>)
+     LOG FILE SIZE:                           1073741824 (<DEFAULT>)
+     LOG FILE INTERVAL:                       Day (<DEFAULT>)
+     LOG FILE RETENTION COUNT:                31 (<DEFAULT>)
+     DISABLE LOG FILE:                        False (<DEFAULT>)
+     AUTHORIZATION TYPE:                      internal (<DEFAULT>)
+     AUTHORIZATION CONFIG:                    <empty> (<DEFAULT>)
+     AUTHENTICATION TYPE:                     internal (<DEFAULT>)
+     AUTHENTICATION CONFIG:                   <empty> (<DEFAULT>)
+     DISABLE FIRST LEVEL HTTP AUTHORIZATION:  False (<DEFAULT>)
+     TRUSTED ROOT CERTIFICATES PATH:          <empty> (<DEFAULT>)
+     CERTIFICATE RESERVED NODE COMMON NAME:   eventstoredb-node (<DEFAULT>)
+     CERTIFICATE FILE:                        <empty> (<DEFAULT>)
+     CERTIFICATE PRIVATE KEY FILE:            <empty> (<DEFAULT>)
+     CERTIFICATE PASSWORD:                    <empty> (<DEFAULT>)
+     CERTIFICATE STORE LOCATION:              <empty> (<DEFAULT>)
+     CERTIFICATE STORE NAME:                  <empty> (<DEFAULT>)
+     CERTIFICATE SUBJECT NAME:                <empty> (<DEFAULT>)
+     CERTIFICATE THUMBPRINT:                  <empty> (<DEFAULT>)
+     STREAM INFO CACHE CAPACITY:              0 (<DEFAULT>)
+     CLUSTER SIZE:                            1 (<DEFAULT>)
+     NODE PRIORITY:                           0 (<DEFAULT>)
+     COMMIT COUNT:                            -1 (<DEFAULT>)
+     PREPARE COUNT:                           -1 (<DEFAULT>)
+     DISCOVER VIA DNS:                        True (<DEFAULT>)
+     CLUSTER DNS:                             fake.dns (<DEFAULT>)
+     CLUSTER GOSSIP PORT:                     2113 (<DEFAULT>)
+     GOSSIP SEED:                             <empty> (<DEFAULT>)
+     GOSSIP INTERVAL MS:                      2000 (<DEFAULT>)
+     GOSSIP ALLOWED DIFFERENCE MS:            60000 (<DEFAULT>)
+     GOSSIP TIMEOUT MS:                       2500 (<DEFAULT>)
+     READ ONLY REPLICA:                       False (<DEFAULT>)
+     UNSAFE ALLOW SURPLUS NODES:              False (<DEFAULT>)
+     DEAD MEMBER REMOVAL PERIOD SEC:          1800 (<DEFAULT>)
+     LEADER ELECTION TIMEOUT MS:              1000 (<DEFAULT>)
+     QUORUM SIZE:                             1 (<DEFAULT>)
+     PREPARE ACK COUNT:                       1 (<DEFAULT>)
+     COMMIT ACK COUNT:                        1 (<DEFAULT>)
+     MIN FLUSH DELAY MS:                      2 (<DEFAULT>)
+     DISABLE SCAVENGE MERGING:                False (<DEFAULT>)
+     SCAVENGE HISTORY MAX AGE:                30 (<DEFAULT>)
+     CACHED CHUNKS:                           -1 (<DEFAULT>)
+     CHUNKS CACHE SIZE:                       536871424 (<DEFAULT>)
+     MAX MEM TABLE SIZE:                      1000000 (<DEFAULT>)
+     HASH COLLISION READ LIMIT:               100 (<DEFAULT>)
+     DB:                                      /var/lib/eventstore (<DEFAULT>)
+     INDEX:                                   <empty> (<DEFAULT>)
+     MEM DB:                                  False (<DEFAULT>)
+     USE INDEX BLOOM FILTERS:                 True (<DEFAULT>)
+     INDEX CACHE SIZE:                        0 (<DEFAULT>)
+     SKIP DB VERIFY:                          False (<DEFAULT>)
+     WRITE THROUGH:                           False (<DEFAULT>)
+     UNBUFFERED:                              False (<DEFAULT>)
+     CHUNK INITIAL READER COUNT:              5 (<DEFAULT>)
+     PREPARE TIMEOUT MS:                      2000 (<DEFAULT>)
+     COMMIT TIMEOUT MS:                       2000 (<DEFAULT>)
+     WRITE TIMEOUT MS:                        2000 (<DEFAULT>)
+     UNSAFE DISABLE FLUSH TO DISK:            False (<DEFAULT>)
+     UNSAFE IGNORE HARD DELETE:               False (<DEFAULT>)
+     SKIP INDEX VERIFY:                       False (<DEFAULT>)
+     INDEX CACHE DEPTH:                       16 (<DEFAULT>)
+     OPTIMIZE INDEX MERGE:                    False (<DEFAULT>)
+     ALWAYS KEEP SCAVENGED:                   False (<DEFAULT>)
+     REDUCE FILE CACHE PRESSURE:              False (<DEFAULT>)
+     INITIALIZATION THREADS:                  1 (<DEFAULT>)
+     READER THREADS COUNT:                    0 (<DEFAULT>)
+     MAX AUTO MERGE INDEX LEVEL:              2147483647 (<DEFAULT>)
+     WRITE STATS TO DB:                       False (<DEFAULT>)
+     MAX TRUNCATION:                          268435456 (<DEFAULT>)
+     CHUNK SIZE:                              268435456 (<DEFAULT>)
+     STATS STORAGE:                           File (<DEFAULT>)
+     DB LOG FORMAT:                           V2 (<DEFAULT>)
+     STREAM EXISTENCE FILTER SIZE:            256000000 (<DEFAULT>)
+     KEEP ALIVE INTERVAL:                     10000 (<DEFAULT>)
+     KEEP ALIVE TIMEOUT:                      10000 (<DEFAULT>)
+     HTTP PORT:                               2113 (<DEFAULT>)
+     ENABLE EXTERNAL TCP:                     False (<DEFAULT>)
+     INT TCP PORT:                            1112 (<DEFAULT>)
+     EXT TCP PORT:                            1113 (<DEFAULT>)
+     EXT HOST ADVERTISE AS:                   <empty> (<DEFAULT>)
+     INT HOST ADVERTISE AS:                   <empty> (<DEFAULT>)
+     ADVERTISE HOST TO CLIENT AS:             <empty> (<DEFAULT>)
+     ADVERTISE HTTP PORT TO CLIENT AS:        0 (<DEFAULT>)
+     ADVERTISE TCP PORT TO CLIENT AS:         0 (<DEFAULT>)
+     EXT TCP PORT ADVERTISE AS:               0 (<DEFAULT>)
+     HTTP PORT ADVERTISE AS:                  0 (<DEFAULT>)
+     INT TCP PORT ADVERTISE AS:               0 (<DEFAULT>)
+     INT TCP HEARTBEAT TIMEOUT:               700 (<DEFAULT>)
+     EXT TCP HEARTBEAT TIMEOUT:               1000 (<DEFAULT>)
+     INT TCP HEARTBEAT INTERVAL:              700 (<DEFAULT>)
+     EXT TCP HEARTBEAT INTERVAL:              2000 (<DEFAULT>)
+     GOSSIP ON SINGLE NODE:                   <empty> (<DEFAULT>)
+     CONNECTION PENDING SEND BYTES THRESHOLD: 10485760 (<DEFAULT>)
+     CONNECTION QUEUE SIZE THRESHOLD:         50000 (<DEFAULT>)
+     DISABLE ADMIN UI:                        False (<DEFAULT>)
+     DISABLE STATS ON HTTP:                   False (<DEFAULT>)
+     DISABLE GOSSIP ON HTTP:                  False (<DEFAULT>)
+     ENABLE TRUSTED AUTH:                     False (<DEFAULT>)
+     DISABLE INTERNAL TCP TLS:                False (<DEFAULT>)
+     DISABLE EXTERNAL TCP TLS:                False (<DEFAULT>)
+     ENABLE ATOM PUB OVER HTTP:               False (<DEFAULT>)
+     PROJECTION THREADS:                      3 (<DEFAULT>)
+     PROJECTIONS QUERY EXPIRY:                5 (<DEFAULT>)
+     FAULT OUT OF ORDER PROJECTIONS:          False (<DEFAULT>)
+     PROJECTION COMPILATION TIMEOUT:          500 (<DEFAULT>)
+     PROJECTION EXECUTION TIMEOUT:            250 (<DEFAULT>)
+
+[    1, 1,19:59:43.297,WRN] 
+==============================================================================================================
+INSECURE MODE IS ON. THIS MODE IS *NOT* RECOMMENDED FOR PRODUCTION USE.
+INSECURE MODE WILL DISABLE ALL AUTHENTICATION, AUTHORIZATION AND TRANSPORT SECURITY FOR ALL CLIENTS AND NODES.
+==============================================================================================================
+
+[    1, 1,19:59:43.449,DBG] MessageHierarchy initialization took 00:00:00.1447658.
+[    1, 1,19:59:43.461,INF] Cannot find plugins path: "/usr/share/eventstore/plugins"
+[    1, 1,19:59:43.511,INF] Quorum size set to 1.
+[    1, 1,19:59:43.513,DBG] Using File Checkpoints
+[    1, 1,19:59:43.532,INF] ReaderThreadsCount set to 16. Calculated based on processor count of 8 and configured value of 0
+[    1, 1,19:59:43.532,INF] WorkerThreads set to 10. Calculated based on a reader thread count of 16 and a configured value of 0
+[    1, 1,19:59:43.532,INF] StreamInfoCacheCapacity set to 8,202,091. Calculated based on 10,136,121,344 bytes of free memory and configured value of 0
+[    1, 1,19:59:43.533,INF] "INSTANCE ID:"            9140ac07-d305-445e-afc5-e4cec71b9627
+[    1, 1,19:59:43.533,INF] "DATABASE:"               "/var/lib/eventstore"
+[    1, 1,19:59:43.533,INF] "WRITER CHECKPOINT:"      0 (0x0)
+[    1, 1,19:59:43.533,INF] "CHASER CHECKPOINT:"      0 (0x0)
+[    1, 1,19:59:43.533,INF] "EPOCH CHECKPOINT:"       -1 (0xFFFFFFFFFFFFFFFF)
+[    1, 1,19:59:43.533,INF] "TRUNCATE CHECKPOINT:"    -1 (0xFFFFFFFFFFFFFFFF)
+[    1, 1,19:59:43.533,INF] "STREAM EXISTENCE FILTER CHECKPOINT:" -1 (0xFFFFFFFFFFFFFFFF)
+[    1, 1,19:59:43.574,INF] Ensuring no excessive chunks...
+[    1, 1,19:59:43.575,INF] Done ensuring no excessive chunks.
+[    1, 1,19:59:43.575,INF] Removing old chunk versions...
+[    1, 1,19:59:43.576,INF] Done removing old chunk versions.
+[    1, 1,19:59:43.576,INF] Cleaning up temp files...
+[    1, 1,19:59:43.578,INF] Done cleaning up temp files.
+[    1, 1,19:59:43.581,DBG] CACHED TFChunk "#0-0 (chunk-000000.000000)" in 00:00:00.0009613.
+[    1, 1,19:59:43.584,INF] "streamExistenceFilter": "Creating" "/var/lib/eventstore/index/stream-existence/streamExistenceFilter.dat"
+[    1, 1,19:59:43.590,DBG] Zeroing bloom filter...
+[    1, 1,19:59:43.698,DBG] Done zeroing bloom filter
+[    1, 1,19:59:43.698,INF] Writing header and expanding file...
+[    1, 1,19:59:43.706,INF] Wrote header and expanded file
+[    1, 1,19:59:43.706,INF] "streamExistenceFilter" has successfully loaded.
+[    1, 1,19:59:43.706,DBG] Optimal number of items for a "streamExistenceFilter" with a configured size of 256 MB is approximately equal to: 251,240,490 with false positive probability: 0.02
+[    1, 1,19:59:43.720,INF] No epoch checkpoint. Scanning log backwards for most recent epoch...
+[    1, 1,19:59:43.721,INF] Done scanning log backwards for most recent epoch.
+[    1, 1,19:59:43.727,INF] Using "InaugurationManager"
+[    1, 1,19:59:43.786,INF] Starting MiniWeb for "/web/es/js/projections" ==> "/opt/eventstore/projections"
+[    1, 1,19:59:43.786,INF] Starting MiniWeb for "/web/es/js/projections/v8/Prelude" ==> "/opt/eventstore/Prelude"
+[    1, 1,19:59:43.797,INF] Starting MiniWeb for "/web" ==> "/opt/eventstore/clusternode-web"
+[    1,12,19:59:43.845,INF] ========== ["0.0.0.0:2113"] SYSTEM INIT...
+[    1,12,19:59:43.849,INF] ========== ["0.0.0.0:2113"] Service '"StorageReader"' initialized.
+[    1,12,19:59:43.850,INF] ========== ["0.0.0.0:2113"] Service '"StorageWriter"' initialized.
+[    1,17,19:59:43.851,INF] TableIndex initialization...
+[    1,12,19:59:43.854,INF] CLUSTER HAS CHANGED ""
+Old:
+["Priority: 0 VND {9140ac07-d305-445e-afc5-e4cec71b9627} <LIVE> [Unknown, Unspecified/127.0.0.1:1112, n/a, Unspecified/127.0.0.1:1113, n/a, Unspecified/127.0.0.1:2113, (ADVERTISED: HTTP::0, TCP::0)] -1/0/0/E-1@-1:{00000000-0000-0000-0000-000000000000} | 2025-09-16 19:59:43.848"]
+New:
+["Priority: 0 VND {9140ac07-d305-445e-afc5-e4cec71b9627} <LIVE> [Unknown, Unspecified/127.0.0.1:1112, n/a, Unspecified/127.0.0.1:1113, n/a, Unspecified/127.0.0.1:2113, (ADVERTISED: HTTP::0, TCP::0)] -1/0/0/E-1@-1:{00000000-0000-0000-0000-000000000000} | 2025-09-16 19:59:43.848"]
+[    1,17,19:59:43.856,INF] ReadIndex building...
+[    1,17,19:59:43.857,DBG] ReadIndex rebuilding done: total processed 0 records, time elapsed: 00:00:00.0008125.
+[    1,17,19:59:43.857,DBG] Initializing the StreamExistenceFilter. The filter can be disabled by setting the configuration option "StreamExistenceFilterSize" to 0
+[    1,17,19:59:43.857,DBG] "streamExistenceFilter" rebuilding started from checkpoint: -1 (0xFFFFFFFFFFFFFFFF).
+[    1,17,19:59:43.859,INF] Initializing from index
+[    1,17,19:59:43.861,INF] Found table 52313920-a7a5-4aa7-82b9-ee83d9d3b4dd. Type: "EventStore.Core.Index.HashListMemTable". Count: 0. Version: 4
+[    1,17,19:59:43.867,INF] Initializing from log starting at 0
+[    1,17,19:59:43.867,DBG] "streamExistenceFilter" rebuilding done: total processed 0 records, time elapsed: 00:00:00.0096572.
+[    1,17,19:59:43.867,DBG] StreamExistenceFilter initialized. Time elapsed: 00:00:00.0104249.
+[    1,12,19:59:43.881,INF] ========== ["0.0.0.0:2113"] Service '"StorageChaser"' initialized.
+[    1,12,19:59:43.882,INF] ========== ["0.0.0.0:2113"] SYSTEM START...
+[    1,12,19:59:43.882,INF] ========== ["0.0.0.0:2113"] IS UNKNOWN...
+[    1, 9,19:59:43.885,DBG] Persistent subscriptions received state change to Unknown. Stopping listening
+[    1, 9,19:59:43.885,DBG] Persistent Subscriptions have been stopped.
+[    1,12,19:59:43.888,INF] ELECTIONS: STARTING ELECTIONS.
+[    1,12,19:59:43.889,INF] ELECTIONS: (V=0) SHIFT TO LEADER ELECTION.
+[    1,12,19:59:43.889,INF] ELECTIONS: (V=0) VIEWCHANGE FROM ["Unspecified/127.0.0.1:2113", {9140ac07-d305-445e-afc5-e4cec71b9627}].
+[    1,12,19:59:43.891,INF] ELECTIONS: (V=0) MAJORITY OF VIEWCHANGE.
+[    1,12,19:59:43.891,INF] ELECTIONS: (V=0) SHIFT TO PREPARE PHASE.
+[    1,12,19:59:43.892,INF] ELECTIONS: (V=0) PREPARE_OK FROM "[Unspecified/127.0.0.1:2113,{9140ac07-d305-445e-afc5-e4cec71b9627}](L=-1,W=0,C=0,E-1@-1:{00000000-0000-0000-0000-000000000000} (L={00000000-0000-0000-0000-000000000000}),Priority=0)".
+[    1,12,19:59:43.893,INF] ELECTIONS: (V=0) SHIFT TO REG_LEADER.
+[    1,12,19:59:43.900,DBG] ELECTIONS: (V=0) Proposing node: {9140ac07-d305-445e-afc5-e4cec71b9627} as best leader candidate
+[    1,12,19:59:43.906,INF] ELECTIONS: (V=0) SENDING PROPOSAL CANDIDATE: "[Unspecified/127.0.0.1:2113,{9140ac07-d305-445e-afc5-e4cec71b9627}](L=-1,W=0,C=0,E-1@-1:{00000000-0000-0000-0000-000000000000} (L={00000000-0000-0000-0000-000000000000}),Priority=0)", PROPOSAL NUMBER 0, ME: "[Unspecified/127.0.0.1:2113,{9140ac07-d305-445e-afc5-e4cec71b9627}](L=-1,W=0,C=0,E-1@-1:{00000000-0000-0000-0000-000000000000} (L={00000000-0000-0000-0000-000000000000}),Priority=0)".
+[    1,12,19:59:43.906,INF] ELECTIONS: (V=0) ACCEPT FROM ["Unspecified/127.0.0.1:2113",{9140ac07-d305-445e-afc5-e4cec71b9627}] M=["Unspecified/127.0.0.1:2113",{9140ac07-d305-445e-afc5-e4cec71b9627}]).
+[    1,12,19:59:43.907,INF] ELECTIONS: (V=0) DONE. ELECTED LEADER = "[Unspecified/127.0.0.1:2113,{9140ac07-d305-445e-afc5-e4cec71b9627}](L=-1,W=0,C=0,E-1@-1:{00000000-0000-0000-0000-000000000000} (L={00000000-0000-0000-0000-000000000000}),Priority=0)". ME="[Unspecified/127.0.0.1:2113,{9140ac07-d305-445e-afc5-e4cec71b9627}](L=-1,W=0,C=0,E-1@-1:{00000000-0000-0000-0000-000000000000} (L={00000000-0000-0000-0000-000000000000}),Priority=0)".
+[    1,12,19:59:43.908,INF] "InaugurationManager" in state (Unknown, Initial): RECEIVED "ElectionsDone". currentEpochNumber 0.
+[    1,12,19:59:43.909,INF] CLUSTER HAS CHANGED "Elections Done"
+Old:
+["Priority: 0 VND {9140ac07-d305-445e-afc5-e4cec71b9627} <LIVE> [Unknown, Unspecified/127.0.0.1:1112, n/a, Unspecified/127.0.0.1:1113, n/a, Unspecified/127.0.0.1:2113, (ADVERTISED: HTTP::0, TCP::0)] -1/0/0/E-1@-1:{00000000-0000-0000-0000-000000000000} | 2025-09-16 19:59:43.885"]
+New:
+["Priority: 0 VND {9140ac07-d305-445e-afc5-e4cec71b9627} <LIVE> [Leader, Unspecified/127.0.0.1:1112, n/a, Unspecified/127.0.0.1:1113, n/a, Unspecified/127.0.0.1:2113, (ADVERTISED: HTTP::0, TCP::0)] -1/0/0/E-1@-1:{00000000-0000-0000-0000-000000000000} | 2025-09-16 19:59:43.909"]
+[    1,12,19:59:43.910,INF] ========== ["0.0.0.0:2113"] PRE-LEADER STATE, WAITING FOR CHASER TO CATCH UP...
+[    1,12,19:59:43.910,INF] "InaugurationManager" in state (Unknown, Initial): RECEIVED "BecomePreLeader". Starting inauguration process with correlation id 3f36f5d2-da56-41ba-9e95-d18a7c17fa14. Waiting for chaser.
+[    1,19,19:59:43.910,DBG] Persistent subscriptions received state change to PreLeader. Stopping listening
+[    1,19,19:59:43.910,DBG] Persistent Subscriptions have been stopped.
+[    1,20,19:59:43.911,DBG] PROJECTIONS SUBSYSTEM: Not stopping because subsystem is not in a started state. Current Subsystem state: Ready
+[    1,12,19:59:43.913,INF] "InaugurationManager" in state (PreLeader, WaitingForChaser): RECEIVED "ChaserCaughtUp". RESPONDING with "WriteEpoch". currentEpochNumber 0.
+[    1, 1,19:59:43.929,WRN] Overriding address(es) '"http://+:80"'. Binding to endpoints defined in "UseKestrel()" instead.
+[    1,10,19:59:43.993,DBG] === Writing E0@0:{581f1ffa-e390-4bcc-ac89-67909f81112f} (previous epoch at -1). L={9140ac07-d305-445e-afc5-e4cec71b9627}.
+[    1,12,19:59:44.006,INF] "InaugurationManager" in state (PreLeader, WritingEpoch): RECEIVED "EpochWritten". RESPONDING with "EnablePreLeaderReplication".
+[    1,12,19:59:44.007,INF] "InaugurationManager" in state (PreLeader, WaitingForConditions): Replication "DONE": 548/1. Remaining: 0.
+[    1,12,19:59:44.007,INF] "InaugurationManager" in state (PreLeader, WaitingForConditions): Index "IN PROGRESS": -1/1. Remaining: 2.
+[    1,10,19:59:44.012,DBG] === Cached new Last Epoch E0@0:{581f1ffa-e390-4bcc-ac89-67909f81112f} (previous epoch at -1) L={9140ac07-d305-445e-afc5-e4cec71b9627}.
+[    1,12,19:59:44.087,INF] "InaugurationManager" in state (PreLeader, WaitingForConditions): Replication "DONE": 548/1. Remaining: 0.
+[    1,12,19:59:44.087,INF] "InaugurationManager" in state (PreLeader, WaitingForConditions): Index "DONE": 231/1. Remaining: 0.
+[    1,12,19:59:44.087,INF] "InaugurationManager" in state (PreLeader, WaitingForConditions): RECEIVED "IndexedTo". RESPONDING with "BecomeLeader". Correlation id 3f36f5d2-da56-41ba-9e95-d18a7c17fa14
+[    1,12,19:59:44.087,INF] ========== ["0.0.0.0:2113"] IS LEADER... SPARTA!
+[    1,24,19:59:44.088,DBG] Persistent subscriptions Became Leader so now handling subscriptions
+[    1,12,19:59:44.090,DBG] Searching for incomplete scavenges on node "0.0.0.0:2113".
+[    1,20,19:59:44.090,INF] PROJECTIONS SUBSYSTEM: Starting components for Instance: f80ffdf7-642f-47da-a244-c621f13864cf
+[    1,20,19:59:44.091,DBG] PROJECTIONS: Projection Core Coordinator component starting. Correlation: f80ffdf7-642f-47da-a244-c621f13864cf
+[    1,20,19:59:44.092,DBG] PROJECTIONS: Starting Projections Core Coordinator
+[    1,20,19:59:44.092,DBG] PROJECTIONS: Starting Projections Manager. Correlation: f80ffdf7-642f-47da-a244-c621f13864cf
+[    1,20,19:59:44.094,DBG] PROJECTIONS: Reading Existing Projections from "$projections-$all"
+[    1,20,19:59:44.095,DBG] PROJECTIONS SUBSYSTEM: Component '"ProjectionManager"' started for Instance: f80ffdf7-642f-47da-a244-c621f13864cf
+[    1,20,19:59:44.096,DBG] PROJECTIONS: SubComponent Started: "EventReaderCoreService"
+[    1,20,19:59:44.096,DBG] PROJECTIONS: SubComponent Started: "ProjectionCoreService"
+[    1,20,19:59:44.096,DBG] PROJECTIONS: SubComponent Started: "EventReaderCoreService"
+[    1,20,19:59:44.096,DBG] PROJECTIONS: SubComponent Started: "EventReaderCoreService"
+[    1,20,19:59:44.096,DBG] PROJECTIONS: SubComponent Started: "ProjectionCoreService"
+[    1,20,19:59:44.096,DBG] PROJECTIONS: SubComponent Started: "ProjectionCoreService"
+[    1,20,19:59:44.096,DBG] PROJECTIONS SUBSYSTEM: Component '"ProjectionCoreCoordinator"' started for Instance: f80ffdf7-642f-47da-a244-c621f13864cf
+[    1,20,19:59:44.096,INF] PROJECTIONS SUBSYSTEM: All components started for Instance: f80ffdf7-642f-47da-a244-c621f13864cf
+[    1,12,19:59:44.097,INF] ========== ["0.0.0.0:2113"] Sub System '"Projections"' initialized.
+[    1,12,19:59:44.100,DBG] Persistent Subscriptions have been started.
+[    1,12,19:59:44.101,DBG] Setting max age for the "$scavenges" stream to 30.00:00:00.
+[    1,12,19:59:44.101,DBG] Setting $ops read permission for the "$scavenges" stream
+[    1,20,19:59:44.105,DBG] PROJECTIONS: No projections were found in "$projections-$all", starting from empty stream
+[    1,12,19:59:44.108,DBG] No incomplete scavenges found on node "0.0.0.0:2113".
+[    1,20,19:59:44.153,DBG] PROJECTIONS: Found the following new projections in "$projections-$all": ["$streams", "$stream_by_category", "$by_category", "$by_event_type", "$by_correlation_id"]
+[    1,20,19:59:44.154,DBG] PROJECTIONS: Caught up with projections registration. Next expected version: 5
+[    1,20,19:59:44.156,DBG] Adding projection 9566961e-bbcb-4b8b-b825-240ed7d58b28@"$stream_by_category" to list
+[    1,20,19:59:44.158,DBG] Adding projection 006ac221-a46b-4ade-a7cc-a6eee7ce8418@"$streams" to list
+[    1,20,19:59:44.158,DBG] Adding projection be7b226f-fbdf-47f6-937c-3687a6c5d50f@"$by_correlation_id" to list
+[    1,20,19:59:44.158,DBG] Adding projection eddcee69-2c6b-40e7-b67d-e9db4c7372ae@"$by_category" to list
+[    1,20,19:59:44.158,DBG] Adding projection 8ade3456-84e4-4fc4-a4ae-cb34a25ac411@"$by_event_type" to list
+[    1,20,19:59:44.221,INF] '"$by_correlation_id"' projection source has been written
+[    1,20,19:59:44.223,INF] '"$stream_by_category"' projection source has been written
+[    1,20,19:59:44.223,INF] '"$by_category"' projection source has been written
+[    1,20,19:59:44.224,INF] '"$streams"' projection source has been written
+[    1,20,19:59:44.224,INF] '"$by_event_type"' projection source has been written
+[    1,12,19:59:45.018,INF] "InaugurationManager" in state (Leader, Initial): IGNORING "CheckInaugurationConditions". Not waiting for conditions.
+[    1,30,19:59:55.177,DBG] Segments count: 1, buffers count: 20, should be when full: 20
+[    1,20,19:59:55.189,INF] Enabling '"$by_category"' projection
+[    1,20,19:59:55.199,INF] '"$by_category"' projection source has been written
+[    1,20,19:59:55.241,INF] Updating '"$by_category"' projection source to '"last\n."' (Requested type is: 'null')
+[    1,20,19:59:55.248,INF] '"$by_category"' projection source has been written
+[    1,24,19:59:55.562,DBG] Creating persistent subscription "$ce-payments.service.payment::payments-service"
+[    1,24,19:59:55.568,DBG] New persistent subscription "$ce-payments.service.payment::payments-service"
+[    1,12,19:59:55.569,DBG] Subscription "$ce-payments.service.payment::payments-service": no checkpoint found
+[    1,12,19:59:55.569,DBG] Start from = -1
+[    1,24,19:59:55.569,DBG] Saving persistent subscription configuration
+[    1,25,19:59:55.833,DBG] New connection to persistent subscription "$ce-payments.service.payment::payments-service" by e1ccfec0-8076-4296-ac33-519da4b03e5d
+[    1,20,19:59:56.374,INF] Enabling '"$by_category"' projection
+[    1,20,19:59:56.377,INF] Updating '"$by_category"' projection source to '"last\n."' (Requested type is: 'null')
+[    1,20,19:59:56.393,INF] '"$by_category"' projection source has been written
+[    1,38,19:59:56.442,DBG] Creating persistent subscription "$ce-payments.service.payment::payments-service"
+[    1,24,19:59:56.499,DBG] New connection to persistent subscription "$ce-payments.service.payment::payments-service" by cd61dc28-b465-4e52-8bc8-9b666206bad1

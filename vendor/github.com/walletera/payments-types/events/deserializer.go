@@ -3,7 +3,6 @@ package events
 import (
     "encoding/json"
     "fmt"
-    "log"
     "log/slog"
 
     "github.com/walletera/eventskit/events"
@@ -32,14 +31,14 @@ func (d *Deserializer) Deserialize(rawPayload []byte) (events.Event[Handler], er
         var payment privateapi.Payment
         err := json.Unmarshal(eventEnvelope.Data, &payment)
         if err != nil {
-            log.Printf("error deserializing PaymentCreated eventEnvelope data %s: %s", eventEnvelope.Data, err.Error())
+            return nil, fmt.Errorf("error deserializing PaymentCreated eventEnvelope data %s: %s", eventEnvelope.Data, err.Error())
         }
         return PaymentCreatedFromEnvelope(eventEnvelope, payment), nil
     case PaymentUpdatedType:
         var payment privateapi.PaymentUpdate
         err := json.Unmarshal(eventEnvelope.Data, &payment)
         if err != nil {
-            log.Printf("error deserializing PaymentUpdated eventEnvelope data %s: %s", eventEnvelope.Data, err.Error())
+            return nil, fmt.Errorf("error deserializing PaymentUpdated eventEnvelope data %s: %s", eventEnvelope.Data, err.Error())
         }
         return PaymentUpdatedFromEnvelope(eventEnvelope, payment), nil
     default:

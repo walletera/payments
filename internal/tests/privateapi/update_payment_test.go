@@ -34,14 +34,14 @@ func InitializeUpdatePaymentScenario(ctx *godog.ScenarioContext) {
     ctx.Step(`^a running payments service$`, aRunningPaymentsService)
     ctx.Step(`^a running payments events consumer with queueName: "([^"]*)"$`, consumePaymentEvents)
     ctx.Step(`^an authorized dinopay-gateway service$`, anAuthorizedWalleteraInternalService)
-    ctx.Step(`^a payment in pending status$`, aPaymentInPendingStatus)
+    ctx.Step(`^a payment is created in pending status$`, aPaymentIsCreatedInPendingStatus)
     ctx.Step(`^the payments service receive a PATCH request to update the payment to status: "([^"]*)"$`, thePaymentsServiceReceiveAPATCHRequestToUpdateThePayment)
     ctx.Step(`^the payment is updated to status: "([^"]*)"$`, thePaymentIsUpdatedToStatus)
     ctx.Step(`^the payments service publish the following event:$`, thePaymentsServicePublishTheFollowingEvent)
     ctx.After(afterScenarioHook)
 }
 
-func aPaymentInPendingStatus(ctx context.Context) (context.Context, error) {
+func aPaymentIsCreatedInPendingStatus(ctx context.Context) (context.Context, error) {
     paymentStr := `
     {
       "id": "%s",
