@@ -1,2 +1,2 @@
 .idea
-internal/tests/containerlogs/*.log
+internal/tests/*/containerlogs/*.log
