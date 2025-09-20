@@ -44,17 +44,17 @@ func TestMain(m *testing.M) {
 
     err = terminateEventSToreDBContainer()
     if err != nil {
-        panic("error terminating esdb container: " + err.Error())
+        fmt.Printf("error terminating esdb container: %s", err.Error())
     }
 
     err = terminateRabbitMQContainer()
     if err != nil {
-        panic("error terminating rabbitmq container: " + err.Error())
+        fmt.Printf("error terminating rabbitmq container: %s", err.Error())
     }
 
     err = terminateMockserverContainer()
     if err != nil {
-        panic("error terminating mockserver container: " + err.Error())
+        fmt.Printf("error terminating mockserver container: %s", err.Error())
     }
 
     os.Exit(status)
@@ -158,7 +158,7 @@ func startMockserverContainer(ctx context.Context) (func() error, error) {
         defer terminationCtxCancel()
         terminationErr := mockserverC.Terminate(terminationCtx)
         if terminationErr != nil {
-            return fmt.Errorf("failed terminating mockserver container: %w", err)
+            return fmt.Errorf("failed terminating mockserver container: %w", terminationErr)
         }
         return nil
     }, nil
