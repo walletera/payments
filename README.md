@@ -1,6 +1,6 @@
 # Payments
 
-[![Go](https://github.com/walletera/payments/actions/workflows/go.yml/badge.svg)](https://github.com/walletera/payments/actions/workflows/release.yml)
+[![Go](https://github.com/walletera/payments/actions/workflows/release.yml/badge.svg)](https://github.com/walletera/payments/actions/workflows/release.yml)
 
 ## Overview
 
