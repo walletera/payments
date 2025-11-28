@@ -60,28 +60,16 @@ jobs:
           echo "next_version=$next" >> $GITHUB_OUTPUT
 
       # ----------------------------
-      # 3. Log in to Docker Hub
+      # 3. Create and push git tag
       # ----------------------------
-      - name: Log in to Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Create and push git tag
+        run: |
+          git tag ${{ steps.version.outputs.next_version }}
+          git push origin ${{ steps.version.outputs.next_version }}
 
       # ----------------------------
-      # 4. Build and push Docker image
-      # ----------------------------
-      - name: Build & push Docker image
-        uses: docker/build-push-action@v6
-        with:
-          context: .
-          file: ./Dockerfile
-          push: true
-          tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/payments:${{ steps.version.outputs.next_version }}
-
-      # ----------------------------
-      # 5. Create GitHub release
+      # 4. Create GitHub release
       # ----------------------------
       - name: Create GitHub Release
         uses: ncipollo/release-action@v1
@@ -93,6 +81,27 @@ jobs:
             Automated release created by CI.
             Docker image pushed to Docker Hub:
             - `${{ secrets.DOCKERHUB_USERNAME }}/payments:${{ steps.version.outputs.next_version }}`
+
+      # ----------------------------
+      # 5. Log in to Docker Hub
+      # ----------------------------
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      # ----------------------------
+      # 6. Build and push Docker image
+      # ----------------------------
+      - name: Build & push Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/payments:${{ steps.version.outputs.next_version }}
 
     needs:
       - test
