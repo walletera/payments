@@ -29,7 +29,7 @@ import (
 )
 
 const (
-    eventStoreDBUrl           = "esdb://localhost:2113?tls=false"
+    eventStoreDBUrl           = "kurrentdb://localhost:2113?tls=false"
     mockserverUrl             = "http://localhost:2090"
     privateApiHttpServerPort  = 8585
     paymentCreatedKey         = "paymentCreatedKey"
