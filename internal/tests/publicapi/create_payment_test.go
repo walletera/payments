@@ -5,6 +5,7 @@ package publicapi
 import (
     "context"
     "fmt"
+    "os"
     "testing"
 
     "github.com/cucumber/godog"
@@ -46,6 +47,8 @@ func InitializeCreatePaymentScenario(ctx *godog.ScenarioContext) {
     ctx.Step(`^the customer sends the following payment to the payments endpoint:$`, theCustomerSendsTheFollowingPayment)
     ctx.Step(`^the endpoint returns the http status code 201$`, theEndpointReturnsTheHttpStatusCode201)
     ctx.Step(`^the endpoint returns the http status code 401`, theEndpointReturnsTheHttpStatusCode401)
+    ctx.Step(`^the endpoint returns the http status code 400`, theEndpointReturnsTheHttpStatusCode400)
+    ctx.Step(`^the endpoint returns the http status code 409`, theEndpointReturnsTheHttpStatusCode409)
     ctx.Step(`^the payments service publish the following event:$`, thePaymentsServicePublishTheFollowingEvent)
     ctx.After(afterScenarioHook)
 }
@@ -68,8 +71,17 @@ func consumePaymentEvents(ctx context.Context, queueName string) (context.Contex
     return ctx, nil
 }
 
-func theCustomerSendsTheFollowingPayment(ctx context.Context, rawPayment *godog.DocString) (context.Context, error) {
-    res, err := createPayment(ctx, rawPayment.Content, publicApiHttpServerPort)
+func theCustomerSendsTheFollowingPayment(ctx context.Context, paymentJsonFilePath *godog.DocString) (context.Context, error) {
+    if paymentJsonFilePath == nil || len(paymentJsonFilePath.Content) == 0 {
+        return ctx, fmt.Errorf("the paymentJsonFilePath is empty or was not defined")
+    }
+
+    paymentJson, err := os.ReadFile(paymentJsonFilePath.Content)
+    if err != nil {
+        return ctx, fmt.Errorf("error reading raw payment JSON file: %w", err)
+    }
+
+    res, err := createPayment(ctx, paymentJson, publicApiHttpServerPort)
     if err != nil {
         return ctx, err
     }
@@ -89,6 +101,24 @@ func theEndpointReturnsTheHttpStatusCode401(ctx context.Context) (context.Contex
     if !ok {
         return ctx, fmt.Errorf("postPayment response is not what we expect: %v", res)
     }
+    return ctx, nil
+}
+
+func theEndpointReturnsTheHttpStatusCode400(ctx context.Context) (context.Context, error) {
+	res, ok := ctx.Value(postPaymentResponseKey).(*api.PostPaymentBadRequest)
+	if !ok {
+		return ctx, fmt.Errorf("postPayment response is not what we expect: %v", ctx.Value(postPaymentResponseKey))
+	}
+	_ = res
+	return ctx, nil
+}
+
+func theEndpointReturnsTheHttpStatusCode409(ctx context.Context) (context.Context, error) {
+    res, ok := ctx.Value(postPaymentResponseKey).(*api.PostPaymentConflict)
+    if !ok {
+        return ctx, fmt.Errorf("postPayment response is not what we expect: %v", ctx.Value(postPaymentResponseKey))
+    }
+    _ = res
     return ctx, nil
 }
 

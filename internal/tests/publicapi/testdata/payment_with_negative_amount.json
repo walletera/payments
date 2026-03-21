@@ -1,0 +1,32 @@
+{
+  "id": "d2b3c4d5-e6f7-8901-bcde-f01234567890",
+  "amount": -50,
+  "currency": "ARS",
+  "gateway": "bind",
+  "debtor": {
+    "institutionName": "rexbank",
+    "institutionId": "rexbank",
+    "currency": "ARS",
+    "accountDetails": {
+      "accountType": "cvu",
+      "cuit": "23679876453",
+      "routingInfo": {
+        "cvuRoutingInfoType": "cvu",
+        "cvu": "1122334455667788554433"
+      }
+    }
+  },
+  "beneficiary": {
+    "institutionName": "rexbank",
+    "institutionId": "rexbank",
+    "currency": "ARS",
+    "accountDetails": {
+      "accountType": "cvu",
+      "cuit": "23679876453",
+      "routingInfo": {
+        "cvuRoutingInfoType": "cvu",
+        "cvu": "1122334455667788554433"
+      }
+    }
+  }
+}
