@@ -8,80 +8,13 @@ Feature: Get payment
   Scenario: A customer can retrieve an outbound payment by id
     Given an authorized walletera customer
       And the following payment:
-    """json
-    {
-      "id": "af2e70dd-bd96-4be3-9f7b-4c2ef9d72c2e",
-      "amount": 100,
-      "currency": "ARS",
-      "gateway": "bind",
-      "status": "pending",
-      "debtor": {
-        "institutionName": "dinopay",
-        "institutionId": "dinopay",
-        "currency": "ARS",
-        "accountDetails": {
-          "accountType": "cvu",
-          "cuit": "23679876453",
-          "routingInfo": {
-            "cvuRoutingInfoType": "cvu",
-            "cvu": "1122334455667788554433"
-          }
-        }
-      },
-      "beneficiary": {
-        "institutionName": "dinopay",
-        "institutionId": "dinopay",
-        "currency": "ARS",
-        "accountDetails": {
-          "accountType": "cvu",
-          "cuit": "23679876453",
-           "routingInfo": {
-            "cvuRoutingInfoType": "cvu",
-            "cvu": "1122334455667788554433"
-          }
-        }
-      }
-    }
+    """
+    testdata/successful_outbound_bind_payment_af2e.json
     """
     When the payments service receive a GET request to retrieve the payment with id: "af2e70dd-bd96-4be3-9f7b-4c2ef9d72c2e"
     Then the payments service returns the following response:
-    """json
-    {
-      "id": "af2e70dd-bd96-4be3-9f7b-4c2ef9d72c2e",
-      "customerId": "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
-      "amount": 100,
-      "currency": "ARS",
-      "gateway": "bind",
-      "direction": "outbound",
-      "status": "pending",
-      "debtor": {
-        "institutionName": "dinopay",
-        "institutionId": "dinopay",
-        "currency": "ARS",
-        "accountDetails": {
-          "accountType": "cvu",
-          "cuit": "23679876453",
-          "routingInfo": {
-            "cvuRoutingInfoType": "cvu",
-            "cvu": "1122334455667788554433"
-          }
-        }
-      },
-      "beneficiary": {
-        "institutionName": "dinopay",
-        "institutionId": "dinopay",
-        "currency": "ARS",
-        "accountDetails": {
-          "accountType": "cvu",
-          "cuit": "23679876453",
-           "routingInfo": {
-            "cvuRoutingInfoType": "cvu",
-            "cvu": "1122334455667788554433"
-          }
-        }
-      },
-      "createdAt": "${json-unit.any-string}"
-    }
+    """
+    testdata/successful_outbound_bind_payment_af2e_response.json
     """
 
   Scenario: A customer try to retrieve a non existent outbound payment

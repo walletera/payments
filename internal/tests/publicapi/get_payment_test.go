@@ -6,6 +6,7 @@ import (
     "context"
     "encoding/json"
     "fmt"
+    "os"
     "testing"
     "time"
 
@@ -46,8 +47,17 @@ func InitializeGetPaymentScenario(ctx *godog.ScenarioContext) {
     ctx.After(afterScenarioHook)
 }
 
-func theFollowingPayment(ctx context.Context, paymentJson *godog.DocString) (context.Context, error) {
-    resp, err := createPayment(ctx, paymentJson.Content, publicApiHttpServerPort)
+func theFollowingPayment(ctx context.Context, paymentJsonFilePath *godog.DocString) (context.Context, error) {
+    if paymentJsonFilePath == nil || len(paymentJsonFilePath.Content) == 0 {
+        return ctx, fmt.Errorf("the paymentJsonFilePath is empty or was not defined")
+    }
+
+    paymentJson, err := os.ReadFile(paymentJsonFilePath.Content)
+    if err != nil {
+        return ctx, fmt.Errorf("error reading raw payment JSON file: %w", err)
+    }
+
+    resp, err := createPayment(ctx, paymentJson, publicApiHttpServerPort)
     if err != nil {
         return ctx, err
     }
@@ -77,8 +87,15 @@ func thePaymentsServiceReceivesAGETRequestToRetrieveThePayment(ctx context.Conte
     return context.WithValue(ctx, getPaymentResponse, resp), nil
 }
 
-func thePaymentsServiceReturnsTheFollowingResponse(ctx context.Context, responseMatcher *godog.DocString) (context.Context, error) {
-    ctx, err := createJSONMatcher(ctx, "thePaymentsServiceReturnsTheFollowingResponse", responseMatcher.Content)
+func thePaymentsServiceReturnsTheFollowingResponse(ctx context.Context, responseMatcherFilePath *godog.DocString) (context.Context, error) {
+    if responseMatcherFilePath == nil || len(responseMatcherFilePath.Content) == 0 {
+        return ctx, fmt.Errorf("the responseMatcherFilePath is empty or was not defined")
+    }
+    responseMatcherJson, err := os.ReadFile(responseMatcherFilePath.Content)
+    if err != nil {
+        return ctx, fmt.Errorf("error reading response matcher JSON file: %w", err)
+    }
+    ctx, err = createJSONMatcher(ctx, "thePaymentsServiceReturnsTheFollowingResponse", string(responseMatcherJson))
     if err != nil {
         return ctx, err
     }

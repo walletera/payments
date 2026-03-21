@@ -1,0 +1,39 @@
+{
+  "id": "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+  "type": "PaymentCreated",
+  "data": {
+    "id": "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+    "amount": 100,
+    "currency": "ARS",
+    "direction": "outbound",
+    "customerId": "${json-unit.regex}^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+    "status": "pending",
+    "debtor": {
+      "institutionName": "rexbank",
+      "institutionId": "rexbank",
+      "currency": "ARS",
+      "accountDetails": {
+        "accountType": "cvu",
+        "cuit": "23679876453",
+        "routingInfo": {
+          "cvuRoutingInfoType": "cvu",
+          "cvu": "1122334455667788554433"
+        }
+      }
+    },
+    "beneficiary": {
+      "institutionName": "rexbank",
+      "institutionId": "rexbank",
+      "currency": "ARS",
+      "accountDetails": {
+        "accountType": "cvu",
+        "cuit": "23679876453",
+        "routingInfo": {
+          "cvuRoutingInfoType": "cvu",
+          "cvu": "1122334455667788554433"
+        }
+      }
+    },
+    "createdAt": "${json-unit.any-string}"
+  }
+}

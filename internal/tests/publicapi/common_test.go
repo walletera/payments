@@ -251,7 +251,7 @@ func createMockServerExpectation(ctx context.Context, mockserverExpectation stri
     return ctx, nil
 }
 
-func createPayment(ctx context.Context, paymentJson string, port int) (publicapi.PostPaymentRes, error) {
+func createPayment(ctx context.Context, paymentJson []byte, port int) (publicapi.PostPaymentRes, error) {
     paymentsClient, err := publicapi.NewClient(
         fmt.Sprintf("http://127.0.0.1:%d", port),
         httpauth.NewSecuritySource(authTokenFromCtx(ctx)),
@@ -260,7 +260,7 @@ func createPayment(ctx context.Context, paymentJson string, port int) (publicapi
         return nil, err
     }
     var paymentCreationRequest publicapi.PostPaymentReq
-    err = json.Unmarshal([]byte(paymentJson), &paymentCreationRequest)
+    err = json.Unmarshal(paymentJson, &paymentCreationRequest)
     if err != nil {
         return nil, fmt.Errorf("failed unmarshalling expected PostPaymentReq: %w", err)
     }
@@ -273,10 +273,17 @@ func createPayment(ctx context.Context, paymentJson string, port int) (publicapi
     return res, nil
 }
 
-func thePaymentsServicePublishTheFollowingEvent(ctx context.Context, eventMatcher *godog.DocString) (context.Context, error) {
+func thePaymentsServicePublishTheFollowingEvent(ctx context.Context, eventMatcherFilePath *godog.DocString) (context.Context, error) {
+    if (eventMatcherFilePath == nil) || (len(eventMatcherFilePath.Content) == 0) {
+        return ctx, fmt.Errorf("the event matcher is empty or was not defined")
+    }
+    eventMatcher, err := os.ReadFile(eventMatcherFilePath.Content)
+    if err != nil {
+        return ctx, err
+    }
     r := rand.New(rand.NewSource(time.Now().UnixNano()))
     expectationId := "matchJSON-" + strconv.Itoa(r.Int())
-    ctx, err := createJSONMatcher(ctx, expectationId, eventMatcher.Content)
+    ctx, err = createJSONMatcher(ctx, expectationId, string(eventMatcher))
     if err != nil {
         return ctx, err
     }
