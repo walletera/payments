@@ -31,8 +31,7 @@ func (e *Service) CreatePayment(
     payment privapi.Payment,
 ) (paymentevents.PaymentCreated, werrors.WError) {
     payment.CreatedAt = time.Now()
-    err := payment.Validate()
-    if err != nil {
+    if err := validatePayment(payment); err != nil {
         return paymentevents.PaymentCreated{}, werrors.NewValidationError(err.Error())
     }
     paymentCreatedEvent := paymentevents.NewPaymentCreated(correlationId, payment)
@@ -52,6 +51,13 @@ func (e *Service) CreatePayment(
         )
     }
     return paymentCreatedEvent, nil
+}
+
+func validatePayment(p privapi.Payment) error {
+    if p.Amount <= 0 {
+        return fmt.Errorf("amount must be greater than zero")
+    }
+    return nil
 }
 
 func (e *Service) UpdatePayment(ctx context.Context, correlationId string, paymentUpdate privapi.PaymentUpdate) werrors.WError {
