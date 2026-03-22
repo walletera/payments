@@ -50,11 +50,11 @@ Feature: Create outbound payment
 
   Scenario: payment creation fails with conflict when payment already exists
     Given an authorized walletera customer
-    When  the customer sends the following payment to the payments endpoint:
+    And the customer sends the following payment to the payments endpoint:
     """
     testdata/successful_outbound_bind_payment_bdf4.json
     """
-    And the customer sends the following payment to the payments endpoint:
+    When the customer sends the following payment to the payments endpoint:
     """
     testdata/successful_outbound_bind_payment_bdf4.json
     """
