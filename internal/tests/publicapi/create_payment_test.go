@@ -44,11 +44,9 @@ func InitializeCreatePaymentScenario(ctx *godog.ScenarioContext) {
     ctx.Step(`^an authorized walletera customer$`, anAuthorizedWalleteraCustomer)
     ctx.Step(`^an unauthorized walletera customer$`, anUnauthorizedWalleteraCustomer)
     ctx.Step(`^a walletera customer with an invalid token$`, aWalleteraCustomerWithAnInvalidToken)
+    ctx.Step(`^the payment is created$`, thePaymentIsCreated)
     ctx.Step(`^the customer sends the following payment to the payments endpoint:$`, theCustomerSendsTheFollowingPayment)
-    ctx.Step(`^the endpoint returns the http status code 201$`, theEndpointReturnsTheHttpStatusCode201)
-    ctx.Step(`^the endpoint returns the http status code 401`, theEndpointReturnsTheHttpStatusCode401)
-    ctx.Step(`^the endpoint returns the http status code 400`, theEndpointReturnsTheHttpStatusCode400)
-    ctx.Step(`^the endpoint returns the http status code 409`, theEndpointReturnsTheHttpStatusCode409)
+    ctx.Step(`^the endpoint returns the http status code: (\d+)$`, theEndpointReturnsTheHttpStatusCode)
     ctx.Step(`^the payments service publish the following event:$`, thePaymentsServicePublishTheFollowingEvent)
     ctx.After(afterScenarioHook)
 }
@@ -71,6 +69,11 @@ func consumePaymentEvents(ctx context.Context, queueName string) (context.Contex
     return ctx, nil
 }
 
+func thePaymentIsCreated(ctx context.Context) (context.Context, error) {
+    // TODO
+    return ctx, nil
+}
+
 func theCustomerSendsTheFollowingPayment(ctx context.Context, paymentJsonFilePath *godog.DocString) (context.Context, error) {
     if paymentJsonFilePath == nil || len(paymentJsonFilePath.Content) == 0 {
         return ctx, fmt.Errorf("the paymentJsonFilePath is empty or was not defined")
@@ -88,37 +91,28 @@ func theCustomerSendsTheFollowingPayment(ctx context.Context, paymentJsonFilePat
     return context.WithValue(ctx, postPaymentResponseKey, res), nil
 }
 
-func theEndpointReturnsTheHttpStatusCode201(ctx context.Context) (context.Context, error) {
-    res, ok := ctx.Value(postPaymentResponseKey).(*api.Payment)
-    if !ok {
-        return ctx, fmt.Errorf("postPayment response is not what we expect: %v", res)
+func theEndpointReturnsTheHttpStatusCode(ctx context.Context, expectedStatusCode int) (context.Context, error) {
+    postPaymentResponse := ctx.Value(postPaymentResponseKey)
+    if postPaymentResponse == nil {
+        return ctx, fmt.Errorf("postPayment response is not what we expect: %v", postPaymentResponse)
     }
-    return ctx, nil
-}
-
-func theEndpointReturnsTheHttpStatusCode401(ctx context.Context) (context.Context, error) {
-    res, ok := ctx.Value(postPaymentResponseKey).(*api.PostPaymentUnauthorized)
-    if !ok {
-        return ctx, fmt.Errorf("postPayment response is not what we expect: %v", res)
+    var responseStatusCode int
+    switch postPaymentResponse.(type) {
+    case *api.Payment:
+        responseStatusCode = 201
+    case *api.PostPaymentUnauthorized:
+        responseStatusCode = 401
+    case *api.PostPaymentBadRequest:
+        responseStatusCode = 400
+    case *api.PostPaymentConflict:
+        responseStatusCode = 409
+    default:
+        return ctx, fmt.Errorf("postPayment response is not what we expect: %v", postPaymentResponse)
     }
-    return ctx, nil
-}
 
-func theEndpointReturnsTheHttpStatusCode400(ctx context.Context) (context.Context, error) {
-	res, ok := ctx.Value(postPaymentResponseKey).(*api.PostPaymentBadRequest)
-	if !ok {
-		return ctx, fmt.Errorf("postPayment response is not what we expect: %v", ctx.Value(postPaymentResponseKey))
-	}
-	_ = res
-	return ctx, nil
-}
-
-func theEndpointReturnsTheHttpStatusCode409(ctx context.Context) (context.Context, error) {
-    res, ok := ctx.Value(postPaymentResponseKey).(*api.PostPaymentConflict)
-    if !ok {
-        return ctx, fmt.Errorf("postPayment response is not what we expect: %v", ctx.Value(postPaymentResponseKey))
+    if responseStatusCode != expectedStatusCode {
+        return ctx, fmt.Errorf("postPayment response is not what we expect: %v", postPaymentResponse)
     }
-    _ = res
     return ctx, nil
 }
 

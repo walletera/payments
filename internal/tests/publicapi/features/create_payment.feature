@@ -10,8 +10,9 @@ Feature: Create outbound payment
     """
     testdata/successful_outbound_bind_payment_bdf4.json
     """
-    Then the endpoint returns the http status code 201
-    Then the payments service publish the following event:
+    Then the payment is created
+    And the endpoint returns the http status code: 201
+    And the payments service publish the following event:
     """
     testdata/payment_created_event.json
     """
@@ -22,7 +23,7 @@ Feature: Create outbound payment
     """
     testdata/successful_outbound_bind_payment_bdf4.json
     """
-    Then the endpoint returns the http status code 401
+    Then the endpoint returns the http status code: 401
 
   Scenario: payment creation failed due to invalid authentication token
     Given a walletera customer with an invalid token
@@ -30,7 +31,7 @@ Feature: Create outbound payment
     """
     testdata/successful_outbound_bind_payment_bdf4.json
     """
-    Then the endpoint returns the http status code 401
+    Then the endpoint returns the http status code: 401
 
   Scenario: payment creation fails with bad request when amount is zero
     Given an authorized walletera customer
@@ -38,7 +39,7 @@ Feature: Create outbound payment
     """
     testdata/payment_with_zero_amount.json
     """
-    Then the endpoint returns the http status code 400
+    Then the endpoint returns the http status code: 400
 
   Scenario: payment creation fails with bad request when amount is negative
     Given an authorized walletera customer
@@ -46,7 +47,7 @@ Feature: Create outbound payment
     """
     testdata/payment_with_negative_amount.json
     """
-    Then the endpoint returns the http status code 400
+    Then the endpoint returns the http status code: 400
 
   Scenario: payment creation fails with conflict when payment already exists
     Given an authorized walletera customer
@@ -58,4 +59,4 @@ Feature: Create outbound payment
     """
     testdata/successful_outbound_bind_payment_bdf4.json
     """
-    Then the endpoint returns the http status code 409
+    Then the endpoint returns the http status code: 409
