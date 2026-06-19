@@ -138,7 +138,7 @@ func (h *Handler) CreatePayment(ctx context.Context, correlationId string, custo
         logattr.PaymentId(paymentCreated.Data.ID.String()),
     )
 
-    return buildPublicPaymentFromPrivatePayment(privPayment), nil
+    return buildPublicPaymentFromPrivatePayment(paymentCreated.Data), nil
 }
 
 func buildPrivPaymentFromPaymentCreationRequest(paymentCreationRequest *pubapi.PostPaymentReq) (privapi.Payment, werrors.WError) {
@@ -155,6 +155,7 @@ func buildPrivPaymentFromPaymentCreationRequest(paymentCreationRequest *pubapi.P
 func buildPublicPaymentFromPrivatePayment(p privapi.Payment) *pubapi.Payment {
     return &pubapi.Payment{
         ID:          p.ID,
+        CustomerId:  p.CustomerId,
         Amount:      p.Amount,
         Currency:    pubapi.Currency(p.Currency),
         Debtor:      privconv.Convert(p.Debtor),

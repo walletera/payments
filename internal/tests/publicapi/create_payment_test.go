@@ -42,11 +42,13 @@ func InitializeCreatePaymentScenario(ctx *godog.ScenarioContext) {
     ctx.Step(`^a running payments service$`, aRunningPaymentsService)
     ctx.Step(`^a running payments events consumer with queueName: "([^"]*)"$`, consumePaymentEvents)
     ctx.Step(`^an authorized walletera customer$`, anAuthorizedWalleteraCustomer)
+    ctx.Step(`^an authorized walletera customer with customerId: ([^"]+)$`, anAuthorizedWalleteraCustomerWithCustomerId)
     ctx.Step(`^an unauthorized walletera customer$`, anUnauthorizedWalleteraCustomer)
     ctx.Step(`^a walletera customer with an invalid token$`, aWalleteraCustomerWithAnInvalidToken)
     ctx.Step(`^the payment is created$`, thePaymentIsCreated)
     ctx.Step(`^the customer sends the following payment to the payments endpoint:$`, theCustomerSendsTheFollowingPayment)
     ctx.Step(`^the endpoint returns the http status code: (\d+)$`, theEndpointReturnsTheHttpStatusCode)
+    ctx.Step(`^the endpoint response contains the customerId$`, theEndpointResponseContainsTheCustomerId)
     ctx.Step(`^the payments service publish the following event:$`, thePaymentsServicePublishTheFollowingEvent)
     ctx.After(afterScenarioHook)
 }
@@ -112,6 +114,19 @@ func theEndpointReturnsTheHttpStatusCode(ctx context.Context, expectedStatusCode
 
     if responseStatusCode != expectedStatusCode {
         return ctx, fmt.Errorf("postPayment response is not what we expect: %v", postPaymentResponse)
+    }
+    return ctx, nil
+}
+
+func theEndpointResponseContainsTheCustomerId(ctx context.Context) (context.Context, error) {
+    postPaymentResponse := ctx.Value(postPaymentResponseKey)
+    payment, ok := postPaymentResponse.(*api.Payment)
+    if !ok {
+        return ctx, fmt.Errorf("expected *api.Payment response, got: %T", postPaymentResponse)
+    }
+    customerId := ctx.Value(customerIdKey).(string)
+    if payment.CustomerId.String() != customerId {
+        return ctx, fmt.Errorf("expected customerId %s in response, got %s", customerId, payment.CustomerId.String())
     }
     return ctx, nil
 }

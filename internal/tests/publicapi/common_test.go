@@ -176,8 +176,15 @@ func anUnauthorizedWalleteraCustomer(ctx context.Context) (context.Context, erro
     ), nil
 }
 
+func anAuthorizedWalleteraCustomerWithCustomerId(ctx context.Context, customerId string) (context.Context, error) {
+    return authorizedWalleteraCustomer(ctx, customerId)
+}
+
 func anAuthorizedWalleteraCustomer(ctx context.Context) (context.Context, error) {
-    customerId := wuuid.NewUUID().String()
+    return authorizedWalleteraCustomer(ctx, wuuid.NewUUID().String())
+}
+
+func authorizedWalleteraCustomer(ctx context.Context, customerId string) (context.Context, error) {
     wjwt := auth.WJWT{
         UID:   customerId,
         State: "active",

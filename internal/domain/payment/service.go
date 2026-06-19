@@ -31,6 +31,7 @@ func (e *Service) CreatePayment(
     payment privapi.Payment,
 ) (paymentevents.PaymentCreated, werrors.WError) {
     payment.CreatedAt = time.Now()
+    payment.UpdatedAt = payment.CreatedAt
     if err := validatePayment(payment); err != nil {
         return paymentevents.PaymentCreated{}, werrors.NewValidationError(err.Error())
     }

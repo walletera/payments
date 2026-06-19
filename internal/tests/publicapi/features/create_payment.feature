@@ -5,17 +5,19 @@ Feature: Create outbound payment
       And a running payments events consumer with queueName: "createPaymentTestQueue"
 
   Scenario: a cvu payment is created successfully
-    Given an authorized walletera customer
+    Given an authorized walletera customer with customerId: d44436da-d363-4924-95df-ee1055502ce0
     When  the customer sends the following payment to the payments endpoint:
     """
     testdata/successful_outbound_bind_payment_bdf4.json
     """
     Then the payment is created
     And the endpoint returns the http status code: 201
+    And the endpoint response contains the customerId
     And the payments service publish the following event:
     """
     testdata/payment_created_event.json
     """
+
 
   Scenario: payment creation failed due to missing authentication token
     Given an unauthorized walletera customer
